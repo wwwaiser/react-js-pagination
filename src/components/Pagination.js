@@ -3,9 +3,9 @@ import Pager from "paginator";
 import classNames from "classnames";
 import Page from "./Page";
 
-const lt = "<";
+const lt = "⟨";
 const Lt = "«";
-const gt = ">";
+const gt = "⟩";
 const Gt = "»";
 
 const prevPageText = lt;
@@ -38,7 +38,13 @@ export default class Pagination extends React.Component {
     }
 
     render() {
-        let {itemsCountPerPage, pageRangeDisplayed, activePage = 1, totalItemsCount} = this.props;
+        let {
+            itemsCountPerPage = 10,
+            pageRangeDisplayed = 5,
+            activePage = 1, 
+            totalItemsCount
+        } = this.props;
+
         let pagination = new Pager(itemsCountPerPage, pageRangeDisplayed);
 
         let paginationInfo = pagination.build(totalItemsCount, activePage);
@@ -79,6 +85,7 @@ export default class Pagination extends React.Component {
 
         paginationInfo.has_next_page && pages.push(
             <Page 
+                isActive={false}
                 key={"next" + paginationInfo.next_page} 
                 pageNumber={paginationInfo.next_page} 
                 onClick={this.onClick.bind(this, paginationInfo.next_page)} 
@@ -88,6 +95,7 @@ export default class Pagination extends React.Component {
 
         paginationInfo.last_page !== paginationInfo.total_pages && pages.push(
             <Page 
+                isActive={false}
                 key={paginationInfo.total_pages} 
                 pageNumber={paginationInfo.total_pages} 
                 onClick={this.onClick.bind(this, paginationInfo.total_pages)} 
