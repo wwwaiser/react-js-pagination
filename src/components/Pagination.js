@@ -3,14 +3,16 @@ import Pager from "paginator";
 import classNames from "classnames";
 import Page from "./Page";
 
-const LT = "\u003C";
-const GT = "\u003E";
+const lt = "<";
+const Lt = "«";
+const gt = ">";
+const Gt = "»";
 
-const prevPageText = LT;
-const firstPageText = LT + LT;
+const prevPageText = lt;
+const firstPageText = Lt;
 
-const nextPageText = GT;
-const lastPageText = GT + GT;
+const nextPageText = gt;
+const lastPageText = Gt;
 
 export default class Pagination extends React.Component {
     constructor(props) {

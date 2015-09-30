@@ -14,7 +14,7 @@ $ npm install react-js-pagination
 
 ## Usage
 
-Very easy to use. Just provide props with amount of items that you want to display and amount of items per page.
+Very easy to use. Just provide props with total amount of items and amount of items per page that you want to display.
 
 ```jsx
 import React, { Component } from "react";
