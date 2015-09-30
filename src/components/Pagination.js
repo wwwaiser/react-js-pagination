@@ -12,7 +12,7 @@ const firstPageText = LT + LT;
 const nextPageText = GT;
 const lastPageText = GT + GT;
 
-export default class Paginator extends React.Component {
+export default class Pagination extends React.Component {
     constructor(props) {
         super();
         this.buildPages();
@@ -21,7 +21,7 @@ export default class Paginator extends React.Component {
     static propTypes = {
       onChange: React.PropTypes.func,
       activePage: React.PropTypes.number,
-      visiblePagesCount: React.PropTypes.number,
+      pageRangeDisplayed: React.PropTypes.number,
       itemsCountPerPage: React.PropTypes.number,
       totalItemsCount: React.PropTypes.number
     }
@@ -36,8 +36,8 @@ export default class Paginator extends React.Component {
     }
 
     render() {
-        let {itemsCountPerPage, visiblePagesCount, activePage = 1, totalItemsCount} = this.props;
-        let pagination = new Pager(itemsCountPerPage, visiblePagesCount);
+        let {itemsCountPerPage, pageRangeDisplayed, activePage = 1, totalItemsCount} = this.props;
+        let pagination = new Pager(itemsCountPerPage, pageRangeDisplayed);
 
         let paginationInfo = pagination.build(totalItemsCount, activePage);
         let pages = [];
