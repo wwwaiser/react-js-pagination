@@ -41,7 +41,7 @@ class App extends Component {
 React.render(<App />, document.getElementById("root"));
 ```
 
-![Example](https://i.gyazo.com/d8eb2bdd165a0c5830242198bb61bb1d.png)
+![Example](https://i.gyazo.com/ab4bd1df5a60b7e45f87d8a50472ebba.png)
 
 ## Params
 
