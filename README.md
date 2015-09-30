@@ -18,7 +18,7 @@ Very easy to use. Just provide props with amount of items that you want to displ
 
 ```jsx
 import React, { Component } from "react";
-import Paginator from "react-js-pagination";
+import Pagination from "react-js-pagination";
 require("bootstrap/less/bootstrap.less");
 
 class App extends Component {
@@ -29,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Paginator 
+        <Pagination 
           totalItemsCount={450}
           itemsCountPerPage={10}
           activePage={1} 
