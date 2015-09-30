@@ -2,10 +2,10 @@
   "name": "react-js-pagination",
   "version": "1.0.0",
   "description": "Simple, easy to use component for pagination. Compatible with bootstrap paginator stylesheets",
+  "main": "./dist/Pagination.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build": "npm run clean && npm run build:webpack",
+    "build": "npm run clean && NODE_ENV=build node build.js",
     "start": "node devServer.js",
     "lint": "eslint src"
   },
@@ -31,10 +31,12 @@
   },
   "homepage": "https://github.com/vayser/react-js-pagination",
   "devDependencies": {
+    "babel": "^5.8.23",
     "babel-core": "^5.4.7",
     "babel-eslint": "^3.1.9",
     "babel-loader": "^5.1.2",
     "babel-plugin-react-transform": "^1.1.1",
+    "bootstrap": "^3.3.5",
     "css-loader": "^0.19.0",
     "eslint": "^1.3.1",
     "eslint-plugin-react": "^2.3.0",
@@ -42,6 +44,7 @@
     "file-loader": "^0.8.4",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
+    "mkdirp": "^0.5.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.0",
     "redbox-react": "^1.0.1",
@@ -53,7 +56,6 @@
     "webpack-hot-middleware": "^2.0.0"
   },
   "dependencies": {
-    "bootstrap": "^3.3.5",
     "classnames": "^2.1.3",
     "paginator": "0.0.2",
     "react": "^0.13.0"
