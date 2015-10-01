@@ -51,6 +51,8 @@ React.render(<App />, document.getElementById("root"));
 
 ```
 
+Check [Live example](http://vayser.github.io/react-js-pagination)
+
 ![Example](https://i.gyazo.com/ab4bd1df5a60b7e45f87d8a50472ebba.png)
 
 ## Params
