@@ -1,6 +1,6 @@
 # react-js-pagination
 
-**A ReactJS component to render a pagination.**
+**A ReactJS [dumb](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) component to render a pagination.**
 
 The component comes with no built-in styles. HTML layout compatible with Bootstrap pagination stylesheets.
 
@@ -14,7 +14,7 @@ $ npm install react-js-pagination
 
 ## Usage
 
-Very easy to use. Just provide props with total amount of items and amount of items per page that you want to display.
+Very easy to use. Just provide props with total amount of things that you want to display on the page.
 
 ```jsx
 import React, { Component } from "react";
@@ -23,7 +23,7 @@ require("bootstrap/less/bootstrap.less");
 
 class App extends Component {
   handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`)
+    console.log(`active page is ${pageNumber}`);
   }
   
   render() {
@@ -52,4 +52,8 @@ Name | Type | Default | Description
 `acivePage` | Number | `1` | Active page
 `pageRangeDisplayed` | Number | `5` | Range of pages in paginator, exclude navigation blocks (prev, next, first, last pages)
 `onChange` | Function | | Page change handler. Receive pageNumber as arg
+`firstPageText` | String / ReactElement | `«` | Text of first page navigation button or full element
+`lastPageText` | String / ReactElement | `»` | Text of last page navigation button or full element
+`prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button or full element
+`nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button or full element
 

@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from "react";
-import Pager from "paginator";
+import pagiator from "paginator";
 import classNames from "classnames";
 import Page from "./Page";
 
@@ -17,15 +17,18 @@ const lastPageText = Gt;
 export default class Pagination extends React.Component {
     constructor(props) {
         super();
-        this.buildPages();
     }
 
     static propTypes = {
-      onChange: React.PropTypes.func,
-      activePage: React.PropTypes.number,
-      pageRangeDisplayed: React.PropTypes.number,
-      itemsCountPerPage: React.PropTypes.number,
-      totalItemsCount: React.PropTypes.number
+      totalItemsCount: PropTypes.number.isRequired,
+      onChange: PropTypes.func.isRequired,
+      activePage: PropTypes.number,
+      pageRangeDisplayed: PropTypes.number,
+      itemsCountPerPage: PropTypes.number,
+      prevPageText: PropTypes.string,
+      nextPageText: PropTypes.string,
+      firstPageText: PropTypes.string,
+      lastPageText: PropTypes.string
     }
 
     onClick(page, e) {
@@ -35,20 +38,19 @@ export default class Pagination extends React.Component {
 
     buildPages() {
         let pages = [];
-    }
 
-    render() {
         let {
             itemsCountPerPage = 10,
             pageRangeDisplayed = 5,
             activePage = 1, 
+            prevPageText = lt,
+            nextPageText = gt,
+            firstPageText = Lt,
+            lastPageText = Gt,
             totalItemsCount
         } = this.props;
 
-        let pagination = new Pager(itemsCountPerPage, pageRangeDisplayed);
-
-        let paginationInfo = pagination.build(totalItemsCount, activePage);
-        let pages = [];
+        let paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
 
         if (paginationInfo.first_page !== paginationInfo.last_page) {
             for(let i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
@@ -57,7 +59,7 @@ export default class Pagination extends React.Component {
                         isActive={i === activePage} 
                         key={i} 
                         pageNumber={i} 
-                        onClick={this.onClick.bind(this, i)} 
+                        onClick={this.onClick.bind(this)} 
                     />
                 );
             }
@@ -68,7 +70,7 @@ export default class Pagination extends React.Component {
                 isActive={false} 
                 key={"prev" + paginationInfo.previous_page} 
                 pageNumber={paginationInfo.previous_page} 
-                onClick={this.onClick.bind(this, paginationInfo.previous_page)} 
+                onClick={this.onClick.bind(this)}
                 pageText={prevPageText}
             />
         );
@@ -78,7 +80,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={1} 
                 pageNumber={1} 
-                onClick={this.onClick.bind(this, 1)} 
+                onClick={this.onClick.bind(this)}
                 pageText={firstPageText}
             />
         );
@@ -88,7 +90,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={"next" + paginationInfo.next_page} 
                 pageNumber={paginationInfo.next_page} 
-                onClick={this.onClick.bind(this, paginationInfo.next_page)} 
+                onClick={this.onClick.bind(this)}
                 pageText={nextPageText}
             />
         );
@@ -98,13 +100,19 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={paginationInfo.total_pages} 
                 pageNumber={paginationInfo.total_pages} 
-                onClick={this.onClick.bind(this, paginationInfo.total_pages)} 
+                onClick={this.onClick.bind(this)}
                 pageText={lastPageText}
             />
         );
 
+        return pages;
+    }
+
+    render() {
+        let pages = this.buildPages();
+
         return (
-            <ul className="pagination"> {pages} </ul>
+            <ul className="pagination">{pages}</ul>
         );
     }
 }
