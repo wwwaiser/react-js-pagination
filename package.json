@@ -5,7 +5,10 @@
   "main": "./dist/Pagination.js",
   "scripts": {
     "clean": "rimraf dist",
+    "clean-example": "rimraf src/example/dist",
     "build": "npm run clean && NODE_ENV=build node build.js",
+    "build-example": "npm run clean-example && npm run build:webpack",
+    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "start": "node devServer.js",
     "lint": "eslint src"
   },
