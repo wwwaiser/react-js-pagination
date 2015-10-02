@@ -144,10 +144,10 @@ var Pagination = (function (_React$Component) {
             activePage: _react.PropTypes.number,
             pageRangeDisplayed: _react.PropTypes.number,
             itemsCountPerPage: _react.PropTypes.number,
-            prevPageText: _react.PropTypes.string,
-            nextPageText: _react.PropTypes.string,
-            firstPageText: _react.PropTypes.string,
-            lastPageText: _react.PropTypes.string
+            prevPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
+            nextPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
+            lastPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
+            firstPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element])
         },
         enumerable: true
     }]);
