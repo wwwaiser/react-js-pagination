@@ -25,10 +25,22 @@ export default class Pagination extends React.Component {
       activePage: PropTypes.number,
       pageRangeDisplayed: PropTypes.number,
       itemsCountPerPage: PropTypes.number,
-      prevPageText: PropTypes.string,
-      nextPageText: PropTypes.string,
-      firstPageText: PropTypes.string,
-      lastPageText: PropTypes.string
+      prevPageText: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+      ]),
+      nextPageText: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+      ]),
+      lastPageText: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+      ]),
+      firstPageText: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+      ])
     }
 
     onClick(page, e) {
