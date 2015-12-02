@@ -18,7 +18,7 @@ Very easy to use. Just provide props with total amount of things that you want t
 
 ```jsx
 import React, { Component } from "react";
-import Pagination from "../components/Pagination";
+import Pagination from "react-js-pagination";
 require("bootstrap/less/bootstrap.less");
 
 class App extends Component {
