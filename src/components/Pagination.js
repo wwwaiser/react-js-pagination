@@ -3,22 +3,7 @@ import pagiator from "paginator";
 import classNames from "classnames";
 import Page from "./Page";
 
-const lt = "⟨";
-const Lt = "«";
-const gt = "⟩";
-const Gt = "»";
-
-const prevPageText = lt;
-const firstPageText = Lt;
-
-const nextPageText = gt;
-const lastPageText = Gt;
-
 export default class Pagination extends React.Component {
-    constructor(props) {
-        super();
-    }
-
     static propTypes = {
       totalItemsCount: PropTypes.number.isRequired,
       onChange: PropTypes.func.isRequired,
@@ -43,26 +28,36 @@ export default class Pagination extends React.Component {
       ])
     }
 
+    static defaultProps = {
+      itemsCountPerPage: 10,
+      pageRangeDisplayed: 5,
+      activePage: 1,
+      prevPageText: "⟨",
+      firstPageText: "«",
+      nextPageText: "⟩",
+      lastPageText: "»",
+    }
+
     onClick(page, e) {
         e.preventDefault();
         this.props.onChange(page);
     }
 
     buildPages() {
-        let pages = [];
-
-        let {
-            itemsCountPerPage = 10,
-            pageRangeDisplayed = 5,
-            activePage = 1,
-            prevPageText = lt,
-            nextPageText = gt,
-            firstPageText = Lt,
-            lastPageText = Gt,
+        const pages = [];
+        const {
+            itemsCountPerPage,
+            pageRangeDisplayed,
+            activePage,
+            prevPageText,
+            nextPageText,
+            firstPageText,
+            lastPageText,
             totalItemsCount
         } = this.props;
 
-        let paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
+        const paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed)
+            .build(totalItemsCount, activePage);
 
         if (paginationInfo.first_page !== paginationInfo.last_page) {
             for(let i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
@@ -121,8 +116,7 @@ export default class Pagination extends React.Component {
     }
 
     render() {
-        let pages = this.buildPages();
-
+        const pages = this.buildPages();
         return (
             <ul className="pagination">{pages}</ul>
         );

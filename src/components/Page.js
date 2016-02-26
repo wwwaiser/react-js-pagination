@@ -13,27 +13,19 @@ export default class Page extends Component {
     }
 
     render() {
-        let el;
-
         const className = classNames({
             "active": this.props.isActive
         });
 
-        let text = this.props.pageText || this.props.pageNumber;
+        const text = this.props.pageText || this.props.pageNumber;
+        if (React.isValidElement(text)) return text;
 
-        if (React.isValidElement(text)) {
-            el = text;
-        } else {
-            el = (
-                <li className={className}>
-                    <a onClick={this.props.onClick.bind(this, this.props.pageNumber)} href="#">
-                        { text }
-                    </a>
-                </li>
-            );
-        }
-
-        return el;
+        return (
+            <li className={className}>
+                <a onClick={this.props.onClick.bind(this, this.props.pageNumber)} href="#">
+                    { text }
+                </a>
+            </li>
+        );
     }
 }
-
