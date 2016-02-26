@@ -30,24 +30,13 @@ var _Page = require("./Page");
 
 var _Page2 = _interopRequireDefault(_Page);
 
-var lt = "⟨";
-var Lt = "«";
-var gt = "⟩";
-var Gt = "»";
-
-var prevPageText = lt;
-var firstPageText = Lt;
-
-var nextPageText = gt;
-var lastPageText = Gt;
-
 var Pagination = (function (_React$Component) {
     _inherits(Pagination, _React$Component);
 
-    function Pagination(props) {
+    function Pagination() {
         _classCallCheck(this, Pagination);
 
-        _get(Object.getPrototypeOf(Pagination.prototype), "constructor", this).call(this);
+        _get(Object.getPrototypeOf(Pagination.prototype), "constructor", this).apply(this, arguments);
     }
 
     _createClass(Pagination, [{
@@ -60,22 +49,14 @@ var Pagination = (function (_React$Component) {
         key: "buildPages",
         value: function buildPages() {
             var pages = [];
-
             var _props = this.props;
-            var _props$itemsCountPerPage = _props.itemsCountPerPage;
-            var itemsCountPerPage = _props$itemsCountPerPage === undefined ? 10 : _props$itemsCountPerPage;
-            var _props$pageRangeDisplayed = _props.pageRangeDisplayed;
-            var pageRangeDisplayed = _props$pageRangeDisplayed === undefined ? 5 : _props$pageRangeDisplayed;
-            var _props$activePage = _props.activePage;
-            var activePage = _props$activePage === undefined ? 1 : _props$activePage;
-            var _props$prevPageText = _props.prevPageText;
-            var prevPageText = _props$prevPageText === undefined ? lt : _props$prevPageText;
-            var _props$nextPageText = _props.nextPageText;
-            var nextPageText = _props$nextPageText === undefined ? gt : _props$nextPageText;
-            var _props$firstPageText = _props.firstPageText;
-            var firstPageText = _props$firstPageText === undefined ? Lt : _props$firstPageText;
-            var _props$lastPageText = _props.lastPageText;
-            var lastPageText = _props$lastPageText === undefined ? Gt : _props$lastPageText;
+            var itemsCountPerPage = _props.itemsCountPerPage;
+            var pageRangeDisplayed = _props.pageRangeDisplayed;
+            var activePage = _props.activePage;
+            var prevPageText = _props.prevPageText;
+            var nextPageText = _props.nextPageText;
+            var firstPageText = _props.firstPageText;
+            var lastPageText = _props.lastPageText;
             var totalItemsCount = _props.totalItemsCount;
 
             var paginationInfo = new _paginator2["default"](itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
@@ -129,7 +110,6 @@ var Pagination = (function (_React$Component) {
         key: "render",
         value: function render() {
             var pages = this.buildPages();
-
             return _react2["default"].createElement(
                 "ul",
                 { className: "pagination" },
@@ -148,6 +128,18 @@ var Pagination = (function (_React$Component) {
             nextPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
             lastPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
             firstPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element])
+        },
+        enumerable: true
+    }, {
+        key: "defaultProps",
+        value: {
+            itemsCountPerPage: 10,
+            pageRangeDisplayed: 5,
+            activePage: 1,
+            prevPageText: "⟨",
+            firstPageText: "«",
+            nextPageText: "⟩",
+            lastPageText: "»"
         },
         enumerable: true
     }]);
