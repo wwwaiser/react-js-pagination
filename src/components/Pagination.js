@@ -3,22 +3,7 @@ import pagiator from "paginator";
 import classNames from "classnames";
 import Page from "./Page";
 
-const lt = "⟨";
-const Lt = "«";
-const gt = "⟩";
-const Gt = "»";
-
-const prevPageText = lt;
-const firstPageText = Lt;
-
-const nextPageText = gt;
-const lastPageText = Gt;
-
 export default class Pagination extends React.Component {
-    constructor(props) {
-        super();
-    }
-
     static propTypes = {
       totalItemsCount: PropTypes.number.isRequired,
       onChange: PropTypes.func.isRequired,
@@ -43,75 +28,85 @@ export default class Pagination extends React.Component {
       ])
     }
 
+    static defaultProps = {
+      itemsCountPerPage: 10,
+      pageRangeDisplayed: 5,
+      activePage: 1,
+      prevPageText: "⟨",
+      firstPageText: "«",
+      nextPageText: "⟩",
+      lastPageText: "»",
+    }
+
     onClick(page, e) {
         e.preventDefault();
         this.props.onChange(page);
     }
 
     buildPages() {
-        let pages = [];
-
-        let {
-            itemsCountPerPage = 10,
-            pageRangeDisplayed = 5,
-            activePage = 1, 
-            prevPageText = lt,
-            nextPageText = gt,
-            firstPageText = Lt,
-            lastPageText = Gt,
+        const pages = [];
+        const {
+            itemsCountPerPage,
+            pageRangeDisplayed,
+            activePage,
+            prevPageText,
+            nextPageText,
+            firstPageText,
+            lastPageText,
             totalItemsCount
         } = this.props;
 
-        let paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
+        const paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed)
+            .build(totalItemsCount, activePage);
 
         if (paginationInfo.first_page !== paginationInfo.last_page) {
             for(let i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
                 pages.push(
-                    <Page 
-                        isActive={i === activePage} 
-                        key={i} 
-                        pageNumber={i} 
-                        onClick={this.onClick.bind(this)} 
+                    <Page
+                        isActive={i === activePage}
+                        key={i}
+                        pageNumber={i}
+                        onClick={this.onClick.bind(this)}
                     />
                 );
             }
         }
 
         paginationInfo.has_previous_page && pages.unshift(
-            <Page 
-                isActive={false} 
-                key={"prev" + paginationInfo.previous_page} 
-                pageNumber={paginationInfo.previous_page} 
+            <Page
+                isActive={false}
+                key={"prev" + paginationInfo.previous_page}
+                pageNumber={paginationInfo.previous_page}
                 onClick={this.onClick.bind(this)}
                 pageText={prevPageText}
             />
         );
 
         paginationInfo.first_page > 1 && pages.unshift(
-            <Page 
+            <Page
                 isActive={false}
-                key={1} 
-                pageNumber={1} 
+                key={1}
+                pageNumber={1}
                 onClick={this.onClick.bind(this)}
                 pageText={firstPageText}
             />
         );
 
         paginationInfo.has_next_page && pages.push(
-            <Page 
+            <Page
                 isActive={false}
-                key={"next" + paginationInfo.next_page} 
-                pageNumber={paginationInfo.next_page} 
+                key={"next" + paginationInfo.next_page}
+                pageNumber={paginationInfo.next_page}
                 onClick={this.onClick.bind(this)}
                 pageText={nextPageText}
             />
         );
 
         paginationInfo.last_page !== paginationInfo.total_pages && pages.push(
-            <Page 
+            <Page
                 isActive={false}
-                key={paginationInfo.total_pages} 
-                pageNumber={paginationInfo.total_pages} 
+                key={paginationInfo.total_pages}
+                pageNumber={paginationInfo.total_pages}
                 onClick={this.onClick.bind(this)}
                 pageText={lastPageText}
             />
@@ -121,8 +116,7 @@ export default class Pagination extends React.Component {
     }
 
     render() {
-        let pages = this.buildPages();
-
+        const pages = this.buildPages();
         return (
             <ul className="pagination">{pages}</ul>
         );

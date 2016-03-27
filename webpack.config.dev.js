@@ -20,13 +20,27 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ["babel"],
-      include: path.join(__dirname, "src")
+      loader: "babel",
+      include: path.join(__dirname, "src"),
+      query: {
+          stage: 0,
+          plugins: ["react-transform"],
+          extra: {
+          "react-transform": [{
+              "target": "react-transform-hmr",
+              "imports": ["react"],
+              "locals": ["module"]
+          }, {
+              "target": "react-transform-catch-errors",
+              "imports": ["react", "redbox-react"]
+          }]
+        }
+      }
     }, {
       test: /\.less$/,
       loader: "style!css!less"
     }, {
-      test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: "url-loader?limit=100000" 
+      test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: "url-loader?limit=100000"
     }]
   }
 };
