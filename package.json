@@ -27,7 +27,8 @@
     "reload",
     "webpack",
     "babel",
-    "react-transform"
+    "react-transform",
+    "react-component"
   ],
   "author": "Sergey Vayser <wice24@gmail.com> (http://github.com/vayser)",
   "license": "CC0-1.0",
