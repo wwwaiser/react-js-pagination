@@ -40,7 +40,7 @@ class App extends Component {
         <Pagination 
           activePage={this.state.activePage} 
           totalItemsCount={450} 
-          onChange={this.handlePageChange.bind(this)}
+          onChange={this.handlePageChange}
         />
       </div>
     );
