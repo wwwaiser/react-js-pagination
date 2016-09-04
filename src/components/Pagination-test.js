@@ -102,14 +102,4 @@ describe("<Pagination />", () => {
       expect(expected.props.pageText).toBe(">>");
     });
   });
-
-  describe("onClick()", () => {
-    it("calls the onChange prop", () => {
-      const e = {
-        preventDefault: () => {}
-      };
-      const result = Pagination.prototype.onClick.call(context, 1, e);
-      expect(spy).toHaveBeenCalled();
-    });
-  });
 });
