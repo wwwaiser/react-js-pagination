@@ -16,7 +16,7 @@ $ npm install react-js-pagination
 
 Very easy to use. Just provide props with total amount of things that you want to display on the page.
 
-```jsx
+```js
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Pagination from "../components/Pagination";
