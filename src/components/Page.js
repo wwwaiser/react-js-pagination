@@ -1,5 +1,5 @@
-import React, {Component, PropTypes} from "react";
-import classNames from "classnames";
+import React, { Component, PropTypes } from "react";
+import cx from "classnames";
 
 export default class Page extends Component {
     static propTypes = {
@@ -13,16 +13,18 @@ export default class Page extends Component {
     }
 
     render() {
-        const className = classNames({
-            "active": this.props.isActive
-        });
-
         const text = this.props.pageText || this.props.pageNumber;
-        if (React.isValidElement(text)) return text;
+
+        if (React.isValidElement(text)) {
+            return text;
+        }
 
         return (
-            <li className={className}>
-                <a onClick={this.props.onClick.bind(this, this.props.pageNumber)} href="#">
+            <li className={cx({ "active": this.props.isActive })}>
+                <a onClick={ (e) => {
+                    e.preventDefault();
+                    this.props.onClick(this.props.pageNumber);
+                }} href="#">
                     { text }
                 </a>
             </li>

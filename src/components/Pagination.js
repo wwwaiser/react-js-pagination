@@ -1,6 +1,5 @@
-import React, {Component, PropTypes} from "react";
+import React, { Component, PropTypes } from "react";
 import pagiator from "paginator";
-import classNames from "classnames";
 import Page from "./Page";
 
 export default class Pagination extends React.Component {
@@ -38,11 +37,6 @@ export default class Pagination extends React.Component {
       lastPageText: "»",
     }
 
-    onClick(page, e) {
-        e.preventDefault();
-        this.props.onChange(page);
-    }
-
     buildPages() {
         const pages = [];
         const {
@@ -66,7 +60,7 @@ export default class Pagination extends React.Component {
                         isActive={i === activePage}
                         key={i}
                         pageNumber={i}
-                        onClick={this.onClick.bind(this)}
+                        onClick={this.props.onChange}
                     />
                 );
             }
@@ -77,7 +71,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={"prev" + paginationInfo.previous_page}
                 pageNumber={paginationInfo.previous_page}
-                onClick={this.onClick.bind(this)}
+                onClick={this.props.onChange}
                 pageText={prevPageText}
             />
         );
@@ -87,7 +81,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={1}
                 pageNumber={1}
-                onClick={this.onClick.bind(this)}
+                onClick={this.props.onChange}
                 pageText={firstPageText}
             />
         );
@@ -97,7 +91,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={"next" + paginationInfo.next_page}
                 pageNumber={paginationInfo.next_page}
-                onClick={this.onClick.bind(this)}
+                onClick={this.props.onChange}
                 pageText={nextPageText}
             />
         );
@@ -107,7 +101,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={paginationInfo.total_pages}
                 pageNumber={paginationInfo.total_pages}
-                onClick={this.onClick.bind(this)}
+                onClick={this.props.onChange}
                 pageText={lastPageText}
             />
         );

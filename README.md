@@ -18,7 +18,8 @@ Very easy to use. Just provide props with total amount of things that you want t
 
 ```jsx
 import React, { Component } from "react";
-import Pagination from "react-js-pagination";
+import ReactDOM from "react-dom";
+import Pagination from "../components/Pagination";
 require("bootstrap/less/bootstrap.less");
 
 class App extends Component {
@@ -27,11 +28,12 @@ class App extends Component {
     this.state = {
       activePage: 15
     };
+    this.handlePageChange = ::this._handlePageChange;
   }
 
-  handlePageChange(pageNumber) {
-    this.setState({activePage: pageNumber});
+  _handlePageChange(pageNumber) {
     console.log(`active page is ${pageNumber}`);
+    this.setState({activePage: pageNumber});
   }
 
   render() {
@@ -39,15 +41,17 @@ class App extends Component {
       <div>
         <Pagination 
           activePage={this.state.activePage} 
+          itemsCountPerPage={10} 
           totalItemsCount={450} 
-          onChange={this.handlePageChange.bind(this)}
+          pageRangeDisplayed={5}
+          onChange={this.handlePageChange}
         />
       </div>
     );
   }
 }
 
-React.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 ```
 
