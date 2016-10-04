@@ -24,7 +24,8 @@ export default class Pagination extends React.Component {
       firstPageText: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
-      ])
+      ]),
+      innerClass: PropTypes.string
     }
 
     static defaultProps = {
@@ -35,6 +36,7 @@ export default class Pagination extends React.Component {
       firstPageText: "«",
       nextPageText: "⟩",
       lastPageText: "»",
+      innerClass: "pagination",
     }
 
     buildPages() {
@@ -112,7 +114,7 @@ export default class Pagination extends React.Component {
     render() {
         const pages = this.buildPages();
         return (
-            <ul className="pagination">{pages}</ul>
+            <ul className={this.props.innerClass}>{pages}</ul>
         );
     }
 }

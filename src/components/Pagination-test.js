@@ -101,5 +101,28 @@ describe("<Pagination />", () => {
       const expected = result.props.children[result.props.children.length - 1];
       expect(expected.props.pageText).toBe(">>");
     });
+
+    it("renders class in UL tag", () => {
+      const newCtx = {
+        ...Pagination.prototype,
+        props: {
+          totalItemsCount: 30,
+          onChange: spy,
+          activePage: 3,
+          pageRangeDisplayed: 2,
+          itemsCountPerPage: 10,
+          prevPageText: "<",
+          nextPageText: ">",
+          lastPageText: ">>",
+          firstPageText: "<<",
+          innerClass: "pagination list-inline center-block text-center"
+        },
+        onClick: Pagination.prototype.onClick,
+        buildPages: Pagination.prototype.buildPages,
+      };
+      const result = Pagination.prototype.render.call(newCtx);
+      expect(result.props.className).toBe("pagination list-inline center-block text-center");
+    });
+
   });
 });
