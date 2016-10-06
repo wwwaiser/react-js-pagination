@@ -72,4 +72,5 @@ Name | Type | Default | Description
 `lastPageText` | String / ReactElement | `»` | Text of last page navigation button or whole element
 `prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button or whole element
 `nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button or whole element
+`innerClass` | String | `pagination` | Class name of <ul> tag
 
