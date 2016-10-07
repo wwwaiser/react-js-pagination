@@ -30,13 +30,13 @@ class App extends Component {
     };
     this.handlePageChange = ::this._handlePageChange;
   }
-
   _handlePageChange(pageNumber) {
     console.log(`active page is ${pageNumber}`);
     this.setState({activePage: pageNumber});
   }
 
   render() {
+
     return (
       <div>
         <Pagination 
@@ -72,4 +72,5 @@ Name | Type | Default | Description
 `lastPageText` | String / ReactElement | `»` | Text of last page navigation button or whole element
 `prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button or whole element
 `nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button or whole element
+`innerClass` | String | `pagination` | Class name of `<ul>` tag
 
