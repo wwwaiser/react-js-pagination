@@ -34,19 +34,23 @@ var Page = (function (_Component) {
     _createClass(Page, [{
         key: "render",
         value: function render() {
-            var className = (0, _classnames2["default"])({
-                "active": this.props.isActive
-            });
+            var _this = this;
 
             var text = this.props.pageText || this.props.pageNumber;
-            if (_react2["default"].isValidElement(text)) return text;
+
+            if (_react2["default"].isValidElement(text)) {
+                return text;
+            }
 
             return _react2["default"].createElement(
                 "li",
-                { className: className },
+                { className: (0, _classnames2["default"])({ "active": this.props.isActive }) },
                 _react2["default"].createElement(
                     "a",
-                    { onClick: this.props.onClick.bind(this, this.props.pageNumber), href: "#" },
+                    { onClick: function (e) {
+                            e.preventDefault();
+                            _this.props.onClick(_this.props.pageNumber);
+                        }, href: "#" },
                     text
                 )
             );
