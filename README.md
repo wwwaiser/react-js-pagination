@@ -73,4 +73,5 @@ Name | Type | Default | Description
 `prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button or whole element
 `nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button or whole element
 `innerClass` | String | `pagination` | Class name of `<ul>` tag
+`activeClass` | String | `active` | Class name of `<li>` active tag
 

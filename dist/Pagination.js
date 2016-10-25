@@ -48,6 +48,8 @@ var Pagination = (function (_React$Component) {
             var firstPageText = _props.firstPageText;
             var lastPageText = _props.lastPageText;
             var totalItemsCount = _props.totalItemsCount;
+            var onChange = _props.onChange;
+            var activeClass = _props.activeClass;
 
             var paginationInfo = new _paginator2["default"](itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
 
@@ -57,7 +59,8 @@ var Pagination = (function (_React$Component) {
                         isActive: i === activePage,
                         key: i,
                         pageNumber: i,
-                        onClick: this.props.onChange
+                        onClick: onChange,
+                        activeClass: activeClass
                     }));
                 }
             }
@@ -66,7 +69,7 @@ var Pagination = (function (_React$Component) {
                 isActive: false,
                 key: "prev" + paginationInfo.previous_page,
                 pageNumber: paginationInfo.previous_page,
-                onClick: this.props.onChange,
+                onClick: onChange,
                 pageText: prevPageText
             }));
 
@@ -74,7 +77,7 @@ var Pagination = (function (_React$Component) {
                 isActive: false,
                 key: 1,
                 pageNumber: 1,
-                onClick: this.props.onChange,
+                onClick: onChange,
                 pageText: firstPageText
             }));
 
@@ -82,7 +85,7 @@ var Pagination = (function (_React$Component) {
                 isActive: false,
                 key: "next" + paginationInfo.next_page,
                 pageNumber: paginationInfo.next_page,
-                onClick: this.props.onChange,
+                onClick: onChange,
                 pageText: nextPageText
             }));
 
@@ -90,7 +93,7 @@ var Pagination = (function (_React$Component) {
                 isActive: false,
                 key: paginationInfo.total_pages,
                 pageNumber: paginationInfo.total_pages,
-                onClick: this.props.onChange,
+                onClick: onChange,
                 pageText: lastPageText
             }));
 

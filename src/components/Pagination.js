@@ -49,7 +49,9 @@ export default class Pagination extends React.Component {
             nextPageText,
             firstPageText,
             lastPageText,
-            totalItemsCount
+            totalItemsCount,
+            onChange,
+            activeClass
         } = this.props;
 
         const paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed)
@@ -62,7 +64,8 @@ export default class Pagination extends React.Component {
                         isActive={i === activePage}
                         key={i}
                         pageNumber={i}
-                        onClick={this.props.onChange}
+                        onClick={onChange}
+                        activeClass={activeClass}
                     />
                 );
             }
@@ -73,7 +76,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={"prev" + paginationInfo.previous_page}
                 pageNumber={paginationInfo.previous_page}
-                onClick={this.props.onChange}
+                onClick={onChange}
                 pageText={prevPageText}
             />
         );
@@ -83,7 +86,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={1}
                 pageNumber={1}
-                onClick={this.props.onChange}
+                onClick={onChange}
                 pageText={firstPageText}
             />
         );
@@ -93,7 +96,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={"next" + paginationInfo.next_page}
                 pageNumber={paginationInfo.next_page}
-                onClick={this.props.onChange}
+                onClick={onChange}
                 pageText={nextPageText}
             />
         );
@@ -103,7 +106,7 @@ export default class Pagination extends React.Component {
                 isActive={false}
                 key={paginationInfo.total_pages}
                 pageNumber={paginationInfo.total_pages}
-                onClick={this.props.onChange}
+                onClick={onChange}
                 pageText={lastPageText}
             />
         );
