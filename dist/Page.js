@@ -10,6 +10,8 @@ var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_ag
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
@@ -34,19 +36,24 @@ var Page = (function (_Component) {
     _createClass(Page, [{
         key: "render",
         value: function render() {
-            var className = (0, _classnames2["default"])({
-                "active": this.props.isActive
-            });
+            var _this = this;
 
             var text = this.props.pageText || this.props.pageNumber;
-            if (_react2["default"].isValidElement(text)) return text;
+            var activeClass = this.props.activeClass || "active";
+
+            if (_react2["default"].isValidElement(text)) {
+                return text;
+            }
 
             return _react2["default"].createElement(
                 "li",
-                { className: className },
+                { className: (0, _classnames2["default"])(_defineProperty({}, activeClass, this.props.isActive)) },
                 _react2["default"].createElement(
                     "a",
-                    { onClick: this.props.onClick.bind(this, this.props.pageNumber), href: "#" },
+                    { onClick: function (e) {
+                            e.preventDefault();
+                            _this.props.onClick(_this.props.pageNumber);
+                        }, href: "#" },
                     text
                 )
             );

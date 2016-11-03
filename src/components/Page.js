@@ -14,13 +14,14 @@ export default class Page extends Component {
 
     render() {
         const text = this.props.pageText || this.props.pageNumber;
+        const activeClass = this.props.activeClass || "active";
 
         if (React.isValidElement(text)) {
             return text;
         }
 
         return (
-            <li className={cx({ "active": this.props.isActive })}>
+            <li className={cx({ [activeClass]: this.props.isActive })}>
                 <a onClick={ (e) => {
                     e.preventDefault();
                     this.props.onClick(this.props.pageNumber);
