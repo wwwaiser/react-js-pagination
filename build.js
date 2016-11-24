@@ -1,5 +1,5 @@
 var fs = require("fs");
-var babel = require("babel");
+var babel = require("babel-core");
 var mkdirp = require("mkdirp");
 
 mkdirp("dist", function(err) {
