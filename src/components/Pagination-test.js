@@ -1,128 +1,51 @@
 /*eslint-env node, mocha */
-import React from "react";
-import expect, {createSpy} from "expect";
+import {mount, shallow} from "enzyme";
 import Pagination from "./Pagination";
 
 describe("<Pagination />", () => {
-  const spy = createSpy();
-  const context = {
-    ...Pagination.prototype,
-    props: {
-      totalItemsCount: 20,
-      onChange: spy,
-      activePage: 1,
-      pageRangeDisplayed: 10,
-      itemsCountPerPage: 10,
-      prevPageText: "<",
-      nextPageText: ">",
-      lastPageText: ">>",
-      firstPageText: "<<"
-    },
-    onClick: Pagination.prototype.onClick,
-    buildPages: Pagination.prototype.buildPages,
+  const props = {
+    totalItemsCount: 20,
+    onClick: () => {},
+    onChange: () => {}
   };
 
   describe("render()", () => {
     it("renders a UL tag", () => {
-      const result = Pagination.prototype.render.call(context);
-      expect(result.type).toBe("ul");
+      const wrapper = mount(<Pagination {...props} />);
+      expect(wrapper.find("ul")).to.have.length(1);
     });
 
     it("renders the appropriate amount of children", () => {
-      const result = Pagination.prototype.render.call(context);
-      expect(result.props.children.length).toBe(3);
+      const wrapper = mount(<Pagination {...props} />);
+      expect(wrapper.children()).to.have.length(6);
     });
 
-    it("renders the next page link if there is one", () => {
-      const result = Pagination.prototype.render.call(context);
-      expect(result.props.children[result.props.children.length - 1].key).toBe("next2");
+    it("renders the next page link", () => {
+      const wrapper = mount(<Pagination {...props} />);
+      expect(wrapper.childAt(4).text()).to.eql(wrapper.prop("nextPageText"));
     });
 
     it("renders the prev page link if there is one", () => {
-      const newCtx = {
-        ...Pagination.prototype,
-        props: {
-          totalItemsCount: 20,
-          onChange: spy,
-          activePage: 2,
-          pageRangeDisplayed: 10,
-          itemsCountPerPage: 10,
-          prevPageText: "<",
-          nextPageText: ">",
-          lastPageText: ">>",
-          firstPageText: "<<"
-        },
-        onClick: Pagination.prototype.onClick,
-        buildPages: Pagination.prototype.buildPages,
-      };
-      const result = Pagination.prototype.render.call(newCtx);
-      expect(result.props.children[0].key).toBe("prev1");
+      const wrapper = mount(<Pagination {...props} />);
+      expect(wrapper.childAt(1).text()).to.eql(wrapper.prop("prevPageText"));
     });
 
     it("renders the first page link if there is one", () => {
-      const newCtx = {
-        ...Pagination.prototype,
-        props: {
-          totalItemsCount: 30,
-          onChange: spy,
-          activePage: 3,
-          pageRangeDisplayed: 2,
-          itemsCountPerPage: 10,
-          prevPageText: "<",
-          nextPageText: ">",
-          lastPageText: ">>",
-          firstPageText: "<<"
-        },
-        onClick: Pagination.prototype.onClick,
-        buildPages: Pagination.prototype.buildPages,
-      };
-      const result = Pagination.prototype.render.call(newCtx);
-      expect(result.props.children[0].props.pageText).toBe("<<");
+      const wrapper = mount(<Pagination {...props} />);
+      expect(wrapper.childAt(0).text()).to.eql(wrapper.prop("firstPageText"));
     });
 
     it("renders the last page link if there is one", () => {
-      const newCtx = {
-        ...Pagination.prototype,
-        props: {
-          totalItemsCount: 30,
-          onChange: spy,
-          activePage: 1,
-          pageRangeDisplayed: 2,
-          itemsCountPerPage: 10,
-          prevPageText: "<",
-          nextPageText: ">",
-          lastPageText: ">>",
-          firstPageText: "<<"
-        },
-        onClick: Pagination.prototype.onClick,
-        buildPages: Pagination.prototype.buildPages,
-      };
-      const result = Pagination.prototype.render.call(newCtx);
-      const expected = result.props.children[result.props.children.length - 1];
-      expect(expected.props.pageText).toBe(">>");
+      const wrapper = mount(<Pagination {...props} />);
+      expect(wrapper.childAt(5).text()).to.eql(wrapper.prop("lastPageText"));
     });
 
     it("renders class in UL tag", () => {
-      const newCtx = {
-        ...Pagination.prototype,
-        props: {
-          totalItemsCount: 30,
-          onChange: spy,
-          activePage: 3,
-          pageRangeDisplayed: 2,
-          itemsCountPerPage: 10,
-          prevPageText: "<",
-          nextPageText: ">",
-          lastPageText: ">>",
-          firstPageText: "<<",
-          innerClass: "pagination list-inline center-block text-center"
-        },
-        onClick: Pagination.prototype.onClick,
-        buildPages: Pagination.prototype.buildPages,
-      };
-      const result = Pagination.prototype.render.call(newCtx);
-      expect(result.props.className).toBe("pagination list-inline center-block text-center");
+      const wrapper = mount(<Pagination {...props} innerClass="pagination list-inline center-block text-center" />);
+      expect(wrapper.find("ul").hasClass("pagination")).to.be.true;
+      expect(wrapper.find("ul").hasClass("list-inline")).to.be.true;
+      expect(wrapper.find("ul").hasClass("center-block")).to.be.true;
+      expect(wrapper.find("ul").hasClass("text-center")).to.be.true;
     });
-
   });
 });
