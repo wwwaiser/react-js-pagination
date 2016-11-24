@@ -10,9 +10,9 @@
     "build-example": "npm run clean-example && npm run build:webpack",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "start": "node devServer.js",
-    "lint": "eslint src",
-    "test": "karma start --single-run --no-auto-watch",
-    "test:watch": "karma start"
+    "lint": "eslint src/**/*.js",
+    "test": "mocha --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'",
+    "test:watch": "mocha -w --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'"
   },
   "repository": {
     "type": "git",
@@ -37,30 +37,25 @@
   },
   "homepage": "https://github.com/vayser/react-js-pagination",
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-core": "^5.4.7",
-    "babel-eslint": "^3.1.9",
-    "babel-loader": "^5.1.2",
+    "babel-core": "6.18.2",
+    "babel-eslint": "7.1.1",
+    "babel-loader": "6.2.8",
     "babel-plugin-react-transform": "^1.1.1",
+    "babel-preset-es2015": "6.18.0",
+    "babel-preset-react": "6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
     "bootstrap": "^3.3.5",
     "chai": "^3.5.0",
     "cross-env": "^1.0.7",
     "css-loader": "^0.19.0",
     "enzyme": "^2.0.0",
-    "eslint": "^1.3.1",
-    "eslint-plugin-react": "^2.7.1",
+    "eslint": "3.10.2",
+    "eslint-plugin-react": "6.7.1",
     "expect": "^1.14.0",
     "express": "^4.13.3",
     "file-loader": "^0.8.4",
     "jsdom": "^8.0.4",
-    "karma": "^0.13.21",
-    "karma-chai": "^0.1.0",
-    "karma-cli": "^0.1.2",
-    "karma-jsdom-launcher": "^3.0.0",
-    "karma-mocha": "^0.2.2",
-    "karma-mocha-reporter": "^1.2.2",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.7.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "mkdirp": "^0.5.1",
@@ -81,7 +76,7 @@
     "react": "^15.0.0"
   },
   "dependencies": {
-    "paginator": "^1.0.0",
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "paginator": "^1.0.0"
   }
 }
