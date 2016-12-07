@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import pagiator from "paginator";
+import paginator from "paginator";
 import Page from "./Page";
 
 export default class Pagination extends React.Component {
@@ -25,7 +25,9 @@ export default class Pagination extends React.Component {
         PropTypes.string,
         PropTypes.element
       ]),
-      innerClass: PropTypes.string
+      innerClass: PropTypes.string,
+      activeClass: PropTypes.string,
+      disabledClass: PropTypes.string
     }
 
     static defaultProps = {
@@ -54,7 +56,7 @@ export default class Pagination extends React.Component {
             activeClass
         } = this.props;
 
-        const paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed)
+        const paginationInfo = new paginator(itemsCountPerPage, pageRangeDisplayed)
             .build(totalItemsCount, activePage);
 
         if (paginationInfo.first_page !== paginationInfo.last_page) {
@@ -71,43 +73,43 @@ export default class Pagination extends React.Component {
             }
         }
 
-        paginationInfo.has_previous_page && pages.unshift(
+        pages.unshift(
             <Page
-                isActive={false}
                 key={"prev" + paginationInfo.previous_page}
                 pageNumber={paginationInfo.previous_page}
                 onClick={onChange}
                 pageText={prevPageText}
+                isDisabled={!paginationInfo.has_previous_page}
             />
         );
 
-        paginationInfo.first_page > 1 && pages.unshift(
+        pages.unshift(
             <Page
-                isActive={false}
-                key={1}
+                key={"first"}
                 pageNumber={1}
                 onClick={onChange}
                 pageText={firstPageText}
+                isDisabled={paginationInfo.current_page === paginationInfo.first_page}
             />
         );
 
-        paginationInfo.has_next_page && pages.push(
+        pages.push(
             <Page
-                isActive={false}
                 key={"next" + paginationInfo.next_page}
                 pageNumber={paginationInfo.next_page}
                 onClick={onChange}
                 pageText={nextPageText}
+                isDisabled={!paginationInfo.has_next_page}
             />
         );
 
-        paginationInfo.last_page !== paginationInfo.total_pages && pages.push(
+        pages.push(
             <Page
-                isActive={false}
-                key={paginationInfo.total_pages}
+                key={"last"}
                 pageNumber={paginationInfo.total_pages}
                 onClick={onChange}
                 pageText={lastPageText}
+                isDisabled={paginationInfo.current_page === paginationInfo.total_pages}
             />
         );
 

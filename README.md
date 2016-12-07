@@ -39,10 +39,10 @@ class App extends Component {
 
     return (
       <div>
-        <Pagination 
-          activePage={this.state.activePage} 
-          itemsCountPerPage={10} 
-          totalItemsCount={450} 
+        <Pagination
+          activePage={this.state.activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={450}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />
@@ -73,5 +73,5 @@ Name | Type | Default | Description
 `prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button or whole element
 `nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button or whole element
 `innerClass` | String | `pagination` | Class name of `<ul>` tag
-`activeClass` | String | `active` | Class name of `<li>` active tag
-
+`activeClass` | String | `active` | Class name of active `<li>` tag
+`disabledClass` | String | `disabled` | Class name of disabled `<li>` tag
