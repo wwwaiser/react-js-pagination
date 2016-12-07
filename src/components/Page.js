@@ -7,6 +7,7 @@ export default class Page extends Component {
             PropTypes.string,
             PropTypes.element
         ]),
+        overrideElement: PropTypes.bool,
         pageNumber: PropTypes.number.isRequired,
         onClick: PropTypes.func.isRequired,
         isActive: PropTypes.bool.isRequired
@@ -16,7 +17,7 @@ export default class Page extends Component {
         const text = this.props.pageText || this.props.pageNumber;
         const activeClass = this.props.activeClass || "active";
 
-        if (React.isValidElement(text)) {
+        if (React.isValidElement(text) && this.props.overrideElement) {
             return text;
         }
 

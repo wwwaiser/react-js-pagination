@@ -45,6 +45,7 @@ class App extends Component {
           totalItemsCount={450} 
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
+          nextPage={{text: (<IconSprite name="next-page"/>), overrideElement: false}}
         />
       </div>
     );
@@ -68,10 +69,10 @@ Name | Type | Default | Description
 `acivePage` | Number | `1` | Active page
 `itemsCountPerPage` | Number | `10` | Count of items per  page
 `pageRangeDisplayed` | Number | `5` | Range of pages in paginator, exclude navigation blocks (prev, next, first, last pages)
-`firstPageText` | String / ReactElement | `«` | Text of first page navigation button or whole element
-`lastPageText` | String / ReactElement | `»` | Text of last page navigation button or whole element
-`prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button or whole element
-`nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button or whole element
+`firstPage` | String / Object | `«` | Text of first page navigation button or whole element, you can override the entire element by passing a setting object: `{text: (<IconSprite name="next-page"/>), overrideElement: false}`
+`lastPage` | String / Object | `»` | Text of last page navigation button or whole element, you can override the entire element by passing a setting object: `{text: (<IconSprite name="next-page"/>), overrideElement: false}`
+`prevPage` | String / Object | `⟨` | Text of prev page navigation button or whole element, you can override the entire element by passing a setting object: `{text: (<IconSprite name="next-page"/>), overrideElement: false}`
+`nextPage` | String / Object | `⟩` | Text of next page navigation button or whole element, you can override the entire element by passing a setting object: `{text: (<IconSprite name="next-page"/>), overrideElement: false}`
 `innerClass` | String | `pagination` | Class name of `<ul>` tag
 `activeClass` | String | `active` | Class name of `<li>` active tag
 
