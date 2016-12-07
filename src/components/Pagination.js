@@ -9,21 +9,21 @@ export default class Pagination extends React.Component {
       activePage: PropTypes.number,
       pageRangeDisplayed: PropTypes.number,
       itemsCountPerPage: PropTypes.number,
-      prevPageText: PropTypes.oneOfType([
+      prevPage: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.element
+        PropTypes.object
       ]),
-      nextPageText: PropTypes.oneOfType([
+      nextPage: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.element
+        PropTypes.object
       ]),
-      lastPageText: PropTypes.oneOfType([
+      lastPage: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.element
+        PropTypes.object
       ]),
-      firstPageText: PropTypes.oneOfType([
+      firstPage: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.element
+        PropTypes.object
       ]),
       innerClass: PropTypes.string
     }
@@ -32,10 +32,10 @@ export default class Pagination extends React.Component {
       itemsCountPerPage: 10,
       pageRangeDisplayed: 5,
       activePage: 1,
-      prevPageText: "⟨",
-      firstPageText: "«",
-      nextPageText: "⟩",
-      lastPageText: "»",
+      prevPage: {text: "⟨", overrideElement: false},
+      firstPage: {text: "«", overrideElement: false},
+      nextPage: {text: "⟩", overrideElement: false},
+      lastPage: {text: "»", overrideElement: false},
       innerClass: "pagination",
     }
 
@@ -45,10 +45,10 @@ export default class Pagination extends React.Component {
             itemsCountPerPage,
             pageRangeDisplayed,
             activePage,
-            prevPageText,
-            nextPageText,
-            firstPageText,
-            lastPageText,
+            prevPage,
+            nextPage,
+            firstPage,
+            lastPage,
             totalItemsCount,
             onChange,
             activeClass
@@ -74,10 +74,11 @@ export default class Pagination extends React.Component {
         paginationInfo.has_previous_page && pages.unshift(
             <Page
                 isActive={false}
-                key={"prev" + paginationInfo.previous_page}
+                key={"prev"}
                 pageNumber={paginationInfo.previous_page}
                 onClick={onChange}
-                pageText={prevPageText}
+                pageText={prevPage.text}
+                overrideElement={prevPage.overrideElement}
             />
         );
 
@@ -87,17 +88,18 @@ export default class Pagination extends React.Component {
                 key={1}
                 pageNumber={1}
                 onClick={onChange}
-                pageText={firstPageText}
+                pageText={firstPage.text}
+                overrideElement={firstPage.overrideElement}
             />
         );
-
         paginationInfo.has_next_page && pages.push(
             <Page
                 isActive={false}
-                key={"next" + paginationInfo.next_page}
+                key={"next"}
                 pageNumber={paginationInfo.next_page}
                 onClick={onChange}
-                pageText={nextPageText}
+                pageText={nextPage.text}
+                overrideElement={nextPage.overrideElement}
             />
         );
 
@@ -107,10 +109,11 @@ export default class Pagination extends React.Component {
                 key={paginationInfo.total_pages}
                 pageNumber={paginationInfo.total_pages}
                 onClick={onChange}
-                pageText={lastPageText}
+                pageText={lastPage.text}
+                overrideElement={lastPage.overrideElement}
             />
         );
-
+        
         return pages;
     }
 
