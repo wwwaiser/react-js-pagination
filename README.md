@@ -65,7 +65,7 @@ Name | Type | Default | Description
 --- | --- | --- | --- |
 `totalItemsCount` | Number | | Total count of items which you are going to display
 `onChange` | Function | | Page change handler. Receive pageNumber as arg
-`acivePage` | Number | `1` | Active page
+`activePage` | Number | `1` | Active page
 `itemsCountPerPage` | Number | `10` | Count of items per  page
 `pageRangeDisplayed` | Number | `5` | Range of pages in paginator, exclude navigation blocks (prev, next, first, last pages)
 `firstPageText` | String / ReactElement | `«` | Text of first page navigation button or whole element
