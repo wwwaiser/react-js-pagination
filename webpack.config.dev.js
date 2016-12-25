@@ -2,10 +2,11 @@ var path = require("path");
 var webpack = require("webpack");
 
 module.exports = {
-  devtool: "eval",
+  devtool: "cheap-module-source-map",
   entry: [
+    "react-hot-loader/patch",
     "webpack-hot-middleware/client",
-    "./src/example/App"
+    "./src/example/index"
   ],
   output: {
     path: path.join(__dirname, "src/example/dist"),
@@ -13,6 +14,7 @@ module.exports = {
     publicPath: "/src/example/dist/"
   },
   plugins: [
+  new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],

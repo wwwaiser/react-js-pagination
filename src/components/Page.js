@@ -7,6 +7,7 @@ export default class Page extends Component {
             PropTypes.string,
             PropTypes.element
         ]),
+        pageElement: PropTypes.element,
         pageNumber: PropTypes.number.isRequired,
         onClick: PropTypes.func.isRequired,
         isActive: PropTypes.bool.isRequired,
@@ -22,33 +23,43 @@ export default class Page extends Component {
         isDisabled: false
     }
 
+
+    handleClick(e) {
+        const { isDisabled, pageNumber } = this.props;
+        e.preventDefault();
+        if (isDisabled) {
+            return;
+        }
+        this.props.onClick(pageNumber);
+    }
+
     render() {
-        const {
+        let {
           pageText,
           pageNumber,
           activeClass,
           disabledClass,
           isActive,
-          isDisabled
+          isDisabled,
+          pageElement
         } = this.props;
 
-        const text = pageText || pageNumber;
         const css = cx({
           [activeClass]: isActive,
           [disabledClass]: isDisabled
         });
 
-        if (React.isValidElement(text)) {
-            return text;
+        if (pageElement && React.isValidElement(pageElement)) {
+            return React.cloneElement(pageElement, {
+                onClick: ::this.handleClick,
+                className: cx(pageElement.props.className, css)
+            });
         }
 
         return (
-            <li className={css}>
-                <a onClick={ (e) => {
-                    e.preventDefault();
-                    this.props.onClick(pageNumber);
-                }} href="#">
-                    { text }
+            <li className={css} onClick={::this.handleClick}>
+                <a href="#">
+                    { pageText }
                 </a>
             </li>
         );

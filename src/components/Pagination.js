@@ -13,6 +13,7 @@ export default class Pagination extends React.Component {
         PropTypes.string,
         PropTypes.element
       ]),
+      prevPageElement: PropTypes.element,
       nextPageText: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
@@ -27,7 +28,7 @@ export default class Pagination extends React.Component {
       ]),
       innerClass: PropTypes.string,
       activeClass: PropTypes.string,
-      disabledClass: PropTypes.string
+      hideDisabled: PropTypes.string
     }
 
     static defaultProps = {
@@ -48,12 +49,17 @@ export default class Pagination extends React.Component {
             pageRangeDisplayed,
             activePage,
             prevPageText,
+            prevPageElement,
             nextPageText,
+            nextPageElement,
+            firstPageElement,
             firstPageText,
             lastPageText,
+            lastPageElement,
             totalItemsCount,
             onChange,
-            activeClass
+            activeClass,
+            hideDisabled
         } = this.props;
 
         const paginationInfo = new paginator(itemsCountPerPage, pageRangeDisplayed)
@@ -66,6 +72,7 @@ export default class Pagination extends React.Component {
                         isActive={i === activePage}
                         key={i}
                         pageNumber={i}
+                        pageText={i + ""}
                         onClick={onChange}
                         activeClass={activeClass}
                     />
@@ -73,42 +80,46 @@ export default class Pagination extends React.Component {
             }
         }
 
-        pages.unshift(
+        (hideDisabled && !paginationInfo.has_previous_page) || pages.unshift(
             <Page
                 key={"prev" + paginationInfo.previous_page}
                 pageNumber={paginationInfo.previous_page}
                 onClick={onChange}
                 pageText={prevPageText}
+                pageElement={prevPageElement}
                 isDisabled={!paginationInfo.has_previous_page}
             />
         );
 
-        pages.unshift(
+        (hideDisabled && !paginationInfo.has_previous_page) || pages.unshift(
             <Page
                 key={"first"}
                 pageNumber={1}
                 onClick={onChange}
                 pageText={firstPageText}
+                pageElement={firstPageElement}
                 isDisabled={paginationInfo.current_page === paginationInfo.first_page}
             />
         );
 
-        pages.push(
+        (hideDisabled && !paginationInfo.has_next_page) || pages.push(
             <Page
                 key={"next" + paginationInfo.next_page}
                 pageNumber={paginationInfo.next_page}
                 onClick={onChange}
                 pageText={nextPageText}
+                pageElement={nextPageElement}
                 isDisabled={!paginationInfo.has_next_page}
             />
         );
 
-        pages.push(
+        (hideDisabled && !paginationInfo.has_next_page) || pages.push(
             <Page
                 key={"last"}
                 pageNumber={paginationInfo.total_pages}
                 onClick={onChange}
                 pageText={lastPageText}
+                pageElement={lastPageElement}
                 isDisabled={paginationInfo.current_page === paginationInfo.total_pages}
             />
         );
