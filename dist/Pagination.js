@@ -49,7 +49,8 @@ var Pagination = function (_React$Component) {
                 lastPageText = _props.lastPageText,
                 totalItemsCount = _props.totalItemsCount,
                 onChange = _props.onChange,
-                activeClass = _props.activeClass;
+                activeClass = _props.activeClass,
+                hideDisabled = _props.hideDisabled;
 
 
             var paginationInfo = new _paginator2.default(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
@@ -60,13 +61,14 @@ var Pagination = function (_React$Component) {
                         isActive: i === activePage,
                         key: i,
                         pageNumber: i,
+                        pageText: i + "",
                         onClick: onChange,
                         activeClass: activeClass
                     }));
                 }
             }
 
-            pages.unshift(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_previous_page || pages.unshift(_react2.default.createElement(_Page2.default, {
                 key: "prev" + paginationInfo.previous_page,
                 pageNumber: paginationInfo.previous_page,
                 onClick: onChange,
@@ -74,7 +76,7 @@ var Pagination = function (_React$Component) {
                 isDisabled: !paginationInfo.has_previous_page
             }));
 
-            pages.unshift(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_previous_page || pages.unshift(_react2.default.createElement(_Page2.default, {
                 key: "first",
                 pageNumber: 1,
                 onClick: onChange,
@@ -82,7 +84,7 @@ var Pagination = function (_React$Component) {
                 isDisabled: paginationInfo.current_page === paginationInfo.first_page
             }));
 
-            pages.push(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_next_page || pages.push(_react2.default.createElement(_Page2.default, {
                 key: "next" + paginationInfo.next_page,
                 pageNumber: paginationInfo.next_page,
                 onClick: onChange,
@@ -90,7 +92,7 @@ var Pagination = function (_React$Component) {
                 isDisabled: !paginationInfo.has_next_page
             }));
 
-            pages.push(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_next_page || pages.push(_react2.default.createElement(_Page2.default, {
                 key: "last",
                 pageNumber: paginationInfo.total_pages,
                 onClick: onChange,
@@ -119,15 +121,15 @@ Pagination.propTypes = {
     totalItemsCount: _react.PropTypes.number.isRequired,
     onChange: _react.PropTypes.func.isRequired,
     activePage: _react.PropTypes.number,
-    pageRangeDisplayed: _react.PropTypes.number,
     itemsCountPerPage: _react.PropTypes.number,
+    pageRangeDisplayed: _react.PropTypes.number,
     prevPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
     nextPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
     lastPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
     firstPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
     innerClass: _react.PropTypes.string,
     activeClass: _react.PropTypes.string,
-    disabledClass: _react.PropTypes.string
+    hideDisabled: _react.PropTypes.bool
 };
 Pagination.defaultProps = {
     itemsCountPerPage: 10,
@@ -139,4 +141,18 @@ Pagination.defaultProps = {
     lastPageText: "»",
     innerClass: "pagination"
 };
-exports.default = Pagination;
+var _default = Pagination;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Pagination, "Pagination", "src/components/Pagination.js");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "src/components/Pagination.js");
+}();
+
+;

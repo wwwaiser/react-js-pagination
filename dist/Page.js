@@ -34,37 +34,41 @@ var Page = function (_Component) {
     }
 
     _createClass(Page, [{
+        key: "handleClick",
+        value: function handleClick(e) {
+            var _props = this.props,
+                isDisabled = _props.isDisabled,
+                pageNumber = _props.pageNumber;
+
+            e.preventDefault();
+            if (isDisabled) {
+                return;
+            }
+            this.props.onClick(pageNumber);
+        }
+    }, {
         key: "render",
         value: function render() {
-            var _cx,
-                _this2 = this;
+            var _cx;
 
-            var _props = this.props,
-                pageText = _props.pageText,
-                pageNumber = _props.pageNumber,
-                activeClass = _props.activeClass,
-                disabledClass = _props.disabledClass,
-                isActive = _props.isActive,
-                isDisabled = _props.isDisabled;
+            var _props2 = this.props,
+                pageText = _props2.pageText,
+                pageNumber = _props2.pageNumber,
+                activeClass = _props2.activeClass,
+                disabledClass = _props2.disabledClass,
+                isActive = _props2.isActive,
+                isDisabled = _props2.isDisabled;
 
 
-            var text = pageText || pageNumber;
             var css = (0, _classnames2.default)((_cx = {}, _defineProperty(_cx, activeClass, isActive), _defineProperty(_cx, disabledClass, isDisabled), _cx));
-
-            if (_react2.default.isValidElement(text)) {
-                return text;
-            }
 
             return _react2.default.createElement(
                 "li",
-                { className: css },
+                { className: css, onClick: this.handleClick.bind(this) },
                 _react2.default.createElement(
                     "a",
-                    { onClick: function onClick(e) {
-                            e.preventDefault();
-                            _this2.props.onClick(pageNumber);
-                        }, href: "#" },
-                    text
+                    { href: "#" },
+                    pageText
                 )
             );
         }
@@ -84,7 +88,22 @@ Page.propTypes = {
 };
 Page.defaultProps = {
     activeClass: "active",
+    disabledClass: "disabled",
     isActive: false,
     isDisabled: false
 };
-exports.default = Page;
+var _default = Page;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Page, "Page", "src/components/Page.js");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "src/components/Page.js");
+}();
+
+;
