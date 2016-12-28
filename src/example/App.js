@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import Pagination from "../components/Pagination";
-require("bootstrap/less/bootstrap.less");
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { sunburst } from "react-syntax-highlighter/dist/styles";
+import "./App.less";
+import "bootstrap/less/bootstrap.less";
 
 const PER_PAGE = 10;
+const TOTAL_COUNT = 450;
 
 export default class App extends Component {
   constructor(props) {
@@ -19,58 +23,176 @@ export default class App extends Component {
   }
 
   render() {
+    const defaultSnippet = `render() {
+  return (
+    <Pagination
+      activePage={this.state.activePage} 
+      itemsCountPerPage={PER_PAGE} 
+      totalItemsCount={TOTAL_COUNT} 
+      onChange={this.handlePageChange}
+    />
+  );
+}`;
+
+    const hideDisabled = `render() {
+  return (
+    <Pagination
+      hideDisabled
+      activePage={this.state.activePage} 
+      itemsCountPerPage={PER_PAGE} 
+      totalItemsCount={TOTAL_COUNT} 
+      onChange={this.handlePageChange}
+    />
+  );
+}`;
+
+    const customRange = `render() {
+  return (
+    <Pagination
+      pageRangeDisplayed={10}
+      activePage={this.state.activePage} 
+      itemsCountPerPage={PER_PAGE} 
+      totalItemsCount={TOTAL_COUNT} 
+      onChange={this.handlePageChange}
+    />
+  );
+}`;
+    const overrideText = `render() {
+  return (
+    <Pagination
+      prevPageText='prev'
+      nextPageText='next'
+      firstPageText='first'
+      lastPageText='last'
+      activePage={this.state.activePage} 
+      itemsCountPerPage={PER_PAGE} 
+      totalItemsCount={TOTAL_COUNT} 
+      onChange={this.handlePageChange}
+    />
+  );
+}`;
+
+    const overrideElement = `render() {
+  return (
+    <Pagination
+      firstPageText={<i className='glyphicon glyphicon-chevron-left'/>}
+      lastPageText={<i className='glyphicon glyphicon-chevron-right'/>}
+      prevPageText={<i className='glyphicon glyphicon-menu-left'/>}
+      nextPageText={<i className='glyphicon glyphicon-menu-right'/>}
+      activePage={this.state.activePage} 
+      itemsCountPerPage={PER_PAGE} 
+      totalItemsCount={TOTAL_COUNT} 
+      onChange={this.handlePageChange}
+    />
+  );
+}`;
+    
     return (
-      <div>
-        <h2>Default:</h2>
-        <Pagination 
-          activePage={this.state.activePage} 
-          itemsCountPerPage={PER_PAGE} 
-          totalItemsCount={450} 
-          onChange={this.handlePageChange}
-        />
+      <div className='app'>
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <a href='#default'>
+              <h4 id='default' class="panel-title">Default</h4>
+            </a>
+          </div>
+          <div className="panel-body">
+            <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
+            <div className='text-center'>
+              <Pagination 
+                activePage={this.state.activePage} 
+                itemsCountPerPage={PER_PAGE} 
+                totalItemsCount={TOTAL_COUNT} 
+                onChange={this.handlePageChange}
+              />
+            </div>
+          </div>
+        </div>
 
-        <h2>Hide disabled:</h2>
-        <Pagination 
-          activePage={this.state.activePage} 
-          itemsCountPerPage={PER_PAGE} 
-          totalItemsCount={450} 
-          onChange={this.handlePageChange}
-          hideDisabled
-        />
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <a href='#hide-disabled'>
+              <h4 id='hide-disabled' class="panel-title">Hide disabled</h4>
+            </a>
+          </div>
+          <div className="panel-body">
+            <SyntaxHighlighter language='javascript' style={sunburst}>{hideDisabled}</SyntaxHighlighter>
+            <div className='text-center'>
+              <Pagination 
+                hideDisabled
+                activePage={this.state.activePage} 
+                itemsCountPerPage={PER_PAGE} 
+                totalItemsCount={TOTAL_COUNT} 
+                onChange={this.handlePageChange}
+              />
+            </div>
+          </div>
+        </div>
 
-        <h2>Custom pages range:</h2>
-        <Pagination 
-          activePage={this.state.activePage} 
-          itemsCountPerPage={PER_PAGE} 
-          totalItemsCount={450} 
-          pageRangeDisplayed={10}
-          onChange={this.handlePageChange}
-        />
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <a href='#custom-range'>
+              <h4 id='custom-range'>Custom pages range:</h4>
+            </a>
+          </div>
+          <div className="panel-body">
+            <SyntaxHighlighter language='javascript' style={sunburst}>{customRange}</SyntaxHighlighter>
+            <div className='text-center'>
+              <Pagination 
+                pageRangeDisplayed={10}
+                activePage={this.state.activePage} 
+                itemsCountPerPage={PER_PAGE} 
+                totalItemsCount={TOTAL_COUNT} 
+                onChange={this.handlePageChange}
+              />
+            </div>
+          </div>
+        </div>
 
-        <h2>Custom navigation texts:</h2>
-        <Pagination 
-          activePage={this.state.activePage} 
-          itemsCountPerPage={PER_PAGE} 
-          totalItemsCount={450} 
-          onChange={this.handlePageChange}
-          prevPageText='prev'
-          nextPageText='next'
-          firstPageText='first'
-          lastPageText='last'
-        />
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <a href='#custom-navigation-text'>
+              <h4 id='custom-navigation-text'>Custom navigation texts:</h4>
+            </a>
+          </div>
+          <div className="panel-body">
+            <SyntaxHighlighter language='javascript' style={sunburst}>{overrideText}</SyntaxHighlighter>
+            <div className='text-center'>
+              <Pagination 
+                prevPageText='prev'
+                nextPageText='next'
+                firstPageText='first'
+                lastPageText='last'
+                activePage={this.state.activePage} 
+                itemsCountPerPage={PER_PAGE} 
+                totalItemsCount={TOTAL_COUNT} 
+                onChange={this.handlePageChange}
+              />
+            </div>
+          </div>
+        </div>
 
-        <h2>Custom navigation elements:</h2>
-        <Pagination 
-          activePage={this.state.activePage} 
-          itemsCountPerPage={PER_PAGE} 
-          totalItemsCount={450} 
-          onChange={this.handlePageChange}
-          firstPageElement={<li><a href='#'><i className='glyphicon glyphicon-chevron-left'/></a></li>}
-          lastPageElement={<li><a href='#'><i className='glyphicon glyphicon-chevron-right'/></a></li>}
-          prevPageElement={<li><a href='#'><i className='glyphicon glyphicon-menu-left'/></a></li>}
-          nextPageElement={<li><a href='#'><i className='glyphicon glyphicon-menu-right'/></a></li>}
-        />
-
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <a href='#custom-navigation-elements'>
+              <h4 id='custom-navigation-elements'>Custom navigation elements:</h4>
+            </a>
+          </div>
+          <div className="panel-body">
+            <SyntaxHighlighter language='javascript' style={sunburst}>{overrideElement}</SyntaxHighlighter>
+            <div className='text-center'>
+              <Pagination 
+                firstPageText={<i className='glyphicon glyphicon-chevron-left'/>}
+                lastPageText={<i className='glyphicon glyphicon-chevron-right'/>}
+                prevPageText={<i className='glyphicon glyphicon-menu-left'/>}
+                nextPageText={<i className='glyphicon glyphicon-menu-right'/>}
+                activePage={this.state.activePage} 
+                itemsCountPerPage={PER_PAGE} 
+                totalItemsCount={TOTAL_COUNT} 
+                onChange={this.handlePageChange}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

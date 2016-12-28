@@ -1,6 +1,6 @@
 {
   "name": "react-js-pagination",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Simple, easy to use component for pagination. Compatible with bootstrap paginator stylesheets",
   "main": "./dist/Pagination.js",
   "scripts": {

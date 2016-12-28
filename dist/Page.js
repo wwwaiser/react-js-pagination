@@ -84,7 +84,6 @@ Page.propTypes = {
 };
 Page.defaultProps = {
     activeClass: "active",
-    disabledClass: "disabled",
     isActive: false,
     isDisabled: false
 };

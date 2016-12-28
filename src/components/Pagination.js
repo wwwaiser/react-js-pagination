@@ -7,13 +7,12 @@ export default class Pagination extends React.Component {
       totalItemsCount: PropTypes.number.isRequired,
       onChange: PropTypes.func.isRequired,
       activePage: PropTypes.number,
-      pageRangeDisplayed: PropTypes.number,
       itemsCountPerPage: PropTypes.number,
+      pageRangeDisplayed: PropTypes.number,
       prevPageText: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
       ]),
-      prevPageElement: PropTypes.element,
       nextPageText: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
@@ -28,7 +27,7 @@ export default class Pagination extends React.Component {
       ]),
       innerClass: PropTypes.string,
       activeClass: PropTypes.string,
-      hideDisabled: PropTypes.string
+      hideDisabled: PropTypes.bool
     }
 
     static defaultProps = {
@@ -49,13 +48,9 @@ export default class Pagination extends React.Component {
             pageRangeDisplayed,
             activePage,
             prevPageText,
-            prevPageElement,
             nextPageText,
-            nextPageElement,
-            firstPageElement,
             firstPageText,
             lastPageText,
-            lastPageElement,
             totalItemsCount,
             onChange,
             activeClass,
@@ -86,7 +81,6 @@ export default class Pagination extends React.Component {
                 pageNumber={paginationInfo.previous_page}
                 onClick={onChange}
                 pageText={prevPageText}
-                pageElement={prevPageElement}
                 isDisabled={!paginationInfo.has_previous_page}
             />
         );
@@ -97,7 +91,6 @@ export default class Pagination extends React.Component {
                 pageNumber={1}
                 onClick={onChange}
                 pageText={firstPageText}
-                pageElement={firstPageElement}
                 isDisabled={paginationInfo.current_page === paginationInfo.first_page}
             />
         );
@@ -108,7 +101,6 @@ export default class Pagination extends React.Component {
                 pageNumber={paginationInfo.next_page}
                 onClick={onChange}
                 pageText={nextPageText}
-                pageElement={nextPageElement}
                 isDisabled={!paginationInfo.has_next_page}
             />
         );
@@ -119,7 +111,6 @@ export default class Pagination extends React.Component {
                 pageNumber={paginationInfo.total_pages}
                 onClick={onChange}
                 pageText={lastPageText}
-                pageElement={lastPageElement}
                 isDisabled={paginationInfo.current_page === paginationInfo.total_pages}
             />
         );
