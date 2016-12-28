@@ -34,6 +34,6 @@ describe("<Page />", () => {
   it("renders an element as a child if passed an one", () => {
     const child = <strong>1</strong>;
     const wrapper = mount(<Page {...props} pageText={child} />);
-    expect(wrapper.html()).to.eql("<strong>1</strong>");
+    expect(wrapper.html()).to.eql("<li class=\"\"><a href=\"#\"><strong>1</strong></a></li>");
   });
 });
