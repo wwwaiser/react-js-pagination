@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/vayser/react-js-pagination.svg?branch=master)](https://travis-ci.org/vayser/react-js-pagination)
+
 # react-js-pagination
 
 **A ReactJS [dumb](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) component to render a pagination.**
