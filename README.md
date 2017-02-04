@@ -77,4 +77,5 @@ Name | Type | Default | Description
 `nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button
 `innerClass` | String | `pagination` | Class name of `<ul>` tag
 `activeClass` | String | `active` | Class name of active `<li>` tag
+`disabledClass` | String | `disabled` | Class name of the first, previous, next and last `<li>` tags when disabled
 `hideDisabled` | Boolean | `false` | Hide navigation buttons (prev page, next page) if they are disabled.
