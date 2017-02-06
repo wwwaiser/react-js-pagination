@@ -47,5 +47,22 @@ describe("<Pagination />", () => {
       expect(wrapper.find("ul").hasClass("center-block")).to.be.true;
       expect(wrapper.find("ul").hasClass("text-center")).to.be.true;
     });
+
+    it("passes down disabledClass to the prev, first, next and last pages", () => {
+      const disabledClass="somethingElse";
+      const wrapper = mount(
+        <Pagination {...props} hideDisabled={false} totalItemsCount={1} disabledClass={disabledClass} />
+      );
+      const innerUl = wrapper.find("ul");
+      const firstPage = innerUl.childAt(0);
+      const prevPage = innerUl.childAt(1);
+      const nextPage = innerUl.childAt(2);
+      const lastPage = innerUl.childAt(3);
+
+      expect(firstPage.hasClass(disabledClass)).to.be.true;
+      expect(prevPage.hasClass(disabledClass)).to.be.true;
+      expect(nextPage.hasClass(disabledClass)).to.be.true;
+      expect(lastPage.hasClass(disabledClass)).to.be.true;
+    });
   });
 });
