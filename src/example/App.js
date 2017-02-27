@@ -30,6 +30,7 @@ export default class App extends Component {
       itemsCountPerPage={PER_PAGE} 
       totalItemsCount={TOTAL_COUNT} 
       onChange={this.handlePageChange}
+      activeFirstPage={true}
     />
   );
 }`;
@@ -42,6 +43,7 @@ export default class App extends Component {
       itemsCountPerPage={PER_PAGE} 
       totalItemsCount={TOTAL_COUNT} 
       onChange={this.handlePageChange}
+      activeFirstPage={false}
     />
   );
 }`;
@@ -123,6 +125,7 @@ export default class App extends Component {
                 itemsCountPerPage={PER_PAGE} 
                 totalItemsCount={TOTAL_COUNT} 
                 onChange={this.handlePageChange}
+                activeFirstPage={false}
               />
             </div>
           </div>

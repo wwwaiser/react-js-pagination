@@ -28,7 +28,8 @@ export default class Pagination extends React.Component {
       innerClass: PropTypes.string,
       activeClass: PropTypes.string,
       disabledClass: PropTypes.string,
-      hideDisabled: PropTypes.bool
+      hideDisabled: PropTypes.bool,
+      activeFirstPage: PropTypes.bool
     }
 
     static defaultProps = {
@@ -40,6 +41,7 @@ export default class Pagination extends React.Component {
       nextPageText: "⟩",
       lastPageText: "»",
       innerClass: "pagination",
+      activeFirstPage: true
     }
 
     buildPages() {
@@ -56,25 +58,39 @@ export default class Pagination extends React.Component {
             onChange,
             activeClass,
             disabledClass,
-            hideDisabled
+            hideDisabled,
+            activeFirstPage
         } = this.props;
 
         const paginationInfo = new paginator(itemsCountPerPage, pageRangeDisplayed)
             .build(totalItemsCount, activePage);
 
         if (paginationInfo.first_page !== paginationInfo.last_page) {
-            for(let i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
-                pages.push(
-                    <Page
-                        isActive={i === activePage}
-                        key={i}
-                        pageNumber={i}
-                        pageText={i + ""}
-                        onClick={onChange}
-                        activeClass={activeClass}
-                    />
-                );
-            }
+          for(let i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
+            pages.push(
+              <Page
+                isActive={i === activePage}
+                key={i}
+                pageNumber={i}
+                pageText={i + ""}
+                onClick={onChange}
+                activeClass={activeClass}
+              />
+            );
+          }
+        } else {
+          if (activeFirstPage) {
+            pages.push(
+              <Page
+                isActive={true}
+                key={1}
+                pageNumber={1}
+                pageText={'1'}
+                onClick={onChange}
+                activeClass={activeClass}
+              />
+            );
+          }
         }
 
         (hideDisabled && !paginationInfo.has_previous_page) || pages.unshift(
