@@ -50,6 +50,8 @@ var Pagination = function (_React$Component) {
                 totalItemsCount = _props.totalItemsCount,
                 onChange = _props.onChange,
                 activeClass = _props.activeClass,
+                itemClass = _props.itemClass,
+                linkClass = _props.linkClass,
                 disabledClass = _props.disabledClass,
                 hideDisabled = _props.hideDisabled;
 
@@ -64,6 +66,8 @@ var Pagination = function (_React$Component) {
                         pageNumber: i,
                         pageText: i + "",
                         onClick: onChange,
+                        itemClass: itemClass,
+                        linkClass: linkClass,
                         activeClass: activeClass
                     }));
                 }
@@ -75,6 +79,8 @@ var Pagination = function (_React$Component) {
                 onClick: onChange,
                 pageText: prevPageText,
                 isDisabled: !paginationInfo.has_previous_page,
+                itemClass: itemClass,
+                linkClass: linkClass,
                 disabledClass: disabledClass
             }));
 
@@ -84,6 +90,8 @@ var Pagination = function (_React$Component) {
                 onClick: onChange,
                 pageText: firstPageText,
                 isDisabled: paginationInfo.current_page === paginationInfo.first_page,
+                itemClass: itemClass,
+                linkClass: linkClass,
                 disabledClass: disabledClass
             }));
 
@@ -93,6 +101,8 @@ var Pagination = function (_React$Component) {
                 onClick: onChange,
                 pageText: nextPageText,
                 isDisabled: !paginationInfo.has_next_page,
+                itemClass: itemClass,
+                linkClass: linkClass,
                 disabledClass: disabledClass
             }));
 
@@ -102,6 +112,8 @@ var Pagination = function (_React$Component) {
                 onClick: onChange,
                 pageText: lastPageText,
                 isDisabled: paginationInfo.current_page === paginationInfo.total_pages,
+                itemClass: itemClass,
+                linkClass: linkClass,
                 disabledClass: disabledClass
             }));
 
@@ -133,6 +145,8 @@ Pagination.propTypes = {
     lastPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
     firstPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
     innerClass: _react.PropTypes.string,
+    itemClass: _react.PropTypes.string,
+    linkClass: _react.PropTypes.string,
     activeClass: _react.PropTypes.string,
     disabledClass: _react.PropTypes.string,
     hideDisabled: _react.PropTypes.bool
@@ -145,7 +159,9 @@ Pagination.defaultProps = {
     firstPageText: "«",
     nextPageText: "⟩",
     lastPageText: "»",
-    innerClass: "pagination"
+    innerClass: "pagination",
+    itemClass: undefined,
+    linkClass: undefined
 };
 var _default = Pagination;
 exports.default = _default;

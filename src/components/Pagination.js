@@ -26,6 +26,8 @@ export default class Pagination extends React.Component {
         PropTypes.element
       ]),
       innerClass: PropTypes.string,
+      itemClass: PropTypes.string,
+      linkClass: PropTypes.string,
       activeClass: PropTypes.string,
       disabledClass: PropTypes.string,
       hideDisabled: PropTypes.bool
@@ -40,6 +42,8 @@ export default class Pagination extends React.Component {
       nextPageText: "⟩",
       lastPageText: "»",
       innerClass: "pagination",
+      itemClass: undefined,
+      linkClass: undefined,
     }
 
     buildPages() {
@@ -55,6 +59,8 @@ export default class Pagination extends React.Component {
             totalItemsCount,
             onChange,
             activeClass,
+            itemClass,
+            linkClass,
             disabledClass,
             hideDisabled
         } = this.props;
@@ -71,6 +77,8 @@ export default class Pagination extends React.Component {
                         pageNumber={i}
                         pageText={i + ""}
                         onClick={onChange}
+                        itemClass={itemClass}
+                        linkClass={linkClass}
                         activeClass={activeClass}
                     />
                 );
@@ -84,6 +92,8 @@ export default class Pagination extends React.Component {
                 onClick={onChange}
                 pageText={prevPageText}
                 isDisabled={!paginationInfo.has_previous_page}
+                itemClass={itemClass}
+                linkClass={linkClass}
                 disabledClass={disabledClass}
             />
         );
@@ -95,6 +105,8 @@ export default class Pagination extends React.Component {
                 onClick={onChange}
                 pageText={firstPageText}
                 isDisabled={paginationInfo.current_page === paginationInfo.first_page}
+                itemClass={itemClass}
+                linkClass={linkClass}
                 disabledClass={disabledClass}
             />
         );
@@ -106,6 +118,8 @@ export default class Pagination extends React.Component {
                 onClick={onChange}
                 pageText={nextPageText}
                 isDisabled={!paginationInfo.has_next_page}
+                itemClass={itemClass}
+                linkClass={linkClass}
                 disabledClass={disabledClass}
             />
         );
@@ -117,6 +131,8 @@ export default class Pagination extends React.Component {
                 onClick={onChange}
                 pageText={lastPageText}
                 isDisabled={paginationInfo.current_page === paginationInfo.total_pages}
+                itemClass={itemClass}
+                linkClass={linkClass}
                 disabledClass={disabledClass}
             />
         );
