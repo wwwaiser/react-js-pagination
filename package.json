@@ -10,8 +10,9 @@
     "build-example": "npm run clean-example && npm run build:webpack",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "start": "node devServer.js",
-    "lint": "eslint src/**/*.js",
+    "lint": "eslint 'src/components/**/*.js'",
     "test": "mocha --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'",
+    "validate": "npm-run-all lint test",
     "test:watch": "mocha -w --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'"
   },
   "repository": {
@@ -59,19 +60,21 @@
     "less-loader": "^2.2.1",
     "mkdirp": "^0.5.1",
     "mocha": "^2.4.5",
+    "npm-run-all": "^4.0.2",
     "react-addons-test-utils": "^0.14.7 || ^15.0.1",
+    "react-hot-loader": "^3.0.0-beta.6",
     "rimraf": "^2.4.3",
     "style-loader": "^0.12.4",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.0.0",
-    "react-hot-loader": "^3.0.0-beta.6"
+    "webpack-hot-middleware": "^2.0.0"
   },
   "dependencies": {
-    "react-dom": "^15.0.0",
-    "react": "^15.0.0",
     "classnames": "^2.2.5",
-    "paginator": "^1.0.0"
+    "paginator": "^1.0.0",
+    "prop-types": "^15.5.8",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
   }
 }

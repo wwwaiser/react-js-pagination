@@ -10,6 +10,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _paginator = require("paginator");
 
 var _paginator2 = _interopRequireDefault(_paginator);
@@ -135,21 +139,21 @@ var Pagination = function (_React$Component) {
 }(_react2.default.Component);
 
 Pagination.propTypes = {
-    totalItemsCount: _react.PropTypes.number.isRequired,
-    onChange: _react.PropTypes.func.isRequired,
-    activePage: _react.PropTypes.number,
-    itemsCountPerPage: _react.PropTypes.number,
-    pageRangeDisplayed: _react.PropTypes.number,
-    prevPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-    nextPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-    lastPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-    firstPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-    innerClass: _react.PropTypes.string,
-    itemClass: _react.PropTypes.string,
-    linkClass: _react.PropTypes.string,
-    activeClass: _react.PropTypes.string,
-    disabledClass: _react.PropTypes.string,
-    hideDisabled: _react.PropTypes.bool
+    totalItemsCount: _propTypes2.default.number.isRequired,
+    onChange: _propTypes2.default.func.isRequired,
+    activePage: _propTypes2.default.number,
+    itemsCountPerPage: _propTypes2.default.number,
+    pageRangeDisplayed: _propTypes2.default.number,
+    prevPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    nextPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    lastPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    firstPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    innerClass: _propTypes2.default.string,
+    itemClass: _propTypes2.default.string,
+    linkClass: _propTypes2.default.string,
+    activeClass: _propTypes2.default.string,
+    disabledClass: _propTypes2.default.string,
+    hideDisabled: _propTypes2.default.bool
 };
 Pagination.defaultProps = {
     itemsCountPerPage: 10,

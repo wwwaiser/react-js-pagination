@@ -10,6 +10,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _classnames = require("classnames");
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -82,15 +86,15 @@ var Page = function (_Component) {
 }(_react.Component);
 
 Page.propTypes = {
-    pageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-    pageNumber: _react.PropTypes.number.isRequired,
-    onClick: _react.PropTypes.func.isRequired,
-    isActive: _react.PropTypes.bool.isRequired,
-    isDisabled: _react.PropTypes.bool,
-    activeClass: _react.PropTypes.string,
-    itemClass: _react.PropTypes.string,
-    linkClass: _react.PropTypes.string,
-    disabledClass: _react.PropTypes.string
+    pageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    pageNumber: _propTypes2.default.number.isRequired,
+    onClick: _propTypes2.default.func.isRequired,
+    isActive: _propTypes2.default.bool.isRequired,
+    isDisabled: _propTypes2.default.bool,
+    activeClass: _propTypes2.default.string,
+    itemClass: _propTypes2.default.string,
+    linkClass: _propTypes2.default.string,
+    disabledClass: _propTypes2.default.string
 };
 Page.defaultProps = {
     activeClass: "active",
