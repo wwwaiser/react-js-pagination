@@ -34,12 +34,12 @@ describe("<Page />", () => {
   it("assigns a custom class to the list item", () => {
     const wrapper = mount(<Page {...props} itemClass="page-item" />);
     expect(wrapper.find("li").hasClass("page-item")).to.be.true;
-  })
+  });
 
   it("assigns a link class to the link", () => {
     const wrapper = mount(<Page {...props} linkClass="page-link" />);
     expect(wrapper.find("a").hasClass("page-link")).to.be.true;
-  })
+  });
 
   it("renders an element as a child if passed an one", () => {
     const child = <strong>1</strong>;

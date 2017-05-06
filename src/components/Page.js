@@ -48,15 +48,12 @@ export default class Page extends Component {
           isDisabled,
         } = this.props;
 
-        const css = cx({
+        const css = cx(itemClass, {
           [activeClass]: isActive,
           [disabledClass]: isDisabled,
-          [itemClass]: itemClass !== undefined,
         });
 				
-        const linkCss = cx({
-          [linkClass]: linkClass !== undefined,
-        });
+        const linkCss = cx(linkClass);
 
         return (
             <li className={css} onClick={::this.handleClick}>

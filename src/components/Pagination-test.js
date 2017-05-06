@@ -88,10 +88,10 @@ describe("<Pagination />", () => {
         <Pagination {...props} hideDisabled={false} totalItemsCount={1} linkClass={linkClass} />
       );
       const innerUl = wrapper.find("ul");
-      const firstPage = innerUl.childAt(0).find('a');
-      const prevPage = innerUl.childAt(1).find('a');
-      const nextPage = innerUl.childAt(2).find('a');
-      const lastPage = innerUl.childAt(3).find('a');
+      const firstPage = innerUl.childAt(0).find("a");
+      const prevPage = innerUl.childAt(1).find("a");
+      const nextPage = innerUl.childAt(2).find("a");
+      const lastPage = innerUl.childAt(3).find("a");
 
       expect(firstPage.hasClass(linkClass)).to.be.true;
       expect(prevPage.hasClass(linkClass)).to.be.true;
