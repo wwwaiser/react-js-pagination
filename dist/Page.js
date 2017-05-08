@@ -59,19 +59,23 @@ var Page = function (_Component) {
                 pageText = _props2.pageText,
                 pageNumber = _props2.pageNumber,
                 activeClass = _props2.activeClass,
+                itemClass = _props2.itemClass,
+                linkClass = _props2.linkClass,
                 disabledClass = _props2.disabledClass,
                 isActive = _props2.isActive,
                 isDisabled = _props2.isDisabled;
 
 
-            var css = (0, _classnames2.default)((_cx = {}, _defineProperty(_cx, activeClass, isActive), _defineProperty(_cx, disabledClass, isDisabled), _cx));
+            var css = (0, _classnames2.default)((_cx = {}, _defineProperty(_cx, activeClass, isActive), _defineProperty(_cx, disabledClass, isDisabled), _defineProperty(_cx, itemClass, itemClass !== undefined), _cx));
+
+            var linkCss = (0, _classnames2.default)(_defineProperty({}, linkClass, linkClass !== undefined));
 
             return _react2.default.createElement(
                 "li",
                 { className: css, onClick: this.handleClick.bind(this) },
                 _react2.default.createElement(
                     "a",
-                    { href: "#" },
+                    { className: linkCss, href: "#" },
                     pageText
                 )
             );
@@ -88,11 +92,15 @@ Page.propTypes = {
     isActive: _propTypes2.default.bool.isRequired,
     isDisabled: _propTypes2.default.bool,
     activeClass: _propTypes2.default.string,
+    itemClass: _propTypes2.default.string,
+    linkClass: _propTypes2.default.string,
     disabledClass: _propTypes2.default.string
 };
 Page.defaultProps = {
     activeClass: "active",
     disabledClass: "disabled",
+    itemClass: undefined,
+    linkClass: undefined,
     isActive: false,
     isDisabled: false
 };

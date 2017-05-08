@@ -64,5 +64,39 @@ describe("<Pagination />", () => {
       expect(nextPage.hasClass(disabledClass)).to.be.true;
       expect(lastPage.hasClass(disabledClass)).to.be.true;
     });
+		
+    it("passes down itemClass to the prev, first, next and last pages", () => {
+      const itemClass="somethingElse";
+      const wrapper = mount(
+        <Pagination {...props} hideDisabled={false} totalItemsCount={1} itemClass={itemClass} />
+      );
+      const innerUl = wrapper.find("ul");
+      const firstPage = innerUl.childAt(0);
+      const prevPage = innerUl.childAt(1);
+      const nextPage = innerUl.childAt(2);
+      const lastPage = innerUl.childAt(3);
+
+      expect(firstPage.hasClass(itemClass)).to.be.true;
+      expect(prevPage.hasClass(itemClass)).to.be.true;
+      expect(nextPage.hasClass(itemClass)).to.be.true;
+      expect(lastPage.hasClass(itemClass)).to.be.true;
+    });
+		
+    it("passes down linkClass to the prev, first, next and last pages links", () => {
+      const linkClass="somethingElse";
+      const wrapper = mount(
+        <Pagination {...props} hideDisabled={false} totalItemsCount={1} linkClass={linkClass} />
+      );
+      const innerUl = wrapper.find("ul");
+      const firstPage = innerUl.childAt(0).find("a");
+      const prevPage = innerUl.childAt(1).find("a");
+      const nextPage = innerUl.childAt(2).find("a");
+      const lastPage = innerUl.childAt(3).find("a");
+
+      expect(firstPage.hasClass(linkClass)).to.be.true;
+      expect(prevPage.hasClass(linkClass)).to.be.true;
+      expect(nextPage.hasClass(linkClass)).to.be.true;
+      expect(lastPage.hasClass(linkClass)).to.be.true;
+    });
   });
 });
