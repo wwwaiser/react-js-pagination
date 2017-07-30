@@ -30,6 +30,7 @@ export default class Pagination extends React.Component {
       itemClass: PropTypes.string,
       linkClass: PropTypes.string,
       activeClass: PropTypes.string,
+      activeLinkClass: PropTypes.string,
       disabledClass: PropTypes.string,
       hideDisabled: PropTypes.bool,
       hideNavigation: PropTypes.bool
@@ -46,6 +47,7 @@ export default class Pagination extends React.Component {
       innerClass: "pagination",
       itemClass: undefined,
       linkClass: undefined,
+      activeLinkClass: undefined
     }
 
     buildPages() {
@@ -63,6 +65,7 @@ export default class Pagination extends React.Component {
             activeClass,
             itemClass,
             linkClass,
+            activeLinkClass,
             disabledClass,
             hideDisabled,
             hideNavigation
@@ -83,6 +86,7 @@ export default class Pagination extends React.Component {
                         itemClass={itemClass}
                         linkClass={linkClass}
                         activeClass={activeClass}
+                        activeLinkClass={activeLinkClass}
                     />
                 );
             }

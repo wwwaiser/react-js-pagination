@@ -13,6 +13,7 @@ export default class Page extends Component {
         isActive: PropTypes.bool.isRequired,
         isDisabled: PropTypes.bool,
         activeClass: PropTypes.string,
+		activeLinkClass: PropTypes.string,
         itemClass: PropTypes.string,
         linkClass: PropTypes.string,
         disabledClass: PropTypes.string
@@ -23,6 +24,7 @@ export default class Page extends Component {
         disabledClass: "disabled",
         itemClass: undefined,
         linkClass: undefined,
+        activeLinkCLass: undefined,
         isActive: false,
         isDisabled: false
     }
@@ -43,6 +45,7 @@ export default class Page extends Component {
           activeClass,
           itemClass,
           linkClass,
+          activeLinkClass,
           disabledClass,
           isActive,
           isDisabled,
@@ -53,7 +56,9 @@ export default class Page extends Component {
           [disabledClass]: isDisabled,
         });
 				
-        const linkCss = cx(linkClass);
+        const linkCss = cx(linkClass, {
+            [activeLinkClass]: isActive
+        });
 
         return (
             <li className={css} onClick={::this.handleClick}>
