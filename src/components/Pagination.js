@@ -30,8 +30,10 @@ export default class Pagination extends React.Component {
       itemClass: PropTypes.string,
       linkClass: PropTypes.string,
       activeClass: PropTypes.string,
+      activeLinkClass: PropTypes.string,
       disabledClass: PropTypes.string,
-      hideDisabled: PropTypes.bool
+      hideDisabled: PropTypes.bool,
+      hideNavigation: PropTypes.bool
     }
 
     static defaultProps = {
@@ -45,6 +47,7 @@ export default class Pagination extends React.Component {
       innerClass: "pagination",
       itemClass: undefined,
       linkClass: undefined,
+      activeLinkClass: undefined
     }
 
     buildPages() {
@@ -62,8 +65,10 @@ export default class Pagination extends React.Component {
             activeClass,
             itemClass,
             linkClass,
+            activeLinkClass,
             disabledClass,
-            hideDisabled
+            hideDisabled,
+            hideNavigation
         } = this.props;
 
         const paginationInfo = new paginator(itemsCountPerPage, pageRangeDisplayed)
@@ -81,12 +86,13 @@ export default class Pagination extends React.Component {
                         itemClass={itemClass}
                         linkClass={linkClass}
                         activeClass={activeClass}
+                        activeLinkClass={activeLinkClass}
                     />
                 );
             }
         }
 
-        (hideDisabled && !paginationInfo.has_previous_page) || pages.unshift(
+        ((hideDisabled && !paginationInfo.has_previous_page) || hideNavigation) || pages.unshift(
             <Page
                 key={"prev" + paginationInfo.previous_page}
                 pageNumber={paginationInfo.previous_page}
@@ -99,7 +105,7 @@ export default class Pagination extends React.Component {
             />
         );
 
-        (hideDisabled && !paginationInfo.has_previous_page) || pages.unshift(
+        ((hideDisabled && !paginationInfo.has_previous_page) || hideNavigation) || pages.unshift(
             <Page
                 key={"first"}
                 pageNumber={1}
@@ -112,7 +118,7 @@ export default class Pagination extends React.Component {
             />
         );
 
-        (hideDisabled && !paginationInfo.has_next_page) || pages.push(
+        ((hideDisabled && !paginationInfo.has_next_page) || hideNavigation) || pages.push(
             <Page
                 key={"next" + paginationInfo.next_page}
                 pageNumber={paginationInfo.next_page}
@@ -125,7 +131,7 @@ export default class Pagination extends React.Component {
             />
         );
 
-        (hideDisabled && !paginationInfo.has_next_page) || pages.push(
+        ((hideDisabled && !paginationInfo.has_next_page) || hideNavigation) || pages.push(
             <Page
                 key={"last"}
                 pageNumber={paginationInfo.total_pages}

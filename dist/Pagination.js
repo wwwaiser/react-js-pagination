@@ -56,8 +56,10 @@ var Pagination = function (_React$Component) {
                 activeClass = _props.activeClass,
                 itemClass = _props.itemClass,
                 linkClass = _props.linkClass,
+                activeLinkClass = _props.activeLinkClass,
                 disabledClass = _props.disabledClass,
-                hideDisabled = _props.hideDisabled;
+                hideDisabled = _props.hideDisabled,
+                hideNavigation = _props.hideNavigation;
 
 
             var paginationInfo = new _paginator2.default(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
@@ -72,12 +74,13 @@ var Pagination = function (_React$Component) {
                         onClick: onChange,
                         itemClass: itemClass,
                         linkClass: linkClass,
-                        activeClass: activeClass
+                        activeClass: activeClass,
+                        activeLinkClass: activeLinkClass
                     }));
                 }
             }
 
-            hideDisabled && !paginationInfo.has_previous_page || pages.unshift(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_previous_page || hideNavigation || pages.unshift(_react2.default.createElement(_Page2.default, {
                 key: "prev" + paginationInfo.previous_page,
                 pageNumber: paginationInfo.previous_page,
                 onClick: onChange,
@@ -88,7 +91,7 @@ var Pagination = function (_React$Component) {
                 disabledClass: disabledClass
             }));
 
-            hideDisabled && !paginationInfo.has_previous_page || pages.unshift(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_previous_page || hideNavigation || pages.unshift(_react2.default.createElement(_Page2.default, {
                 key: "first",
                 pageNumber: 1,
                 onClick: onChange,
@@ -99,7 +102,7 @@ var Pagination = function (_React$Component) {
                 disabledClass: disabledClass
             }));
 
-            hideDisabled && !paginationInfo.has_next_page || pages.push(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_next_page || hideNavigation || pages.push(_react2.default.createElement(_Page2.default, {
                 key: "next" + paginationInfo.next_page,
                 pageNumber: paginationInfo.next_page,
                 onClick: onChange,
@@ -110,7 +113,7 @@ var Pagination = function (_React$Component) {
                 disabledClass: disabledClass
             }));
 
-            hideDisabled && !paginationInfo.has_next_page || pages.push(_react2.default.createElement(_Page2.default, {
+            hideDisabled && !paginationInfo.has_next_page || hideNavigation || pages.push(_react2.default.createElement(_Page2.default, {
                 key: "last",
                 pageNumber: paginationInfo.total_pages,
                 onClick: onChange,
@@ -152,8 +155,10 @@ Pagination.propTypes = {
     itemClass: _propTypes2.default.string,
     linkClass: _propTypes2.default.string,
     activeClass: _propTypes2.default.string,
+    activeLinkClass: _propTypes2.default.string,
     disabledClass: _propTypes2.default.string,
-    hideDisabled: _propTypes2.default.bool
+    hideDisabled: _propTypes2.default.bool,
+    hideNavigation: _propTypes2.default.bool
 };
 Pagination.defaultProps = {
     itemsCountPerPage: 10,
@@ -165,7 +170,8 @@ Pagination.defaultProps = {
     lastPageText: "»",
     innerClass: "pagination",
     itemClass: undefined,
-    linkClass: undefined
+    linkClass: undefined,
+    activeLinkClass: undefined
 };
 var _default = Pagination;
 exports.default = _default;
