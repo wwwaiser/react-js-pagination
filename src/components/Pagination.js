@@ -45,8 +45,8 @@ export default class Pagination extends React.Component {
       nextPageText: "⟩",
       lastPageText: "»",
       innerClass: "pagination",
-      itemClass: undefined,
-      linkClass: undefined,
+      itemClass: "page-item",
+      linkClass: "page-link",
       activeLinkClass: undefined
     }
 

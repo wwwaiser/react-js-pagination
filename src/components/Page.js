@@ -22,8 +22,8 @@ export default class Page extends Component {
     static defaultProps = {
         activeClass: "active",
         disabledClass: "disabled",
-        itemClass: undefined,
-        linkClass: undefined,
+        itemClass: "page-item",
+        linkClass: "page-link",
         activeLinkCLass: undefined,
         isActive: false,
         isDisabled: false
