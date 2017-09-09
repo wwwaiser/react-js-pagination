@@ -2,10 +2,11 @@ var path = require("path");
 var webpack = require("webpack");
 
 module.exports = {
-  devtool: "eval",
+  devtool: "cheap-module-source-map",
   entry: [
+    "react-hot-loader/patch",
     "webpack-hot-middleware/client",
-    "./src/example/App"
+    "./src/example/index"
   ],
   output: {
     path: path.join(__dirname, "src/example/dist"),
@@ -13,34 +14,26 @@ module.exports = {
     publicPath: "/src/example/dist/"
   },
   plugins: [
+  new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
   resolveLoader: { root: path.join(__dirname, "node_modules") },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loader: "babel",
-      include: path.join(__dirname, "src"),
-      query: {
-          stage: 0,
-          plugins: ["react-transform"],
-          extra: {
-          "react-transform": [{
-              "target": "react-transform-hmr",
-              "imports": ["react"],
-              "locals": ["module"]
-          }, {
-              "target": "react-transform-catch-errors",
-              "imports": ["react", "redbox-react"]
-          }]
-        }
+    loaders: [
+      {
+        test: /\.js$/,
+        loader: "babel",
+        include: path.join(__dirname, "src"),
+        exclude: /(node_modules|bower_components)/
+      },
+      {
+        test: /\.less$/,
+        loader: "style!css!less"
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: "url-loader?limit=100000"
       }
-    }, {
-      test: /\.less$/,
-      loader: "style!css!less"
-    }, {
-      test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: "url-loader?limit=100000"
-    }]
+    ]
   }
 };

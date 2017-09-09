@@ -1,5 +1,6 @@
-import React, {Component, PropTypes} from "react";
-import classNames from "classnames";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
 export default class Page extends Component {
     static propTypes = {
@@ -9,21 +10,60 @@ export default class Page extends Component {
         ]),
         pageNumber: PropTypes.number.isRequired,
         onClick: PropTypes.func.isRequired,
-        isActive: PropTypes.bool.isRequired
+        isActive: PropTypes.bool.isRequired,
+        isDisabled: PropTypes.bool,
+        activeClass: PropTypes.string,
+		activeLinkClass: PropTypes.string,
+        itemClass: PropTypes.string,
+        linkClass: PropTypes.string,
+        disabledClass: PropTypes.string
+    }
+
+    static defaultProps = {
+        activeClass: "active",
+        disabledClass: "disabled",
+        itemClass: "page-item",
+        linkClass: "page-link",
+        activeLinkCLass: undefined,
+        isActive: false,
+        isDisabled: false
+    }
+
+    handleClick(e) {
+        const { isDisabled, pageNumber } = this.props;
+        e.preventDefault();
+        if (isDisabled) {
+            return;
+        }
+        this.props.onClick(pageNumber);
     }
 
     render() {
-        const className = classNames({
-            "active": this.props.isActive
+        let {
+          pageText,
+          pageNumber,
+          activeClass,
+          itemClass,
+          linkClass,
+          activeLinkClass,
+          disabledClass,
+          isActive,
+          isDisabled,
+        } = this.props;
+
+        const css = cx(itemClass, {
+          [activeClass]: isActive,
+          [disabledClass]: isDisabled,
+        });
+				
+        const linkCss = cx(linkClass, {
+            [activeLinkClass]: isActive
         });
 
-        const text = this.props.pageText || this.props.pageNumber;
-        if (React.isValidElement(text)) return text;
-
         return (
-            <li className={className}>
-                <a onClick={this.props.onClick.bind(this, this.props.pageNumber)} href="#">
-                    { text }
+            <li className={css} onClick={::this.handleClick}>
+                <a className={linkCss} href="#">
+                    { pageText }
                 </a>
             </li>
         );

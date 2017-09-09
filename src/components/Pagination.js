@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from "react";
-import pagiator from "paginator";
-import classNames from "classnames";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import paginator from "paginator";
 import Page from "./Page";
 
 export default class Pagination extends React.Component {
@@ -8,8 +8,8 @@ export default class Pagination extends React.Component {
       totalItemsCount: PropTypes.number.isRequired,
       onChange: PropTypes.func.isRequired,
       activePage: PropTypes.number,
-      pageRangeDisplayed: PropTypes.number,
       itemsCountPerPage: PropTypes.number,
+      pageRangeDisplayed: PropTypes.number,
       prevPageText: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
@@ -25,7 +25,15 @@ export default class Pagination extends React.Component {
       firstPageText: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
-      ])
+      ]),
+      innerClass: PropTypes.string,
+      itemClass: PropTypes.string,
+      linkClass: PropTypes.string,
+      activeClass: PropTypes.string,
+      activeLinkClass: PropTypes.string,
+      disabledClass: PropTypes.string,
+      hideDisabled: PropTypes.bool,
+      hideNavigation: PropTypes.bool
     }
 
     static defaultProps = {
@@ -36,11 +44,10 @@ export default class Pagination extends React.Component {
       firstPageText: "«",
       nextPageText: "⟩",
       lastPageText: "»",
-    }
-
-    onClick(page, e) {
-        e.preventDefault();
-        this.props.onChange(page);
+      innerClass: "pagination",
+      itemClass: "page-item",
+      linkClass: "page-link",
+      activeLinkClass: undefined
     }
 
     buildPages() {
@@ -53,10 +60,18 @@ export default class Pagination extends React.Component {
             nextPageText,
             firstPageText,
             lastPageText,
-            totalItemsCount
+            totalItemsCount,
+            onChange,
+            activeClass,
+            itemClass,
+            linkClass,
+            activeLinkClass,
+            disabledClass,
+            hideDisabled,
+            hideNavigation
         } = this.props;
 
-        const paginationInfo = new pagiator(itemsCountPerPage, pageRangeDisplayed)
+        const paginationInfo = new paginator(itemsCountPerPage, pageRangeDisplayed)
             .build(totalItemsCount, activePage);
 
         if (paginationInfo.first_page !== paginationInfo.last_page) {
@@ -66,49 +81,66 @@ export default class Pagination extends React.Component {
                         isActive={i === activePage}
                         key={i}
                         pageNumber={i}
-                        onClick={this.onClick.bind(this)}
+                        pageText={i + ""}
+                        onClick={onChange}
+                        itemClass={itemClass}
+                        linkClass={linkClass}
+                        activeClass={activeClass}
+                        activeLinkClass={activeLinkClass}
                     />
                 );
             }
         }
 
-        paginationInfo.has_previous_page && pages.unshift(
+        ((hideDisabled && !paginationInfo.has_previous_page) || hideNavigation) || pages.unshift(
             <Page
-                isActive={false}
                 key={"prev" + paginationInfo.previous_page}
                 pageNumber={paginationInfo.previous_page}
-                onClick={this.onClick.bind(this)}
+                onClick={onChange}
                 pageText={prevPageText}
+                isDisabled={!paginationInfo.has_previous_page}
+                itemClass={itemClass}
+                linkClass={linkClass}
+                disabledClass={disabledClass}
             />
         );
 
-        paginationInfo.first_page > 1 && pages.unshift(
+        ((hideDisabled && !paginationInfo.has_previous_page) || hideNavigation) || pages.unshift(
             <Page
-                isActive={false}
-                key={1}
+                key={"first"}
                 pageNumber={1}
-                onClick={this.onClick.bind(this)}
+                onClick={onChange}
                 pageText={firstPageText}
+                isDisabled={paginationInfo.current_page === paginationInfo.first_page}
+                itemClass={itemClass}
+                linkClass={linkClass}
+                disabledClass={disabledClass}
             />
         );
 
-        paginationInfo.has_next_page && pages.push(
+        ((hideDisabled && !paginationInfo.has_next_page) || hideNavigation) || pages.push(
             <Page
-                isActive={false}
                 key={"next" + paginationInfo.next_page}
                 pageNumber={paginationInfo.next_page}
-                onClick={this.onClick.bind(this)}
+                onClick={onChange}
                 pageText={nextPageText}
+                isDisabled={!paginationInfo.has_next_page}
+                itemClass={itemClass}
+                linkClass={linkClass}
+                disabledClass={disabledClass}
             />
         );
 
-        paginationInfo.last_page !== paginationInfo.total_pages && pages.push(
+        ((hideDisabled && !paginationInfo.has_next_page) || hideNavigation) || pages.push(
             <Page
-                isActive={false}
-                key={paginationInfo.total_pages}
+                key={"last"}
                 pageNumber={paginationInfo.total_pages}
-                onClick={this.onClick.bind(this)}
+                onClick={onChange}
                 pageText={lastPageText}
+                isDisabled={paginationInfo.current_page === paginationInfo.total_pages}
+                itemClass={itemClass}
+                linkClass={linkClass}
+                disabledClass={disabledClass}
             />
         );
 
@@ -118,7 +150,7 @@ export default class Pagination extends React.Component {
     render() {
         const pages = this.buildPages();
         return (
-            <ul className="pagination">{pages}</ul>
+            <ul className={this.props.innerClass}>{pages}</ul>
         );
     }
 }

@@ -4,104 +4,124 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _paginator = require("paginator");
 
 var _paginator2 = _interopRequireDefault(_paginator);
-
-var _classnames = require("classnames");
-
-var _classnames2 = _interopRequireDefault(_classnames);
 
 var _Page = require("./Page");
 
 var _Page2 = _interopRequireDefault(_Page);
 
-var Pagination = (function (_React$Component) {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Pagination = function (_React$Component) {
     _inherits(Pagination, _React$Component);
 
     function Pagination() {
         _classCallCheck(this, Pagination);
 
-        _get(Object.getPrototypeOf(Pagination.prototype), "constructor", this).apply(this, arguments);
+        return _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).apply(this, arguments));
     }
 
     _createClass(Pagination, [{
-        key: "onClick",
-        value: function onClick(page, e) {
-            e.preventDefault();
-            this.props.onChange(page);
-        }
-    }, {
         key: "buildPages",
         value: function buildPages() {
             var pages = [];
-            var _props = this.props;
-            var itemsCountPerPage = _props.itemsCountPerPage;
-            var pageRangeDisplayed = _props.pageRangeDisplayed;
-            var activePage = _props.activePage;
-            var prevPageText = _props.prevPageText;
-            var nextPageText = _props.nextPageText;
-            var firstPageText = _props.firstPageText;
-            var lastPageText = _props.lastPageText;
-            var totalItemsCount = _props.totalItemsCount;
+            var _props = this.props,
+                itemsCountPerPage = _props.itemsCountPerPage,
+                pageRangeDisplayed = _props.pageRangeDisplayed,
+                activePage = _props.activePage,
+                prevPageText = _props.prevPageText,
+                nextPageText = _props.nextPageText,
+                firstPageText = _props.firstPageText,
+                lastPageText = _props.lastPageText,
+                totalItemsCount = _props.totalItemsCount,
+                onChange = _props.onChange,
+                activeClass = _props.activeClass,
+                itemClass = _props.itemClass,
+                linkClass = _props.linkClass,
+                activeLinkClass = _props.activeLinkClass,
+                disabledClass = _props.disabledClass,
+                hideDisabled = _props.hideDisabled,
+                hideNavigation = _props.hideNavigation;
 
-            var paginationInfo = new _paginator2["default"](itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
+
+            var paginationInfo = new _paginator2.default(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
 
             if (paginationInfo.first_page !== paginationInfo.last_page) {
                 for (var i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
-                    pages.push(_react2["default"].createElement(_Page2["default"], {
+                    pages.push(_react2.default.createElement(_Page2.default, {
                         isActive: i === activePage,
                         key: i,
                         pageNumber: i,
-                        onClick: this.onClick.bind(this)
+                        pageText: i + "",
+                        onClick: onChange,
+                        itemClass: itemClass,
+                        linkClass: linkClass,
+                        activeClass: activeClass,
+                        activeLinkClass: activeLinkClass
                     }));
                 }
             }
 
-            paginationInfo.has_previous_page && pages.unshift(_react2["default"].createElement(_Page2["default"], {
-                isActive: false,
+            hideDisabled && !paginationInfo.has_previous_page || hideNavigation || pages.unshift(_react2.default.createElement(_Page2.default, {
                 key: "prev" + paginationInfo.previous_page,
                 pageNumber: paginationInfo.previous_page,
-                onClick: this.onClick.bind(this),
-                pageText: prevPageText
+                onClick: onChange,
+                pageText: prevPageText,
+                isDisabled: !paginationInfo.has_previous_page,
+                itemClass: itemClass,
+                linkClass: linkClass,
+                disabledClass: disabledClass
             }));
 
-            paginationInfo.first_page > 1 && pages.unshift(_react2["default"].createElement(_Page2["default"], {
-                isActive: false,
-                key: 1,
+            hideDisabled && !paginationInfo.has_previous_page || hideNavigation || pages.unshift(_react2.default.createElement(_Page2.default, {
+                key: "first",
                 pageNumber: 1,
-                onClick: this.onClick.bind(this),
-                pageText: firstPageText
+                onClick: onChange,
+                pageText: firstPageText,
+                isDisabled: paginationInfo.current_page === paginationInfo.first_page,
+                itemClass: itemClass,
+                linkClass: linkClass,
+                disabledClass: disabledClass
             }));
 
-            paginationInfo.has_next_page && pages.push(_react2["default"].createElement(_Page2["default"], {
-                isActive: false,
+            hideDisabled && !paginationInfo.has_next_page || hideNavigation || pages.push(_react2.default.createElement(_Page2.default, {
                 key: "next" + paginationInfo.next_page,
                 pageNumber: paginationInfo.next_page,
-                onClick: this.onClick.bind(this),
-                pageText: nextPageText
+                onClick: onChange,
+                pageText: nextPageText,
+                isDisabled: !paginationInfo.has_next_page,
+                itemClass: itemClass,
+                linkClass: linkClass,
+                disabledClass: disabledClass
             }));
 
-            paginationInfo.last_page !== paginationInfo.total_pages && pages.push(_react2["default"].createElement(_Page2["default"], {
-                isActive: false,
-                key: paginationInfo.total_pages,
+            hideDisabled && !paginationInfo.has_next_page || hideNavigation || pages.push(_react2.default.createElement(_Page2.default, {
+                key: "last",
                 pageNumber: paginationInfo.total_pages,
-                onClick: this.onClick.bind(this),
-                pageText: lastPageText
+                onClick: onChange,
+                pageText: lastPageText,
+                isDisabled: paginationInfo.current_page === paginationInfo.total_pages,
+                itemClass: itemClass,
+                linkClass: linkClass,
+                disabledClass: disabledClass
             }));
 
             return pages;
@@ -110,42 +130,61 @@ var Pagination = (function (_React$Component) {
         key: "render",
         value: function render() {
             var pages = this.buildPages();
-            return _react2["default"].createElement(
+            return _react2.default.createElement(
                 "ul",
-                { className: "pagination" },
+                { className: this.props.innerClass },
                 pages
             );
         }
-    }], [{
-        key: "propTypes",
-        value: {
-            totalItemsCount: _react.PropTypes.number.isRequired,
-            onChange: _react.PropTypes.func.isRequired,
-            activePage: _react.PropTypes.number,
-            pageRangeDisplayed: _react.PropTypes.number,
-            itemsCountPerPage: _react.PropTypes.number,
-            prevPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-            nextPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-            lastPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element]),
-            firstPageText: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.element])
-        },
-        enumerable: true
-    }, {
-        key: "defaultProps",
-        value: {
-            itemsCountPerPage: 10,
-            pageRangeDisplayed: 5,
-            activePage: 1,
-            prevPageText: "⟨",
-            firstPageText: "«",
-            nextPageText: "⟩",
-            lastPageText: "»"
-        },
-        enumerable: true
     }]);
 
     return Pagination;
-})(_react2["default"].Component);
+}(_react2.default.Component);
 
-exports["default"] = Pagination;
-module.exports = exports["default"];
+Pagination.propTypes = {
+    totalItemsCount: _propTypes2.default.number.isRequired,
+    onChange: _propTypes2.default.func.isRequired,
+    activePage: _propTypes2.default.number,
+    itemsCountPerPage: _propTypes2.default.number,
+    pageRangeDisplayed: _propTypes2.default.number,
+    prevPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    nextPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    lastPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    firstPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    innerClass: _propTypes2.default.string,
+    itemClass: _propTypes2.default.string,
+    linkClass: _propTypes2.default.string,
+    activeClass: _propTypes2.default.string,
+    activeLinkClass: _propTypes2.default.string,
+    disabledClass: _propTypes2.default.string,
+    hideDisabled: _propTypes2.default.bool,
+    hideNavigation: _propTypes2.default.bool
+};
+Pagination.defaultProps = {
+    itemsCountPerPage: 10,
+    pageRangeDisplayed: 5,
+    activePage: 1,
+    prevPageText: "⟨",
+    firstPageText: "«",
+    nextPageText: "⟩",
+    lastPageText: "»",
+    innerClass: "pagination",
+    itemClass: undefined,
+    linkClass: undefined,
+    activeLinkClass: undefined
+};
+var _default = Pagination;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Pagination, "Pagination", "src/components/Pagination.js");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "src/components/Pagination.js");
+}();
+
+;
