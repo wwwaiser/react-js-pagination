@@ -22,6 +22,10 @@ var _Page = require("./Page");
 
 var _Page2 = _interopRequireDefault(_Page);
 
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55,11 +59,15 @@ var Pagination = function (_React$Component) {
                 onChange = _props.onChange,
                 activeClass = _props.activeClass,
                 itemClass = _props.itemClass,
-                linkClass = _props.linkClass,
                 activeLinkClass = _props.activeLinkClass,
                 disabledClass = _props.disabledClass,
                 hideDisabled = _props.hideDisabled,
-                hideNavigation = _props.hideNavigation;
+                hideNavigation = _props.hideNavigation,
+                linkClass = _props.linkClass,
+                linkClassFirst = _props.linkClassFirst,
+                linkClassPrev = _props.linkClassPrev,
+                linkClassNext = _props.linkClassNext,
+                linkClassLast = _props.linkClassLast;
 
 
             var paginationInfo = new _paginator2.default(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
@@ -87,7 +95,7 @@ var Pagination = function (_React$Component) {
                 pageText: prevPageText,
                 isDisabled: !paginationInfo.has_previous_page,
                 itemClass: itemClass,
-                linkClass: linkClass,
+                linkClass: (0, _classnames2.default)(linkClass, linkClassPrev),
                 disabledClass: disabledClass
             }));
 
@@ -98,7 +106,7 @@ var Pagination = function (_React$Component) {
                 pageText: firstPageText,
                 isDisabled: paginationInfo.current_page === paginationInfo.first_page,
                 itemClass: itemClass,
-                linkClass: linkClass,
+                linkClass: (0, _classnames2.default)(linkClass, linkClassFirst),
                 disabledClass: disabledClass
             }));
 
@@ -109,7 +117,7 @@ var Pagination = function (_React$Component) {
                 pageText: nextPageText,
                 isDisabled: !paginationInfo.has_next_page,
                 itemClass: itemClass,
-                linkClass: linkClass,
+                linkClass: (0, _classnames2.default)(linkClass, linkClassNext),
                 disabledClass: disabledClass
             }));
 
@@ -120,7 +128,7 @@ var Pagination = function (_React$Component) {
                 pageText: lastPageText,
                 isDisabled: paginationInfo.current_page === paginationInfo.total_pages,
                 itemClass: itemClass,
-                linkClass: linkClass,
+                linkClass: (0, _classnames2.default)(linkClass, linkClassLast),
                 disabledClass: disabledClass
             }));
 
@@ -151,14 +159,18 @@ Pagination.propTypes = {
     nextPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
     lastPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
     firstPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    disabledClass: _propTypes2.default.string,
+    hideDisabled: _propTypes2.default.bool,
+    hideNavigation: _propTypes2.default.bool,
     innerClass: _propTypes2.default.string,
     itemClass: _propTypes2.default.string,
     linkClass: _propTypes2.default.string,
     activeClass: _propTypes2.default.string,
     activeLinkClass: _propTypes2.default.string,
-    disabledClass: _propTypes2.default.string,
-    hideDisabled: _propTypes2.default.bool,
-    hideNavigation: _propTypes2.default.bool
+    linkClassFirst: _propTypes2.default.string,
+    linkClassPrev: _propTypes2.default.string,
+    linkClassNext: _propTypes2.default.string,
+    linkClassLast: _propTypes2.default.string
 };
 Pagination.defaultProps = {
     itemsCountPerPage: 10,
