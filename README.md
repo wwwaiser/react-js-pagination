@@ -79,7 +79,11 @@ Name | Type | Default | Description
 `activeClass` | String | `active` | Class name of active `<li>` tag
 `activeLinkClass` | String |  | Class name of active `<a>` tag
 `itemClass` | String | | Default class of the `<li>` tag
-`linkClass` | String | | Default class of the `<a>` tag
 `disabledClass` | String | `disabled` | Class name of the first, previous, next and last `<li>` tags when disabled
 `hideDisabled` | Boolean | `false` | Hide navigation buttons (prev page, next page) if they are disabled.
 `hideNavigation` | Boolean | `false` | Hide navigation buttons (prev page, next page)
+`linkClass` | String | | Default class of the `<a>` tag
+`linkClassFirst` | String | | Class of the first `<a>` tag
+`linkClassPrev` | String | | Class of the previous `<a>` tag
+`linkClassNext` | String | | Class of the next `<a>` tag
+`linkClassLast` | String | | Class of the last `<a>` tag

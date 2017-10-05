@@ -98,5 +98,65 @@ describe("<Pagination />", () => {
       expect(nextPage.hasClass(linkClass)).to.be.true;
       expect(lastPage.hasClass(linkClass)).to.be.true;
     });
+
+    it("assigns linkClassFirst to first link", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={1}
+          linkClass="link"
+          linkClassFirst="first"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(0).find("a").hasClass("first")).to.be.true;
+      expect(wrapper.find("ul").childAt(1).find("a").hasClass("first")).to.be.false;
+    });
+
+    it("assigns linkClassPrev to prev link", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={80}
+          linkClass="link"
+          linkClassPrev="prev"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(1).find("a").hasClass("prev")).to.be.true;
+      expect(wrapper.find("ul").childAt(2).find("a").hasClass("prev")).to.be.false;
+    });
+
+    it("assigns linkClassNext to next link", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={80}
+          linkClass="link"
+          linkClassNext="next"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(7).find("a").hasClass("next")).to.be.true;
+      expect(wrapper.find("ul").childAt(8).find("a").hasClass("next")).to.be.false;
+    });
+
+    it("assigns linkClassLast to last link", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={80}
+          linkClass="link"
+          linkClassLast="last"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(8).find("a").hasClass("last")).to.be.true;
+      expect(wrapper.find("ul").childAt(7).find("a").hasClass("last")).to.be.false;
+    });
   });
 });
