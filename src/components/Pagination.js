@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import paginator from "paginator";
 import Page from "./Page";
+import cx from "classnames";
 
 export default class Pagination extends React.Component {
     static propTypes = {
@@ -26,14 +27,18 @@ export default class Pagination extends React.Component {
         PropTypes.string,
         PropTypes.element
       ]),
+      disabledClass: PropTypes.string,
+      hideDisabled: PropTypes.bool,
+      hideNavigation: PropTypes.bool,
       innerClass: PropTypes.string,
       itemClass: PropTypes.string,
       linkClass: PropTypes.string,
       activeClass: PropTypes.string,
       activeLinkClass: PropTypes.string,
-      disabledClass: PropTypes.string,
-      hideDisabled: PropTypes.bool,
-      hideNavigation: PropTypes.bool
+      linkClassFirst: PropTypes.string,
+      linkClassPrev: PropTypes.string,
+      linkClassNext: PropTypes.string,
+      linkClassLast: PropTypes.string,
     }
 
     static defaultProps = {
@@ -64,11 +69,15 @@ export default class Pagination extends React.Component {
             onChange,
             activeClass,
             itemClass,
-            linkClass,
             activeLinkClass,
             disabledClass,
             hideDisabled,
-            hideNavigation
+            hideNavigation,
+            linkClass,
+            linkClassFirst,
+            linkClassPrev,
+            linkClassNext,
+            linkClassLast
         } = this.props;
 
         const paginationInfo = new paginator(itemsCountPerPage, pageRangeDisplayed)
@@ -100,7 +109,7 @@ export default class Pagination extends React.Component {
                 pageText={prevPageText}
                 isDisabled={!paginationInfo.has_previous_page}
                 itemClass={itemClass}
-                linkClass={linkClass}
+                linkClass={cx(linkClass, linkClassPrev)}
                 disabledClass={disabledClass}
             />
         );
@@ -113,7 +122,7 @@ export default class Pagination extends React.Component {
                 pageText={firstPageText}
                 isDisabled={paginationInfo.current_page === paginationInfo.first_page}
                 itemClass={itemClass}
-                linkClass={linkClass}
+                linkClass={cx(linkClass, linkClassFirst)}
                 disabledClass={disabledClass}
             />
         );
@@ -126,7 +135,7 @@ export default class Pagination extends React.Component {
                 pageText={nextPageText}
                 isDisabled={!paginationInfo.has_next_page}
                 itemClass={itemClass}
-                linkClass={linkClass}
+                linkClass={cx(linkClass, linkClassNext)}
                 disabledClass={disabledClass}
             />
         );
@@ -139,7 +148,7 @@ export default class Pagination extends React.Component {
                 pageText={lastPageText}
                 isDisabled={paginationInfo.current_page === paginationInfo.total_pages}
                 itemClass={itemClass}
-                linkClass={linkClass}
+                linkClass={cx(linkClass, linkClassLast)}
                 disabledClass={disabledClass}
             />
         );
