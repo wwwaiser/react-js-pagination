@@ -83,22 +83,20 @@ export default class Pagination extends React.Component {
         const paginationInfo = new paginator(itemsCountPerPage, pageRangeDisplayed)
             .build(totalItemsCount, activePage);
 
-        if (paginationInfo.first_page !== paginationInfo.last_page) {
-            for(let i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
-                pages.push(
-                    <Page
-                        isActive={i === activePage}
-                        key={i}
-                        pageNumber={i}
-                        pageText={i + ""}
-                        onClick={onChange}
-                        itemClass={itemClass}
-                        linkClass={linkClass}
-                        activeClass={activeClass}
-                        activeLinkClass={activeLinkClass}
-                    />
-                );
-            }
+        for(let i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
+            pages.push(
+                <Page
+                    isActive={i === activePage}
+                    key={i}
+                    pageNumber={i}
+                    pageText={i + ""}
+                    onClick={onChange}
+                    itemClass={itemClass}
+                    linkClass={linkClass}
+                    activeClass={activeClass}
+                    activeLinkClass={activeLinkClass}
+                />
+            );
         }
 
         ((hideDisabled && !paginationInfo.has_previous_page) || hideNavigation) || pages.unshift(
@@ -120,7 +118,7 @@ export default class Pagination extends React.Component {
                 pageNumber={1}
                 onClick={onChange}
                 pageText={firstPageText}
-                isDisabled={paginationInfo.current_page === paginationInfo.first_page}
+                isDisabled={!paginationInfo.has_previous_page}
                 itemClass={itemClass}
                 linkClass={cx(linkClass, linkClassFirst)}
                 disabledClass={disabledClass}

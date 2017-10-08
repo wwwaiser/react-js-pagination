@@ -228,28 +228,6 @@ export default class App extends Component {
             </div>
           </div>
         </div>
-
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#nav-arrows'>
-              <h4 id='nav-arrows'>Hide navigation arrows</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{hideNavigation}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                  activeLinkClass={"is-selected"}
-                  pageRangeDisplayed={10}
-                  activePage={this.state.activePage}
-                  itemsCountPerPage={PER_PAGE}
-                  totalItemsCount={TOTAL_COUNT}
-                  onChange={this.handlePageChange}
-              />
-            </div>
-          </div>
-        </div>
-
       </div>
     );
   }

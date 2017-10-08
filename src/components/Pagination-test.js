@@ -1,6 +1,9 @@
 /*eslint-env node, mocha */
-import {mount, shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import Enzyme, {mount, shallow} from "enzyme";
 import Pagination from "./Pagination";
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe("<Pagination />", () => {
   const props = {
@@ -17,27 +20,27 @@ describe("<Pagination />", () => {
 
     it("renders the appropriate amount of children", () => {
       const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.children()).to.have.length(6);
+      expect(wrapper.children().children()).to.have.length(6);
     });
 
     it("renders the next page link", () => {
       const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.childAt(4).text()).to.eql(wrapper.prop("nextPageText"));
+      expect(wrapper.children().childAt(4).text()).to.eql(wrapper.prop("nextPageText"));
     });
 
     it("renders the prev page link if there is one", () => {
       const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.childAt(1).text()).to.eql(wrapper.prop("prevPageText"));
+      expect(wrapper.children().childAt(1).text()).to.eql(wrapper.prop("prevPageText"));
     });
 
     it("renders the first page link if there is one", () => {
       const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.childAt(0).text()).to.eql(wrapper.prop("firstPageText"));
+      expect(wrapper.children().childAt(0).text()).to.eql(wrapper.prop("firstPageText"));
     });
 
     it("renders the last page link if there is one", () => {
       const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.childAt(5).text()).to.eql(wrapper.prop("lastPageText"));
+      expect(wrapper.children().childAt(5).text()).to.eql(wrapper.prop("lastPageText"));
     });
 
     it("renders class in UL tag", () => {
@@ -53,16 +56,17 @@ describe("<Pagination />", () => {
       const wrapper = mount(
         <Pagination {...props} hideDisabled={false} totalItemsCount={1} disabledClass={disabledClass} />
       );
+
       const innerUl = wrapper.find("ul");
       const firstPage = innerUl.childAt(0);
       const prevPage = innerUl.childAt(1);
-      const nextPage = innerUl.childAt(2);
-      const lastPage = innerUl.childAt(3);
+      const nextPage = innerUl.childAt(3);
+      const lastPage = innerUl.childAt(4);
 
-      expect(firstPage.hasClass(disabledClass)).to.be.true;
-      expect(prevPage.hasClass(disabledClass)).to.be.true;
-      expect(nextPage.hasClass(disabledClass)).to.be.true;
-      expect(lastPage.hasClass(disabledClass)).to.be.true;
+      expect(firstPage.find("li").hasClass(disabledClass)).to.be.true;
+      expect(prevPage.find("li").hasClass(disabledClass)).to.be.true;
+      expect(nextPage.find("li").hasClass(disabledClass)).to.be.true;
+      expect(lastPage.find("li").hasClass(disabledClass)).to.be.true;
     });
 		
     it("passes down itemClass to the prev, first, next and last pages", () => {
@@ -76,10 +80,10 @@ describe("<Pagination />", () => {
       const nextPage = innerUl.childAt(2);
       const lastPage = innerUl.childAt(3);
 
-      expect(firstPage.hasClass(itemClass)).to.be.true;
-      expect(prevPage.hasClass(itemClass)).to.be.true;
-      expect(nextPage.hasClass(itemClass)).to.be.true;
-      expect(lastPage.hasClass(itemClass)).to.be.true;
+      expect(firstPage.find("li").hasClass(itemClass)).to.be.true;
+      expect(prevPage.find("li").hasClass(itemClass)).to.be.true;
+      expect(nextPage.find("li").hasClass(itemClass)).to.be.true;
+      expect(lastPage.find("li").hasClass(itemClass)).to.be.true;
     });
 		
     it("passes down linkClass to the prev, first, next and last pages links", () => {

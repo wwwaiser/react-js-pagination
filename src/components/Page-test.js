@@ -1,6 +1,10 @@
 /*eslint-env node, mocha */
+import Adapter from "enzyme-adapter-react-16";
+
 import Page from "./Page";
-import {mount, shallow} from "enzyme";
+import Enzyme, { mount, shallow } from "enzyme";
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe("<Page />", () => {
   const props = {

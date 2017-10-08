@@ -72,20 +72,18 @@ var Pagination = function (_React$Component) {
 
             var paginationInfo = new _paginator2.default(itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
 
-            if (paginationInfo.first_page !== paginationInfo.last_page) {
-                for (var i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
-                    pages.push(_react2.default.createElement(_Page2.default, {
-                        isActive: i === activePage,
-                        key: i,
-                        pageNumber: i,
-                        pageText: i + "",
-                        onClick: onChange,
-                        itemClass: itemClass,
-                        linkClass: linkClass,
-                        activeClass: activeClass,
-                        activeLinkClass: activeLinkClass
-                    }));
-                }
+            for (var i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
+                pages.push(_react2.default.createElement(_Page2.default, {
+                    isActive: i === activePage,
+                    key: i,
+                    pageNumber: i,
+                    pageText: i + "",
+                    onClick: onChange,
+                    itemClass: itemClass,
+                    linkClass: linkClass,
+                    activeClass: activeClass,
+                    activeLinkClass: activeLinkClass
+                }));
             }
 
             hideDisabled && !paginationInfo.has_previous_page || hideNavigation || pages.unshift(_react2.default.createElement(_Page2.default, {
@@ -104,7 +102,7 @@ var Pagination = function (_React$Component) {
                 pageNumber: 1,
                 onClick: onChange,
                 pageText: firstPageText,
-                isDisabled: paginationInfo.current_page === paginationInfo.first_page,
+                isDisabled: !paginationInfo.has_previous_page,
                 itemClass: itemClass,
                 linkClass: (0, _classnames2.default)(linkClass, linkClassFirst),
                 disabledClass: disabledClass
@@ -149,29 +147,6 @@ var Pagination = function (_React$Component) {
     return Pagination;
 }(_react2.default.Component);
 
-Pagination.propTypes = {
-    totalItemsCount: _propTypes2.default.number.isRequired,
-    onChange: _propTypes2.default.func.isRequired,
-    activePage: _propTypes2.default.number,
-    itemsCountPerPage: _propTypes2.default.number,
-    pageRangeDisplayed: _propTypes2.default.number,
-    prevPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
-    nextPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
-    lastPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
-    firstPageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
-    disabledClass: _propTypes2.default.string,
-    hideDisabled: _propTypes2.default.bool,
-    hideNavigation: _propTypes2.default.bool,
-    innerClass: _propTypes2.default.string,
-    itemClass: _propTypes2.default.string,
-    linkClass: _propTypes2.default.string,
-    activeClass: _propTypes2.default.string,
-    activeLinkClass: _propTypes2.default.string,
-    linkClassFirst: _propTypes2.default.string,
-    linkClassPrev: _propTypes2.default.string,
-    linkClassNext: _propTypes2.default.string,
-    linkClassLast: _propTypes2.default.string
-};
 Pagination.defaultProps = {
     itemsCountPerPage: 10,
     pageRangeDisplayed: 5,
@@ -185,18 +160,4 @@ Pagination.defaultProps = {
     linkClass: undefined,
     activeLinkClass: undefined
 };
-var _default = Pagination;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Pagination, "Pagination", "src/components/Pagination.js");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "src/components/Pagination.js");
-}();
-
-;
+exports.default = Pagination;

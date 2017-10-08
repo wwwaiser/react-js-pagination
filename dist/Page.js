@@ -86,18 +86,6 @@ var Page = function (_Component) {
     return Page;
 }(_react.Component);
 
-Page.propTypes = {
-    pageText: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
-    pageNumber: _propTypes2.default.number.isRequired,
-    onClick: _propTypes2.default.func.isRequired,
-    isActive: _propTypes2.default.bool.isRequired,
-    isDisabled: _propTypes2.default.bool,
-    activeClass: _propTypes2.default.string,
-    activeLinkClass: _propTypes2.default.string,
-    itemClass: _propTypes2.default.string,
-    linkClass: _propTypes2.default.string,
-    disabledClass: _propTypes2.default.string
-};
 Page.defaultProps = {
     activeClass: "active",
     disabledClass: "disabled",
@@ -107,18 +95,4 @@ Page.defaultProps = {
     isActive: false,
     isDisabled: false
 };
-var _default = Page;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Page, "Page", "src/components/Page.js");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "src/components/Page.js");
-}();
-
-;
+exports.default = Page;
