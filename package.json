@@ -11,9 +11,9 @@
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "start": "node devServer.js",
     "lint": "eslint 'src/components/**/*.js'",
-    "test": "mocha --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'",
+    "test": "mocha --compilers js:babel-register --require ./test-setup.js src/**/*-test.js",
     "validate": "npm-run-all lint test",
-    "test:watch": "mocha -w --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'"
+    "test:watch": "mocha -w --compilers js:babel-register --require ./test-setup.js src/**/*-test.js"
   },
   "repository": {
     "type": "git",
