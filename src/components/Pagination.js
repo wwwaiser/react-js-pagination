@@ -95,6 +95,7 @@ export default class Pagination extends React.Component {
                     linkClass={linkClass}
                     activeClass={activeClass}
                     activeLinkClass={activeLinkClass}
+                    totalPages={paginationInfo.total_pages}
                 />
             );
         }
@@ -109,6 +110,7 @@ export default class Pagination extends React.Component {
                 itemClass={itemClass}
                 linkClass={cx(linkClass, linkClassPrev)}
                 disabledClass={disabledClass}
+                totalPages={paginationInfo.total_pages}
             />
         );
 
@@ -122,6 +124,7 @@ export default class Pagination extends React.Component {
                 itemClass={itemClass}
                 linkClass={cx(linkClass, linkClassFirst)}
                 disabledClass={disabledClass}
+                totalPages={paginationInfo.total_pages}
             />
         );
 
@@ -135,6 +138,7 @@ export default class Pagination extends React.Component {
                 itemClass={itemClass}
                 linkClass={cx(linkClass, linkClassNext)}
                 disabledClass={disabledClass}
+                totalPages={paginationInfo.total_pages}
             />
         );
 
@@ -148,6 +152,7 @@ export default class Pagination extends React.Component {
                 itemClass={itemClass}
                 linkClass={cx(linkClass, linkClassLast)}
                 disabledClass={disabledClass}
+                totalPages={paginationInfo.total_pages}
             />
         );
 
