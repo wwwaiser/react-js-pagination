@@ -17,8 +17,9 @@ export default class App extends Component {
     this.handlePageChange = ::this._handlePageChange;
   }
 
-  _handlePageChange(pageNumber) {
+  _handlePageChange(pageNumber, totalPages) {
     console.log(`active page is ${pageNumber}`);
+    console.log(`total pages - ${totalPages}`);
     this.setState({activePage: pageNumber});
   }
 

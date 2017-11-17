@@ -26,16 +26,17 @@ export default class Page extends Component {
         linkClass: undefined,
         activeLinkCLass: undefined,
         isActive: false,
-        isDisabled: false
+        isDisabled: false,
+        totalPages: undefined
     }
 
     handleClick(e) {
-        const { isDisabled, pageNumber } = this.props;
+        const { isDisabled, pageNumber, totalPages } = this.props;
         e.preventDefault();
         if (isDisabled) {
             return;
         }
-        this.props.onClick(pageNumber);
+        this.props.onClick(pageNumber, totalPages);
     }
 
     render() {
