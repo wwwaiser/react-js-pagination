@@ -66,9 +66,9 @@ Check [Live example](http://vayser.github.io/react-js-pagination)
 
 Name | Type | Default | Description
 --- | --- | --- | --- |
-`totalItemsCount` | Number | | **required** Total count of items which you are going to display
-`onChange` | Function | | **required** Page change handler. Receive pageNumber as arg
-`activePage` | Number | `1` | **required** Active page
+`totalItemsCount` | Number | | **Required.** Total count of items which you are going to display
+`onChange` | Function | | **Required.** Page change handler. Receive pageNumber as arg
+`activePage` | Number | `1` | **Required.** Active page
 `itemsCountPerPage` | Number | `10` | Count of items per  page
 `pageRangeDisplayed` | Number | `5` | Range of pages in paginator, exclude navigation blocks (prev, next, first, last pages)
 `prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button
