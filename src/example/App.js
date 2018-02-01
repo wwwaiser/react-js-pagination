@@ -71,6 +71,19 @@ export default class App extends Component {
   );
 }`;
 
+    const hideFirstLastPages = `render() {
+  return (
+    <Pagination
+      hideFirstLastPages
+      pageRangeDisplayed={10}
+      activePage={this.state.activePage}
+      itemsCountPerPage={PER_PAGE}
+      totalItemsCount={TOTAL_COUNT}
+      onChange={this.handlePageChange}
+    />
+  );
+}`;
+
     const overrideText = `render() {
   return (
     <Pagination
@@ -224,6 +237,27 @@ export default class App extends Component {
                   itemsCountPerPage={PER_PAGE}
                   totalItemsCount={TOTAL_COUNT}
                   onChange={this.handlePageChange}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <a href='#hide-first-last-pages'>
+              <h4 id='nav-arrows'>Hide first/last pages</h4>
+            </a>
+          </div>
+          <div className="panel-body">
+            <SyntaxHighlighter language='javascript' style={sunburst}>{hideFirstLastPages}</SyntaxHighlighter>
+            <div className='text-center'>
+              <Pagination
+                hideFirstLastPages
+                pageRangeDisplayed={10}
+                activePage={this.state.activePage}
+                itemsCountPerPage={PER_PAGE}
+                totalItemsCount={TOTAL_COUNT}
+                onChange={this.handlePageChange}
               />
             </div>
           </div>

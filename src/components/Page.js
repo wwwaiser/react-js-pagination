@@ -4,20 +4,18 @@ import cx from "classnames";
 
 export default class Page extends Component {
     static propTypes = {
-        pageText: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.element
-        ]),
+        pageText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
         pageNumber: PropTypes.number.isRequired,
         onClick: PropTypes.func.isRequired,
         isActive: PropTypes.bool.isRequired,
         isDisabled: PropTypes.bool,
         activeClass: PropTypes.string,
-		activeLinkClass: PropTypes.string,
+        activeLinkClass: PropTypes.string,
         itemClass: PropTypes.string,
         linkClass: PropTypes.string,
-        disabledClass: PropTypes.string
-    }
+        disabledClass: PropTypes.string,
+        href: PropTypes.string
+    };
 
     static defaultProps = {
         activeClass: "active",
@@ -26,8 +24,9 @@ export default class Page extends Component {
         linkClass: undefined,
         activeLinkCLass: undefined,
         isActive: false,
-        isDisabled: false
-    }
+        isDisabled: false,
+        href: "#"
+    };
 
     handleClick(e) {
         const { isDisabled, pageNumber } = this.props;
@@ -40,30 +39,31 @@ export default class Page extends Component {
 
     render() {
         let {
-          pageText,
-          pageNumber,
-          activeClass,
-          itemClass,
-          linkClass,
-          activeLinkClass,
-          disabledClass,
-          isActive,
-          isDisabled,
+            pageText,
+            pageNumber,
+            activeClass,
+            itemClass,
+            linkClass,
+            activeLinkClass,
+            disabledClass,
+            isActive,
+            isDisabled,
+            href
         } = this.props;
 
         const css = cx(itemClass, {
-          [activeClass]: isActive,
-          [disabledClass]: isDisabled,
+            [activeClass]: isActive,
+            [disabledClass]: isDisabled
         });
-				
+
         const linkCss = cx(linkClass, {
             [activeLinkClass]: isActive
         });
 
         return (
             <li className={css} onClick={::this.handleClick}>
-                <a className={linkCss} href="#">
-                    { pageText }
+                <a className={linkCss} href={href}>
+                    {pageText}
                 </a>
             </li>
         );
