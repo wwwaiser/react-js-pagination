@@ -118,6 +118,21 @@ describe("<Pagination />", () => {
       expect(wrapper.find("ul").childAt(1).find("a").hasClass("first")).to.be.false;
     });
 
+    it("assigns itemClassFirst to first list item", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={1}
+          itemClass="item"
+          itemClassFirst="first"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(0).find("li").hasClass("first")).to.be.true;
+      expect(wrapper.find("ul").childAt(1).find("li").hasClass("first")).to.be.false;
+    });
+
     it("assigns linkClassPrev to prev link", () => {
       const wrapper = mount(
         <Pagination
@@ -131,6 +146,21 @@ describe("<Pagination />", () => {
 
       expect(wrapper.find("ul").childAt(1).find("a").hasClass("prev")).to.be.true;
       expect(wrapper.find("ul").childAt(2).find("a").hasClass("prev")).to.be.false;
+    });
+
+    it("assigns itemClassPrev to prev list item", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={80}
+          itemClass="item"
+          itemClassPrev="prev"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(1).find("li").hasClass("prev")).to.be.true;
+      expect(wrapper.find("ul").childAt(2).find("li").hasClass("prev")).to.be.false;
     });
 
     it("assigns linkClassNext to next link", () => {
@@ -148,6 +178,21 @@ describe("<Pagination />", () => {
       expect(wrapper.find("ul").childAt(8).find("a").hasClass("next")).to.be.false;
     });
 
+    it("assigns itemClassNext to next list item", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={80}
+          itemClass="item"
+          itemClassNext="next"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(7).find("li").hasClass("next")).to.be.true;
+      expect(wrapper.find("ul").childAt(8).find("li").hasClass("next")).to.be.false;
+    });
+
     it("assigns linkClassLast to last link", () => {
       const wrapper = mount(
         <Pagination
@@ -161,6 +206,21 @@ describe("<Pagination />", () => {
 
       expect(wrapper.find("ul").childAt(8).find("a").hasClass("last")).to.be.true;
       expect(wrapper.find("ul").childAt(7).find("a").hasClass("last")).to.be.false;
+    });
+
+    it("assigns itemClassLast to last list item", () => {
+      const wrapper = mount(
+        <Pagination
+          {...props}
+          hideDisabled={false}
+          totalItemsCount={80}
+          itemClass="item"
+          itemClassLast="last"
+        />
+      );
+
+      expect(wrapper.find("ul").childAt(8).find("li").hasClass("last")).to.be.true;
+      expect(wrapper.find("ul").childAt(7).find("li").hasClass("last")).to.be.false;
     });
   });
 });
