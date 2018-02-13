@@ -49,22 +49,26 @@ export default class Pagination extends React.Component {
 
   isFirstPageVisible(has_previous_page) {
     const { hideDisabled, hideNavigation, hideFirstLastPages } = this.props;
-    return !hideNavigation && !hideFirstLastPages && !(hideDisabled && !has_previous_page);
+    if (hideFirstLastPages || (hideDisabled && !has_previous_page)) return false;
+    return true;
   }
 
   isPrevPageVisible(has_previous_page) {
     const { hideDisabled, hideNavigation } = this.props;
-    return !hideNavigation && !(hideDisabled && !has_previous_page);
+    if (hideNavigation || (hideDisabled && !has_previous_page)) return false;
+    return true;
   }
 
   isNextPageVisible(has_next_page) {
     const { hideDisabled, hideNavigation } = this.props;
-    return !hideNavigation && !(hideDisabled && !has_next_page);
+    if(hideNavigation || (hideDisabled && !has_next_page)) return false;
+    return true;
   }
 
   isLastPageVisible(has_next_page) {
     const { hideDisabled, hideNavigation, hideFirstLastPages } = this.props;
-    return !hideNavigation && !hideFirstLastPages && !(hideDisabled && !has_next_page);
+    if (hideFirstLastPages || (hideDisabled && !has_next_page)) return false;
+    return true;
   }
 
   buildPages() {
