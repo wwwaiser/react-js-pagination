@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import paginator from "paginator";
 import Page from "./Page";
+import Ellipsis from "./Ellipsis";
 import cx from "classnames";
 
 export default class Pagination extends React.Component {
@@ -32,7 +33,9 @@ export default class Pagination extends React.Component {
     linkClassNext: PropTypes.string,
     linkClassLast: PropTypes.string,
     hideFirstLastPages: PropTypes.bool,
-    getPageUrl: PropTypes.func
+    getPageUrl: PropTypes.func,
+    ellipsis: PropTypes.bool,
+    ellipsisText: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
   };
 
   static defaultProps = {
@@ -48,7 +51,8 @@ export default class Pagination extends React.Component {
     linkClass: undefined,
     activeLinkClass: undefined,
     hideFirstLastPages: false,
-    getPageUrl: (i) => "#"
+    getPageUrl: (i) => "#",
+    ellipsisText: "…"
   };
 
   isFirstPageVisible(has_previous_page) {
@@ -103,13 +107,44 @@ export default class Pagination extends React.Component {
       linkClassNext,
       linkClassLast,
       hideFirstLastPages,
-      getPageUrl
+      getPageUrl,
+      ellipsis,
+      ellipsisText
     } = this.props;
 
     const paginationInfo = new paginator(
       itemsCountPerPage,
       pageRangeDisplayed
     ).build(totalItemsCount, activePage);
+
+    if (ellipsis && paginationInfo.first_page > 1) {
+      pages.push(
+        <Page
+          isActive={1 === activePage}
+          key={1}
+          href={getPageUrl(1)}
+          pageNumber={1}
+          pageText={"1"}
+          onClick={onChange}
+          itemClass={itemClass}
+          linkClass={linkClass}
+          activeClass={activeClass}
+          activeLinkClass={activeLinkClass}
+        />
+      );
+
+      if (paginationInfo.first_page > 2) {
+        pages.push(
+          <Ellipsis
+            key="startEllipsis"
+            itemClass={itemClass}
+            linkClass={linkClass}
+            disabledClass={disabledClass}
+            ellipsisText={ellipsisText}
+          />
+        );
+      }
+    }
 
     for (
       let i = paginationInfo.first_page;
@@ -132,7 +167,36 @@ export default class Pagination extends React.Component {
       );
     }
 
-    this.isPrevPageVisible(paginationInfo.has_previous_page) && 
+    if (ellipsis && paginationInfo.last_page < paginationInfo.total_pages) {
+      if (paginationInfo.last_page < paginationInfo.total_pages - 1) {
+        pages.push(
+          <Ellipsis
+            key="endEllipsis"
+            itemClass={itemClass}
+            linkClass={linkClass}
+            disabledClass={disabledClass}
+            ellipsisText={ellipsisText}
+          />
+        );
+      }
+
+      pages.push(
+        <Page
+          isActive={paginationInfo.total_pages === activePage}
+          key={paginationInfo.total_pages}
+          href={getPageUrl(paginationInfo.total_pages)}
+          pageNumber={paginationInfo.total_pages}
+          pageText={paginationInfo.total_pages + ""}
+          onClick={onChange}
+          itemClass={itemClass}
+          linkClass={linkClass}
+          activeClass={activeClass}
+          activeLinkClass={activeLinkClass}
+        />
+      );
+    }
+
+    this.isPrevPageVisible(paginationInfo.has_previous_page) &&
       pages.unshift(
         <Page
           key={"prev" + paginationInfo.previous_page}
@@ -146,7 +210,7 @@ export default class Pagination extends React.Component {
         />
       );
 
-    this.isFirstPageVisible(paginationInfo.has_previous_page) && 
+    this.isFirstPageVisible(paginationInfo.has_previous_page) &&
       pages.unshift(
         <Page
           key={"first"}
