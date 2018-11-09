@@ -13,4 +13,9 @@ mkdirp("dist", function(err) {
     "./dist/Page.js",
     UglifyJS.minify(babel.transformFileSync("src/components/Page.js", {}).code).code
   );
+
+  fs.writeFileSync(
+    "./dist/Ellipsis.js",
+    UglifyJS.minify(babel.transformFileSync("src/components/Ellipsis.js", {}).code).code
+  );
 });
