@@ -93,3 +93,5 @@ Name | Type | Default | Description
 `linkClassPrev` | String | | Class of the previous `<a>` tag
 `linkClassNext` | String | | Class of the next `<a>` tag
 `linkClassLast` | String | | Class of the last `<a>` tag
+`ellipsis` | Boolean | `false` | Put links to the first/last page along with an ellipsis if they are out of the page range
+`ellipsisText` | String / ReactElement | `…` | Text of ellipsis element
