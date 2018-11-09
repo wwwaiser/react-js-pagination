@@ -133,7 +133,24 @@ export default class Pagination extends React.Component {
         />
       );
 
-      if (paginationInfo.first_page > 2) {
+      if (paginationInfo.first_page === 3) {
+        // we might as well show a real link to page 2 since it takes up the same
+        // space as an ellipsis
+        pages.push(
+          <Page
+            isActive={2 === activePage}
+            key={2}
+            href={getPageUrl(2)}
+            pageNumber={2}
+            pageText={"2"}
+            onClick={onChange}
+            itemClass={itemClass}
+            linkClass={linkClass}
+            activeClass={activeClass}
+            activeLinkClass={activeLinkClass}
+          />
+        );
+      } else if (paginationInfo.first_page > 3) {
         pages.push(
           <Ellipsis
             key="startEllipsis"
@@ -168,7 +185,24 @@ export default class Pagination extends React.Component {
     }
 
     if (ellipsis && paginationInfo.last_page < paginationInfo.total_pages) {
-      if (paginationInfo.last_page < paginationInfo.total_pages - 1) {
+      if (paginationInfo.last_page === paginationInfo.total_pages - 2) {
+        // we might as well show a real link to page total - 1 since it takes up the same
+        // space as an ellipsis
+        pages.push(
+          <Page
+            isActive={paginationInfo.total_pages - 1 === activePage}
+            key={paginationInfo.total_pages - 1}
+            href={getPageUrl(paginationInfo.total_pages - 1)}
+            pageNumber={paginationInfo.total_pages - 1}
+            pageText={(paginationInfo.total_pages - 1) + ""}
+            onClick={onChange}
+            itemClass={itemClass}
+            linkClass={linkClass}
+            activeClass={activeClass}
+            activeLinkClass={activeLinkClass}
+          />
+        );
+      } else if (paginationInfo.last_page < paginationInfo.total_pages - 1) {
         pages.push(
           <Ellipsis
             key="endEllipsis"
