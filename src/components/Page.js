@@ -22,7 +22,7 @@ export default class Page extends Component {
         disabledClass: "disabled",
         itemClass: undefined,
         linkClass: undefined,
-        activeLinkCLass: undefined,
+        activeLinkClass: undefined,
         isActive: false,
         isDisabled: false,
         href: "#"
