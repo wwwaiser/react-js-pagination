@@ -6,7 +6,13 @@
 
 **A ReactJS [dumb](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) component to render a pagination.**
 
-The component comes with no built-in styles. HTML layout compatible with [Bootstrap](http://getbootstrap.com/components/#pagination) pagination stylesheets.
+The component comes with no built-in styles. HTML layout compatible with [Bootstrap 3](https://getbootstrap.com/docs/3.4/components/#pagination) pagination stylesheets.
+
+If you would like it to work for Bootstrap 4, you will need to add 2 additional props when using this component:
+```
+itemClass="page-item"
+linkClass="page-link"
+```
 
 ## Installation
 
