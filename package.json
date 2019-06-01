@@ -11,13 +11,26 @@
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "start": "node devServer.js",
     "lint": "eslint 'src/components/**/*.js'",
-    "test": "mocha --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'",
     "validate": "npm-run-all lint test",
-    "test:watch": "mocha -w --compilers js:babel-register --require ./test-setup.js 'src/**/*-test.js'"
+    "test": "jest",
+    "test:watch": "jest --watch --runInBand"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/vayser/react-js-pagination"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>"
+    ],
+    "verbose": false,
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "setupFiles": [
+      "./test-setup.js"
+    ]
   },
   "keywords": [
     "react",
@@ -41,12 +54,13 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.4",
     "babel-eslint": "7.1.1",
     "babel-loader": "^8.0.6",
     "bootstrap": "^3.3.5",
-    "chai": "^3.5.0",
     "cross-env": "^1.0.7",
     "css-loader": "^0.19.0",
     "enzyme": "^3.1.0",
@@ -56,11 +70,11 @@
     "expect": "^1.14.0",
     "express": "^4.13.3",
     "file-loader": "^0.8.4",
+    "jest": "^24.8.0",
     "jsdom": "^8.0.4",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "mkdirp": "^0.5.1",
-    "mocha": "^2.4.5",
     "npm-run-all": "^4.0.2",
     "prettier": "^1.7.4",
     "react-addons-test-utils": "15.x.x - 16.x.x",
