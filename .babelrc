@@ -1,9 +1,10 @@
 {
-  "env": {
-    "production": {
-      "plugins": ["transform-react-remove-prop-types"]
-    }
-  },
-  "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["react-hot-loader/babel"]
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ],
+  "ignore": [
+    "**/Page-test.js", // ignore the whole test directory
+    "**/Pagination-test.js" // ignore test files only
+  ]
 }

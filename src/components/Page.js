@@ -61,7 +61,7 @@ export default class Page extends Component {
         });
 
         return (
-            <li className={css} onClick={::this.handleClick}>
+            <li className={css} onClick={this.handleClick.bind(this)}>
                 <a className={linkCss} href={href}>
                     {pageText}
                 </a>
