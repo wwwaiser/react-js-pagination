@@ -53,7 +53,7 @@ class App extends Component {
           itemsCountPerPage={10}
           totalItemsCount={450}
           pageRangeDisplayed={5}
-          onChange={::this.handlePageChange}
+          onChange={this.handlePageChange.bind(this)}
         />
       </div>
     );
