@@ -12,33 +12,37 @@ module.exports = {
     publicPath: "/src/example/dist/"
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify("production")
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
     })
   ],
   module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: "babel",
-        include: path.join(__dirname, "src"),
-        exclude: /(node_modules|bower_components)/
-      },
-      {
-        test: /\.less$/,
-        loader: "style!css!less"
-      },
-      {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: "url-loader?limit=100000"
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: "babel-loader"
       }
-    ]
+    }, {
+      test: /\.less$/,
+      use: [
+        {
+          loader: "style-loader", // creates style nodes from JS strings
+        },
+        {
+          loader: "css-loader", // translates CSS into CommonJS
+        },
+        {
+          loader: "less-loader", // compiles Less to CSS
+        },
+      ],
+    }, {
+      test: /\.(otf|eot|png|svg|ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      use: [{
+        loader: "url-loader"
+      }]
+    }]
   }
 };

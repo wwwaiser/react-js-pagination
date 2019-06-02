@@ -20,6 +20,8 @@
     "react"
   ],
   "globals": {
-    "expect": true
+    "expect": true,
+    "describe": true,
+    "it": true,
   }
 }

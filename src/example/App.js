@@ -14,7 +14,7 @@ export default class App extends Component {
     this.state = {
       activePage: 1
     };
-    this.handlePageChange = ::this._handlePageChange;
+    this.handlePageChange = this._handlePageChange.bind(this);
   }
 
   _handlePageChange(pageNumber) {
