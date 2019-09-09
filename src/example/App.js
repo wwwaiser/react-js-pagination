@@ -136,7 +136,15 @@ export default class App extends Component {
 }`;
 
     return (
-      <div className='app'>
+      <React.Fragment>
+      <div className="row">
+        <div className="col-md-3 leftPanel">
+            <ul>
+                {this.state.itemCollection.map((data) => (<li key={data}>Item #{data}</li>))}
+            </ul>
+        </div>
+      <div className="col-md-8">
+        <div className='app'>
         <div className="panel panel-default">
           <div className="panel-heading">
             <a href='#default'>
@@ -144,25 +152,14 @@ export default class App extends Component {
             </a>
           </div>
           <div className="panel-body">
-            <div className="row">
-              <div className='col-md-8'>
-                <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
-              </div>
-              <div className='col-md-4'>
-                <ul>
-                  {this.state.itemCollection.map((data) => (<li key={data}>Item #{data}</li>))}
-                </ul>
-              </div>
-            </div>
-            <div className="row">
-              <div className='text-center'>
+            <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
+            <div className='text-center'>
                 <Pagination
                   activePage={this.state.activePage}
                   itemsCountPerPage={PER_PAGE}
                   totalItemsCount={TOTAL_COUNT}
                   onChange={this.handlePageChange}
                 />
-              </div>
             </div>
           </div>
         </div>
@@ -174,6 +171,7 @@ export default class App extends Component {
             </a>
           </div>
           <div className="panel-body">
+            
             <SyntaxHighlighter language='javascript' style={sunburst}>{hideDisabled}</SyntaxHighlighter>
             <div className='text-center'>
               <Pagination
@@ -295,6 +293,9 @@ export default class App extends Component {
           </div>
         </div>
       </div>
+      </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
