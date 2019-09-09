@@ -18,7 +18,7 @@ export default class App extends Component {
   }
 
   _handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
+    console.log(`active page is : ${pageNumber}`);
     this.setState({activePage: pageNumber});
   }
 
