@@ -12,17 +12,38 @@ export default class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      activePage: 1
+      activePage: 1,
+      itemCollection : [] 
     };
     this.handlePageChange = this._handlePageChange.bind(this);
   }
 
+  componentDidMount(){
+    let itemCollection = [];
+    for (var i = 1; i <= PER_PAGE; i++) {
+      itemCollection.push(i);
+    }
+
+    this.setState({itemCollection: itemCollection});
+  }
+
   _handlePageChange(pageNumber) {
-    console.log(`active page is : ${pageNumber}`);
-    this.setState({activePage: pageNumber});
+    console.log(`active page is ${pageNumber}`);
+
+    let itemCollection = [];
+    for (var i = PER_PAGE * pageNumber + 1; i <= (PER_PAGE * pageNumber + PER_PAGE); i++) {
+      itemCollection.push(i);
+    }
+
+    this.setState({ 
+      activePage: pageNumber,
+      itemCollection: itemCollection
+    });
   }
 
   render() {
+
+    
     const defaultSnippet = `render() {
   return (
     <Pagination
@@ -123,14 +144,25 @@ export default class App extends Component {
             </a>
           </div>
           <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                activePage={this.state.activePage}
-                itemsCountPerPage={PER_PAGE}
-                totalItemsCount={TOTAL_COUNT}
-                onChange={this.handlePageChange}
-              />
+            <div className="row">
+              <div className='col-md-8'>
+                <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
+              </div>
+              <div className='col-md-4'>
+                <ul>
+                  {this.state.itemCollection.map((data) => (<li key={data}>Item #{data}</li>))}
+                </ul>
+              </div>
+            </div>
+            <div className="row">
+              <div className='text-center'>
+                <Pagination
+                  activePage={this.state.activePage}
+                  itemsCountPerPage={PER_PAGE}
+                  totalItemsCount={TOTAL_COUNT}
+                  onChange={this.handlePageChange}
+                />
+              </div>
             </div>
           </div>
         </div>
