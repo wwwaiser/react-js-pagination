@@ -17,7 +17,11 @@ export default class App extends Component {
       totalItemsCount: 450,
       activePage: 1,
       itemsCountPerPage: 10,
-      pageRangeDisplayed : 5
+      pageRangeDisplayed: 5,
+      prevPageText: "⟨",
+      firstPageText: "«",
+      lastPageText: "»",
+      nextPageText: "⟩",
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -32,11 +36,15 @@ export default class App extends Component {
     const defaultSnippet = `render() {
     return (
       <Pagination
-        activePage={` + this.state.activePage + `}
-        itemsCountPerPage={` + this.state.itemsCountPerPage + `}
-        totalItemsCount={` + this.state.totalItemsCount + `}
-        pageRangeDisplayed={` + this.state.pageRangeDisplayed + `}
-        onChange={this.handlePageChange} //YOUR PAGE CHANGE EVENT
+        activePage = {` + this.state.activePage + `}
+        itemsCountPerPage = {` + this.state.itemsCountPerPage + `}
+        totalItemsCount = {` + this.state.totalItemsCount + `}
+        pageRangeDisplayed = {` + this.state.pageRangeDisplayed + `}
+        prevPageText = {"` + this.state.prevPageText + `"}
+        firstPageText = {"` + this.state.firstPageText + `"}
+        lastPageText = {"` + this.state.lastPageText + `"}
+        nextPageText = {"` + this.state.nextPageText + `"}
+        onChange = {this.handlePageChange} //YOUR PAGE CHANGE EVENT
       />
     );
   }`;
@@ -85,16 +93,52 @@ export default class App extends Component {
                     <div className="col-md-6">
                       <div class="form-group">
                         <label class="control-label " for="name">
-                        pageRangeDisplayed
+                          pageRangeDisplayed
                       </label>
-                      <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} class="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="text" />
+                        <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} class="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="text" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          prevPageText
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.prevPageText} class="form-control" id="prevPageText" name="prevPageText" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          firstPageText
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.firstPageText} class="form-control" id="firstPageText" name="firstPageText" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          lastPageText
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.lastPageText} class="form-control" id="lastPageText" name="lastPageText" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          nextPageText
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.nextPageText} class="form-control" id="nextPageText" name="nextPageText" type="text" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="col-md-6">
               <div className='app'>
                 <div className="panel panel-default">
@@ -107,10 +151,14 @@ export default class App extends Component {
                     <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
                     <div className='text-center'>
                       <Pagination
-                        activePage={this.state.activePage}
-                        itemsCountPerPage={this.state.itemsCountPerPage}
-                        totalItemsCount={this.state.totalItemsCount}
-                        pageRangeDisplayed={this.state.pageRangeDisplayed}
+                        activePage={this.state.activePage ? this.state.activePage : 1 }
+                        itemsCountPerPage={this.state.itemsCountPerPage ? this.state.itemsCountPerPage : 10 }
+                        totalItemsCount={this.state.totalItemsCount ? this.state.totalItemsCount : 450 }
+                        pageRangeDisplayed={this.state.pageRangeDisplayed ? this.state.pageRangeDisplayed : 5 }
+                        prevPageText={this.state.prevPageText ? this.state.prevPageText : "⟨" }
+                        firstPageText={this.state.firstPageText ? this.state.firstPageText : "«" }
+                        lastPageText={this.state.lastPageText ? this.state.lastPageText : "»" }
+                        nextPageText={this.state.nextPageText ? this.state.nextPageText : "⟩" }
                       />
                     </div>
                   </div>
