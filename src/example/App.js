@@ -13,287 +13,111 @@ export default class App extends Component {
     super();
     this.state = {
       activePage: 1,
-      itemCollection : [] 
+      itemCollection: [],
+      totalItemsCount: 450,
+      activePage: 1,
+      itemsCountPerPage: 10,
+      pageRangeDisplayed : 5
     };
-    this.handlePageChange = this._handlePageChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount(){
-    let itemCollection = [];
-    for (var i = 1; i <= PER_PAGE; i++) {
-      itemCollection.push(i);
-    }
 
-    this.setState({itemCollection: itemCollection});
-  }
-
-  _handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-
-    let itemCollection = [];
-    for (var i = PER_PAGE * pageNumber + 1; i <= (PER_PAGE * pageNumber + PER_PAGE); i++) {
-      itemCollection.push(i);
-    }
-
-    this.setState({ 
-      activePage: pageNumber,
-      itemCollection: itemCollection
-    });
+  handleChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
   }
 
   render() {
 
-    
     const defaultSnippet = `render() {
-  return (
-    <Pagination
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
-
-    const hideDisabled = `render() {
-  return (
-    <Pagination
-      hideDisabled
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
-
-    const customRange = `render() {
-  return (
-    <Pagination
-      pageRangeDisplayed={10}
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
-
-	  const hideNavigation = `render() {
-  return (
-    <Pagination
-      hideNavigation
-      pageRangeDisplayed={10}
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
-
-    const hideFirstLastPages = `render() {
-  return (
-    <Pagination
-      hideFirstLastPages
-      pageRangeDisplayed={10}
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
-
-    const overrideText = `render() {
-  return (
-    <Pagination
-      prevPageText='prev'
-      nextPageText='next'
-      firstPageText='first'
-      lastPageText='last'
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
-
-    const overrideElement = `render() {
-  return (
-    <Pagination
-      firstPageText={<i className='glyphicon glyphicon-chevron-left'/>}
-      lastPageText={<i className='glyphicon glyphicon-chevron-right'/>}
-      prevPageText={<i className='glyphicon glyphicon-menu-left'/>}
-      nextPageText={<i className='glyphicon glyphicon-menu-right'/>}
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
+    return (
+      <Pagination
+        activePage={` + this.state.activePage + `}
+        itemsCountPerPage={` + this.state.itemsCountPerPage + `}
+        totalItemsCount={` + this.state.totalItemsCount + `}
+        pageRangeDisplayed={` + this.state.pageRangeDisplayed + `}
+        onChange={this.handlePageChange} //YOUR PAGE CHANGE EVENT
+      />
+    );
+  }`;
 
     return (
       <React.Fragment>
-      <div className="row">
-        <div className="col-md-3 leftPanel">
-            <ul>
-                {this.state.itemCollection.map((data) => (<li key={data}>Item #{data}</li>))}
-            </ul>
-        </div>
-      <div className="col-md-8">
-        <div className='app'>
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#default'>
-              <h4 id='default' className="panel-title">Default</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
-            <div className='text-center'>
-                <Pagination
-                  activePage={this.state.activePage}
-                  itemsCountPerPage={PER_PAGE}
-                  totalItemsCount={TOTAL_COUNT}
-                  onChange={this.handlePageChange}
-                />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div className='leftPanel'>
+                <div className="panel panel-default">
+                  <div className="panel-heading">
+                    <a href='#default'>
+                      <h4 id='default' className="panel-title">Item Collection(s)</h4>
+                    </a>
+                  </div>
+                </div>
+                <div className="panel-body">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          activePage
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.activePage} class="form-control" id="activePage" name="activePage" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          itemsCountPerPage
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.itemsCountPerPage} class="form-control" id="itemsCountPerPage" name="itemsCountPerPage" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          totalItemsCount
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.totalItemsCount} class="form-control" id="totalItemsCount" name="totalItemsCount" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                        pageRangeDisplayed
+                      </label>
+                      <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} class="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#hide-disabled'>
-              <h4 id='hide-disabled' className="panel-title">Hide disabled</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            
-            <SyntaxHighlighter language='javascript' style={sunburst}>{hideDisabled}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                hideDisabled
-                activePage={this.state.activePage}
-                itemsCountPerPage={PER_PAGE}
-                totalItemsCount={TOTAL_COUNT}
-                onChange={this.handlePageChange}
-              />
+            <div className="col-md-6">
+              <div className='app'>
+                <div className="panel panel-default">
+                  <div className="panel-heading">
+                    <a href='#default'>
+                      <h4 id='default' className="panel-title">Default</h4>
+                    </a>
+                  </div>
+                  <div className="panel-body">
+                    <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
+                    <div className='text-center'>
+                      <Pagination
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={this.state.itemsCountPerPage}
+                        totalItemsCount={this.state.totalItemsCount}
+                        pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#custom-range'>
-              <h4 id='custom-range'>Custom pages range:</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{customRange}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                pageRangeDisplayed={10}
-                activePage={this.state.activePage}
-                itemsCountPerPage={PER_PAGE}
-                totalItemsCount={TOTAL_COUNT}
-                onChange={this.handlePageChange}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#custom-navigation-text'>
-              <h4 id='custom-navigation-text'>Custom navigation texts:</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{overrideText}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                prevPageText='prev'
-                nextPageText='next'
-                firstPageText='first'
-                lastPageText='last'
-                activePage={this.state.activePage}
-                itemsCountPerPage={PER_PAGE}
-                totalItemsCount={TOTAL_COUNT}
-                onChange={this.handlePageChange}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#custom-navigation-elements'>
-              <h4 id='custom-navigation-elements'>Custom navigation elements:</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{overrideElement}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                firstPageText={<i className='glyphicon glyphicon-chevron-left'/>}
-                lastPageText={<i className='glyphicon glyphicon-chevron-right'/>}
-                prevPageText={<i className='glyphicon glyphicon-menu-left'/>}
-                nextPageText={<i className='glyphicon glyphicon-menu-right'/>}
-                activePage={this.state.activePage}
-                itemsCountPerPage={PER_PAGE}
-                totalItemsCount={TOTAL_COUNT}
-                onChange={this.handlePageChange}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#nav-arrows'>
-              <h4 id='nav-arrows'>Hide navigation arrows</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{hideNavigation}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                  hideNavigation
-                  pageRangeDisplayed={10}
-                  activePage={this.state.activePage}
-                  itemsCountPerPage={PER_PAGE}
-                  totalItemsCount={TOTAL_COUNT}
-                  onChange={this.handlePageChange}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <a href='#hide-first-last-pages'>
-              <h4 id='nav-arrows'>Hide first/last pages</h4>
-            </a>
-          </div>
-          <div className="panel-body">
-            <SyntaxHighlighter language='javascript' style={sunburst}>{hideFirstLastPages}</SyntaxHighlighter>
-            <div className='text-center'>
-              <Pagination
-                hideFirstLastPages
-                pageRangeDisplayed={10}
-                activePage={this.state.activePage}
-                itemsCountPerPage={PER_PAGE}
-                totalItemsCount={TOTAL_COUNT}
-                onChange={this.handlePageChange}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
         </div>
       </React.Fragment>
     );
