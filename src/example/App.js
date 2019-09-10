@@ -12,17 +12,38 @@ export default class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      activePage: 1
+      activePage: 1,
+      itemCollection : [] 
     };
     this.handlePageChange = this._handlePageChange.bind(this);
   }
 
+  componentDidMount(){
+    let itemCollection = [];
+    for (var i = 1; i <= PER_PAGE; i++) {
+      itemCollection.push(i);
+    }
+
+    this.setState({itemCollection: itemCollection});
+  }
+
   _handlePageChange(pageNumber) {
     console.log(`active page is ${pageNumber}`);
-    this.setState({activePage: pageNumber});
+
+    let itemCollection = [];
+    for (var i = PER_PAGE * pageNumber + 1; i <= (PER_PAGE * pageNumber + PER_PAGE); i++) {
+      itemCollection.push(i);
+    }
+
+    this.setState({ 
+      activePage: pageNumber,
+      itemCollection: itemCollection
+    });
   }
 
   render() {
+
+    
     const defaultSnippet = `render() {
   return (
     <Pagination
@@ -115,7 +136,15 @@ export default class App extends Component {
 }`;
 
     return (
-      <div className='app'>
+      <React.Fragment>
+      <div className="row">
+        <div className="col-md-3 leftPanel">
+            <ul>
+                {this.state.itemCollection.map((data) => (<li key={data}>Item #{data}</li>))}
+            </ul>
+        </div>
+      <div className="col-md-8">
+        <div className='app'>
         <div className="panel panel-default">
           <div className="panel-heading">
             <a href='#default'>
@@ -125,12 +154,12 @@ export default class App extends Component {
           <div className="panel-body">
             <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
             <div className='text-center'>
-              <Pagination
-                activePage={this.state.activePage}
-                itemsCountPerPage={PER_PAGE}
-                totalItemsCount={TOTAL_COUNT}
-                onChange={this.handlePageChange}
-              />
+                <Pagination
+                  activePage={this.state.activePage}
+                  itemsCountPerPage={PER_PAGE}
+                  totalItemsCount={TOTAL_COUNT}
+                  onChange={this.handlePageChange}
+                />
             </div>
           </div>
         </div>
@@ -142,6 +171,7 @@ export default class App extends Component {
             </a>
           </div>
           <div className="panel-body">
+            
             <SyntaxHighlighter language='javascript' style={sunburst}>{hideDisabled}</SyntaxHighlighter>
             <div className='text-center'>
               <Pagination
@@ -263,6 +293,9 @@ export default class App extends Component {
           </div>
         </div>
       </div>
+      </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
