@@ -5,9 +5,6 @@ import { sunburst } from "react-syntax-highlighter/dist/styles";
 import "./App.less";
 import "bootstrap/less/bootstrap.less";
 
-const PER_PAGE = 10;
-const TOTAL_COUNT = 450;
-
 export default class App extends Component {
   constructor(props) {
     super();
@@ -58,7 +55,7 @@ export default class App extends Component {
                 <div className="panel panel-default">
                   <div className="panel-heading">
                     <a href='#default'>
-                      <h4 id='default' className="panel-title">Item Collection(s)</h4>
+                      <h4 id='default' className="panel-title">Pagination Configuration Option(s)</h4>
                     </a>
                   </div>
                 </div>
