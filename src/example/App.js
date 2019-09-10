@@ -5,9 +5,6 @@ import { sunburst } from "react-syntax-highlighter/dist/styles";
 import "./App.less";
 import "bootstrap/less/bootstrap.less";
 
-const PER_PAGE = 10;
-const TOTAL_COUNT = 450;
-
 export default class App extends Component {
   constructor(props) {
     super();
@@ -22,6 +19,7 @@ export default class App extends Component {
       firstPageText: "«",
       lastPageText: "»",
       nextPageText: "⟩",
+      hideFirstLastPages : false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -44,6 +42,7 @@ export default class App extends Component {
         firstPageText = {"` + this.state.firstPageText + `"}
         lastPageText = {"` + this.state.lastPageText + `"}
         nextPageText = {"` + this.state.nextPageText + `"}
+        hideFirstLastPages = {` + this.state.hideFirstLastPages + `}
         onChange = {this.handlePageChange} //YOUR PAGE CHANGE EVENT
       />
     );
@@ -58,7 +57,7 @@ export default class App extends Component {
                 <div className="panel panel-default">
                   <div className="panel-heading">
                     <a href='#default'>
-                      <h4 id='default' className="panel-title">Item Collection(s)</h4>
+                      <h4 id='default' className="panel-title">Pagination Configuration Option(s)</h4>
                     </a>
                   </div>
                 </div>
@@ -136,6 +135,31 @@ export default class App extends Component {
                       </div>
                     </div>
                   </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          hideFirstLastPages
+                       </label> <br></br>
+                       <div className="radio-inline">
+                        <label>
+                          { this.state.hideFirstLastPages === true ? 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={true} checked /> : 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={true}  /> }
+                          true
+                        </label>
+                      </div>
+                      <div className="radio-inline">
+                        <label>
+                        { this.state.hideFirstLastPages === false ? 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={false} checked /> : 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={false}  /> }
+                          false
+                        </label>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,6 +183,7 @@ export default class App extends Component {
                         firstPageText={this.state.firstPageText ? this.state.firstPageText : "«" }
                         lastPageText={this.state.lastPageText ? this.state.lastPageText : "»" }
                         nextPageText={this.state.nextPageText ? this.state.nextPageText : "⟩" }
+                        hideFirstLastPages={this.state.hideFirstLastPages ? this.state.hideFirstLastPages : false }
                       />
                     </div>
                   </div>
