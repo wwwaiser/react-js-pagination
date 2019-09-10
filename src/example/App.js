@@ -13,53 +13,39 @@ export default class App extends Component {
     super();
     this.state = {
       activePage: 1,
-      itemCollection: []
+      itemCollection: [],
+      totalItemsCount: 450,
+      activePage: 1,
+      itemsCountPerPage: 10,
+      pageRangeDisplayed : 5
     };
-    this.handlePageChange = this._handlePageChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    let itemCollection = [];
-    for (var i = 1; i <= PER_PAGE; i++) {
-      itemCollection.push(i);
-    }
 
-    this.setState({ itemCollection: itemCollection });
-  }
-
-  _handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-
-    let itemCollection = [];
-    for (var i = PER_PAGE * pageNumber + 1; i <= (PER_PAGE * pageNumber + PER_PAGE); i++) {
-      itemCollection.push(i);
-    }
-
-    this.setState({
-      activePage: pageNumber,
-      itemCollection: itemCollection
-    });
+  handleChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
   }
 
   render() {
 
-
     const defaultSnippet = `render() {
-  return (
-    <Pagination
-      activePage={this.state.activePage}
-      itemsCountPerPage={PER_PAGE}
-      totalItemsCount={TOTAL_COUNT}
-      onChange={this.handlePageChange}
-    />
-  );
-}`;
+    return (
+      <Pagination
+        activePage={` + this.state.activePage + `}
+        itemsCountPerPage={` + this.state.itemsCountPerPage + `}
+        totalItemsCount={` + this.state.totalItemsCount + `}
+        pageRangeDisplayed={` + this.state.pageRangeDisplayed + `}
+        onChange={this.handlePageChange} //YOUR PAGE CHANGE EVENT
+      />
+    );
+  }`;
 
     return (
       <React.Fragment>
         <div className="container">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-6">
               <div className='leftPanel'>
                 <div className="panel panel-default">
                   <div className="panel-heading">
@@ -69,15 +55,47 @@ export default class App extends Component {
                   </div>
                 </div>
                 <div className="panel-body">
-                  <ul>
-                    {this.state.itemCollection.map((data) => (<li key={data}>Item #{data}</li>))}
-                  </ul>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          activePage
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.activePage} class="form-control" id="activePage" name="activePage" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          itemsCountPerPage
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.itemsCountPerPage} class="form-control" id="itemsCountPerPage" name="itemsCountPerPage" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          totalItemsCount
+                      </label>
+                        <input onChange={this.handleChange} value={this.state.totalItemsCount} class="form-control" id="totalItemsCount" name="totalItemsCount" type="text" />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                        pageRangeDisplayed
+                      </label>
+                      <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} class="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="text" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="clearfix"></div>
             </div>
 
-            <div className="col-md-8">
+            <div className="col-md-6">
               <div className='app'>
                 <div className="panel panel-default">
                   <div className="panel-heading">
@@ -90,9 +108,9 @@ export default class App extends Component {
                     <div className='text-center'>
                       <Pagination
                         activePage={this.state.activePage}
-                        itemsCountPerPage={PER_PAGE}
-                        totalItemsCount={TOTAL_COUNT}
-                        onChange={this.handlePageChange}
+                        itemsCountPerPage={this.state.itemsCountPerPage}
+                        totalItemsCount={this.state.totalItemsCount}
+                        pageRangeDisplayed={this.state.pageRangeDisplayed}
                       />
                     </div>
                   </div>
