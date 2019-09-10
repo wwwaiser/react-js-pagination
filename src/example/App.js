@@ -19,6 +19,7 @@ export default class App extends Component {
       firstPageText: "«",
       lastPageText: "»",
       nextPageText: "⟩",
+      hideFirstLastPages : false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -41,6 +42,7 @@ export default class App extends Component {
         firstPageText = {"` + this.state.firstPageText + `"}
         lastPageText = {"` + this.state.lastPageText + `"}
         nextPageText = {"` + this.state.nextPageText + `"}
+        hideFirstLastPages = {` + this.state.hideFirstLastPages + `}
         onChange = {this.handlePageChange} //YOUR PAGE CHANGE EVENT
       />
     );
@@ -133,6 +135,31 @@ export default class App extends Component {
                       </div>
                     </div>
                   </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                          hideFirstLastPages
+                       </label> <br></br>
+                       <div className="radio-inline">
+                        <label>
+                          { this.state.hideFirstLastPages === true ? 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={true} checked /> : 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={true}  /> }
+                          true
+                        </label>
+                      </div>
+                      <div className="radio-inline">
+                        <label>
+                        { this.state.hideFirstLastPages === false ? 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={false} checked /> : 
+                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={false}  /> }
+                          false
+                        </label>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -156,6 +183,7 @@ export default class App extends Component {
                         firstPageText={this.state.firstPageText ? this.state.firstPageText : "«" }
                         lastPageText={this.state.lastPageText ? this.state.lastPageText : "»" }
                         nextPageText={this.state.nextPageText ? this.state.nextPageText : "⟩" }
+                        hideFirstLastPages={this.state.hideFirstLastPages ? this.state.hideFirstLastPages : false }
                       />
                     </div>
                   </div>
