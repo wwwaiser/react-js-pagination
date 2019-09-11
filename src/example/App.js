@@ -9,10 +9,9 @@ export default class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      activePage: 1,
       itemCollection: [],
-      totalItemsCount: 450,
       activePage: 1,
+      totalItemsCount: 450,
       itemsCountPerPage: 10,
       pageRangeDisplayed: 5,
       prevPageText: "⟨",
@@ -24,6 +23,14 @@ export default class App extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount(){
+    let itemCollection = [];
+    for (var i = 1; i <= this.state.itemsCountPerPage; i++) {
+      itemCollection.push(i);
+    }
+
+    this.setState({itemCollection: itemCollection});
+  }
 
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
@@ -43,7 +50,7 @@ export default class App extends Component {
         lastPageText = {"` + this.state.lastPageText + `"}
         nextPageText = {"` + this.state.nextPageText + `"}
         hideFirstLastPages = {` + this.state.hideFirstLastPages + `}
-        onChange = {this.handlePageChange} //YOUR PAGE CHANGE EVENT
+        onChange = {this.handlePageChange}         
       />
     );
   }`;
@@ -52,7 +59,7 @@ export default class App extends Component {
       <React.Fragment>
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div className='leftPanel'>
                 <div className="panel panel-default">
                   <div className="panel-heading">
@@ -163,17 +170,20 @@ export default class App extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className='app'>
+            <div className="col-md-4">
+              <div className='leftPanel'>
                 <div className="panel panel-default">
                   <div className="panel-heading">
                     <a href='#default'>
-                      <h4 id='default' className="panel-title">Default</h4>
+                      <h4 id='default' className="panel-title">Pagination Configuration Option(s)</h4>
                     </a>
                   </div>
-                  <div className="panel-body">
-                    <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
-                    <div className='text-center'>
+                </div>
+                <div className="panel-body">
+                  <ul style={{marginLeft:0}}>
+                    {this.state.itemCollection.map((data) => (<li key={data}>Item #{data}</li>))}
+                  </ul>
+                  <div className='text-center'>
                       <Pagination
                         activePage={this.state.activePage ? this.state.activePage : 1 }
                         itemsCountPerPage={this.state.itemsCountPerPage ? this.state.itemsCountPerPage : 10 }
@@ -184,8 +194,22 @@ export default class App extends Component {
                         lastPageText={this.state.lastPageText ? this.state.lastPageText : "»" }
                         nextPageText={this.state.nextPageText ? this.state.nextPageText : "⟩" }
                         hideFirstLastPages={this.state.hideFirstLastPages ? this.state.hideFirstLastPages : false }
+                        onChange={this.handlePageChange}
                       />
                     </div>
+                 </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className='app'>
+                <div className="panel panel-default">
+                  <div className="panel-heading">
+                    <a href='#default'>
+                      <h4 id='default' className="panel-title">Default</h4>
+                    </a>
+                  </div>
+                  <div className="panel-body">
+                    <SyntaxHighlighter language='javascript' style={sunburst}>{defaultSnippet}</SyntaxHighlighter>
                   </div>
                 </div>
               </div>
