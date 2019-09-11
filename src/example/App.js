@@ -90,7 +90,7 @@ export default class App extends Component {
                         <label class="control-label " for="name">
                           activePage
                       </label>
-                        <input onChange={this.handleChange} value={this.state.activePage} class="form-control" id="activePage" name="activePage" type="text" />
+                        <input onChange={this.handleChange} value={this.state.activePage} class="form-control" id="activePage" name="activePage" type="number" />
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -98,7 +98,7 @@ export default class App extends Component {
                         <label class="control-label " for="name">
                           itemsCountPerPage
                       </label>
-                        <input onChange={this.handleChange} value={this.state.itemsCountPerPage} class="form-control" id="itemsCountPerPage" name="itemsCountPerPage" type="text" />
+                        <input onChange={this.handleChange} value={this.state.itemsCountPerPage} class="form-control" id="itemsCountPerPage" name="itemsCountPerPage" type="number" />
                       </div>
                     </div>
                   </div>
@@ -108,7 +108,7 @@ export default class App extends Component {
                         <label class="control-label " for="name">
                           totalItemsCount
                       </label>
-                        <input onChange={this.handleChange} value={this.state.totalItemsCount} class="form-control" id="totalItemsCount" name="totalItemsCount" type="text" />
+                        <input onChange={this.handleChange} value={this.state.totalItemsCount} class="form-control" id="totalItemsCount" name="totalItemsCount" type="number" />
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -116,7 +116,7 @@ export default class App extends Component {
                         <label class="control-label " for="name">
                           pageRangeDisplayed
                       </label>
-                        <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} class="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="text" />
+                        <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} class="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="number" />
                       </div>
                     </div>
                   </div>
