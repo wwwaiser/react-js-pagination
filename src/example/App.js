@@ -21,6 +21,7 @@ export default class App extends Component {
       hideFirstLastPages : false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
 
   componentDidMount(){
@@ -30,6 +31,20 @@ export default class App extends Component {
     }
 
     this.setState({itemCollection: itemCollection});
+  }
+
+  handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+
+    let itemCollection = [];
+    for (var i = this.state.itemsCountPerPage * pageNumber + 1; i <= (this.state.itemsCountPerPage * pageNumber + this.state.itemsCountPerPage); i++) {
+      itemCollection.push(i);
+    }
+
+    this.setState({ 
+      activePage: pageNumber,
+      itemCollection: itemCollection
+    });
   }
 
   handleChange(evt) {
