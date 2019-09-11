@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Pagination from "../components/Pagination";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { sunburst } from "react-syntax-highlighter/dist/styles";
-import "./App.less";
-import "bootstrap/less/bootstrap.less";
+import React, { Component } from"react";
+import Pagination from"../components/Pagination";
+import SyntaxHighlighter from"react-syntax-highlighter";
+import { sunburst } from"react-syntax-highlighter/dist/styles";
+import"./App.less";
+import"bootstrap/less/bootstrap.less";
 
 export default class App extends Component {
   constructor(props) {
@@ -14,10 +14,10 @@ export default class App extends Component {
       totalItemsCount: 450,
       itemsCountPerPage: 10,
       pageRangeDisplayed: 5,
-      prevPageText: "⟨",
-      firstPageText: "«",
-      lastPageText: "»",
-      nextPageText: "⟩",
+      prevPageText:"⟨",
+      firstPageText:"«",
+      lastPageText:"»",
+      nextPageText:"⟩",
       hideFirstLastPages : false,
       hideNavigation : false
     };
@@ -37,8 +37,6 @@ export default class App extends Component {
   }
 
   handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-
     let itemCollection = [];
     for (var i = this.state.itemsCountPerPage * pageNumber + 1; i <= (this.state.itemsCountPerPage * pageNumber + this.state.itemsCountPerPage); i++) {
       itemCollection.push(i);
@@ -51,7 +49,13 @@ export default class App extends Component {
   }
 
   handleChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value });
+    if (evt.target.name ==="hideFirstLastPages") {
+      this.setState({ hideFirstLastPages :  !this.state.hideFirstLastPages  });
+    } else if(evt.target.name ==="hideNavigation") {
+      this.setState({ hideNavigation :  !this.state.hideNavigation});
+    } else  {
+      this.setState({ [evt.target.name]: evt.target.value });
+    }
   }
 
   render() {
@@ -90,122 +94,90 @@ export default class App extends Component {
                 <div className="panel-body">
                   <div className="row">
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           activePage
                       </label>
-                        <input onChange={this.handleChange} value={this.state.activePage} class="form-control" id="activePage" name="activePage" type="number" />
+                        <input onChange={this.handleChange} value={this.state.activePage} className="form-control" id="activePage" name="activePage" type="number" />
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           itemsCountPerPage
                       </label>
-                        <input onChange={this.handleChange} value={this.state.itemsCountPerPage} class="form-control" id="itemsCountPerPage" name="itemsCountPerPage" type="number" />
+                        <input onChange={this.handleChange} value={this.state.itemsCountPerPage} className="form-control" id="itemsCountPerPage" name="itemsCountPerPage" type="number" />
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           totalItemsCount
                       </label>
-                        <input onChange={this.handleChange} value={this.state.totalItemsCount} class="form-control" id="totalItemsCount" name="totalItemsCount" type="number" />
+                        <input onChange={this.handleChange} value={this.state.totalItemsCount} className="form-control" id="totalItemsCount" name="totalItemsCount" type="number" />
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           pageRangeDisplayed
                       </label>
-                        <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} class="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="number" />
+                        <input onChange={this.handleChange} value={this.state.pageRangeDisplayed} className="form-control" id="pageRangeDisplayed" name="pageRangeDisplayed" type="number" />
                       </div>
                     </div>
                   </div>
 
                   <div className="row">
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           prevPageText
                       </label>
-                        <input onChange={this.handleChange} value={this.state.prevPageText} class="form-control" id="prevPageText" name="prevPageText" type="text" />
+                        <input onChange={this.handleChange} value={this.state.prevPageText} className="form-control" id="prevPageText" name="prevPageText" type="text" />
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           firstPageText
                       </label>
-                        <input onChange={this.handleChange} value={this.state.firstPageText} class="form-control" id="firstPageText" name="firstPageText" type="text" />
+                        <input onChange={this.handleChange} value={this.state.firstPageText} className="form-control" id="firstPageText" name="firstPageText" type="text" />
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           lastPageText
                       </label>
-                        <input onChange={this.handleChange} value={this.state.lastPageText} class="form-control" id="lastPageText" name="lastPageText" type="text" />
+                        <input onChange={this.handleChange} value={this.state.lastPageText} className="form-control" id="lastPageText" name="lastPageText" type="text" />
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
+                      <div className="form-group">
+                        <label className="control-label">
                           nextPageText
                       </label>
-                        <input onChange={this.handleChange} value={this.state.nextPageText} class="form-control" id="nextPageText" name="nextPageText" type="text" />
+                        <input onChange={this.handleChange} value={this.state.nextPageText} className="form-control" id="nextPageText" name="nextPageText" type="text" />
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
-                          hideFirstLastPages
-                       </label> <br></br>
-                       <div className="radio-inline">
-                        <label>
-                          { this.state.hideFirstLastPages === true ? 
-                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={true} checked /> : 
-                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={true}  /> }
-                          true
-                        </label>
-                      </div>
-                      <div className="radio-inline">
-                        <label>
-                        { this.state.hideFirstLastPages === false ? 
-                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={false} checked /> : 
-                          <input onChange={this.handleChange} name="hideFirstLastPages"  type="radio" value={false}  /> }
-                          false
-                        </label>
-                      </div>
+                      <div className="form-group">
+                        <div className="checkbox">
+                          <label><input value={this.state.hideFirstLastPages} onChange={this.handleChange} type="checkbox" name="hideFirstLastPages" id="hideFirstLastPages" />hideFirstLastPages</label>
+                        </div>
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div class="form-group">
-                        <label class="control-label " for="name">
-                        hideNavigation
-                       </label> <br></br>
-                       <div className="radio-inline">
-                        <label>
-                          { this.state.hideNavigation === true ? 
-                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={true} checked /> : 
-                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={true}  /> }
-                          true
-                        </label>
-                      </div>
-                      <div className="radio-inline">
-                        <label>
-                        { this.state.hideNavigation === false ? 
-                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={false} checked /> : 
-                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={false}  /> }
-                          false
-                        </label>
-                      </div>
+                      <div className="form-group">
+                       <div className="checkbox">
+                          <label><input value={this.state.hideNavigation} onChange={this.handleChange} type="checkbox"  name="hideNavigation" id="hideNavigation" />hideNavigation </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -231,12 +203,12 @@ export default class App extends Component {
                         itemsCountPerPage={this.state.itemsCountPerPage ? this.state.itemsCountPerPage : 10 }
                         totalItemsCount={this.state.totalItemsCount ? this.state.totalItemsCount : 450 }
                         pageRangeDisplayed={this.state.pageRangeDisplayed ? this.state.pageRangeDisplayed : 5 }
-                        prevPageText={this.state.prevPageText ? this.state.prevPageText : "⟨" }
-                        firstPageText={this.state.firstPageText ? this.state.firstPageText : "«" }
-                        lastPageText={this.state.lastPageText ? this.state.lastPageText : "»" }
-                        nextPageText={this.state.nextPageText ? this.state.nextPageText : "⟩" }
-                        hideFirstLastPages={(this.state.hideFirstLastPages === true) ? true : false }
-                        hideNavigation = {(this.state.hideNavigation === true) ? true : false }
+                        prevPageText={this.state.prevPageText ? this.state.prevPageText :"⟨" }
+                        firstPageText={this.state.firstPageText ? this.state.firstPageText :"«" }
+                        lastPageText={this.state.lastPageText ? this.state.lastPageText :"»" }
+                        nextPageText={this.state.nextPageText ? this.state.nextPageText :"⟩" }
+                        hideFirstLastPages={this.state.hideFirstLastPages}
+                        hideNavigation = {this.state.hideNavigation}
                         onChange={this.handlePageChange}
                       />
                     </div>
