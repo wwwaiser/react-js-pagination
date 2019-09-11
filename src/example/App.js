@@ -18,7 +18,8 @@ export default class App extends Component {
       firstPageText: "«",
       lastPageText: "»",
       nextPageText: "⟩",
-      hideFirstLastPages : false
+      hideFirstLastPages : false,
+      hideNavigation : false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -30,7 +31,9 @@ export default class App extends Component {
       itemCollection.push(i);
     }
 
-    this.setState({itemCollection: itemCollection});
+    this.setState({
+      itemCollection: itemCollection
+    });
   }
 
   handlePageChange(pageNumber) {
@@ -65,6 +68,7 @@ export default class App extends Component {
         lastPageText = {"` + this.state.lastPageText + `"}
         nextPageText = {"` + this.state.nextPageText + `"}
         hideFirstLastPages = {` + this.state.hideFirstLastPages + `}
+        hideNavigation = {` + this.state.hideNavigation + `}
         onChange = {this.handlePageChange}         
       />
     );
@@ -181,6 +185,29 @@ export default class App extends Component {
                       </div>
                       </div>
                     </div>
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label " for="name">
+                        hideNavigation
+                       </label> <br></br>
+                       <div className="radio-inline">
+                        <label>
+                          { this.state.hideNavigation === true ? 
+                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={true} checked /> : 
+                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={true}  /> }
+                          true
+                        </label>
+                      </div>
+                      <div className="radio-inline">
+                        <label>
+                        { this.state.hideNavigation === false ? 
+                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={false} checked /> : 
+                          <input onChange={this.handleChange} name="hideNavigation"  type="radio" value={false}  /> }
+                          false
+                        </label>
+                      </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -208,7 +235,8 @@ export default class App extends Component {
                         firstPageText={this.state.firstPageText ? this.state.firstPageText : "«" }
                         lastPageText={this.state.lastPageText ? this.state.lastPageText : "»" }
                         nextPageText={this.state.nextPageText ? this.state.nextPageText : "⟩" }
-                        hideFirstLastPages={this.state.hideFirstLastPages ? this.state.hideFirstLastPages : false }
+                        hideFirstLastPages={(this.state.hideFirstLastPages === true) ? true : false }
+                        hideNavigation = {(this.state.hideNavigation === true) ? true : false }
                         onChange={this.handlePageChange}
                       />
                     </div>
@@ -220,7 +248,7 @@ export default class App extends Component {
                 <div className="panel panel-default">
                   <div className="panel-heading">
                     <a href='#default'>
-                      <h4 id='default' className="panel-title">Default</h4>
+                      <h4 id='default' className="panel-title">Pagination Configuration React</h4>
                     </a>
                   </div>
                   <div className="panel-body">
