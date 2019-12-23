@@ -48,7 +48,8 @@ export default class Page extends Component {
             disabledClass,
             isActive,
             isDisabled,
-            href
+            href,
+            ariaLabel
         } = this.props;
 
         const css = cx(itemClass, {
@@ -62,7 +63,7 @@ export default class Page extends Component {
 
         return (
             <li className={css} onClick={this.handleClick.bind(this)}>
-                <a className={linkCss} href={href}>
+                <a className={linkCss} href={href} aria-label={ariaLabel}>
                     {pageText}
                 </a>
             </li>
