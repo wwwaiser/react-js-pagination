@@ -1,12 +1,12 @@
 {
   "name": "react-js-pagination",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Simple, easy to use component for pagination. Compatible with bootstrap paginator stylesheets",
   "main": "./dist/Pagination.js",
   "scripts": {
     "clean": "rimraf dist",
     "clean-example": "rimraf src/example/dist",
-    "build": "npm run clean && babel src/components --out-dir dist",
+    "build": "npm run clean && babel src/components --out-dir dist --ignore 'src/components/*.test.js'",
     "build-example": "npm run clean-example && npm run build:webpack",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "start": "node devServer.js",
