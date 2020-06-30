@@ -8,6 +8,10 @@ export default class Pagination extends React.Component {
   static propTypes = {
     totalItemsCount: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
+    onNextPage: PropTypes.func,
+    onPrevPage: PropTypes.func,
+    onFirstPage: PropTypes.func,
+    onLastPage: PropTypes.func,
     activePage: PropTypes.number,
     itemsCountPerPage: PropTypes.number,
     pageRangeDisplayed: PropTypes.number,

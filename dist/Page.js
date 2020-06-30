@@ -53,14 +53,30 @@ function (_Component) {
     value: function handleClick(e) {
       var _this$props = this.props,
           isDisabled = _this$props.isDisabled,
-          pageNumber = _this$props.pageNumber;
+          pageNumber = _this$props.pageNumber,
+          key = _this$props.key,
+          onNextPage = _this$props.onNextPage,
+          onPrevPage = _this$props.onPrevPage,
+          onFirstPage = _this$props.onFirstPage,
+          onLastPage = _this$props.onLastPage,
+          onClick = _this$props.onClick;
       e.preventDefault();
 
       if (isDisabled) {
         return;
       }
 
-      this.props.onClick(pageNumber);
+      onClick(pageNumber);
+
+      if (key.indexOf('prev') > -1) {
+        onPrevPage && onPrevPage(e, pageNumber);
+      } else if (key.indexOf('next') > -1) {
+        onNextPage && onNextPage(e, pageNumber);
+      } else if (key.indexOf('first') > -1) {
+        onFirstPage && onFirstPage(e, pageNumber);
+      } else if (key.indexOf('last') > -1) {
+        onLastPage && onLastPage(e, pageNumber);
+      }
     }
   }, {
     key: "render",

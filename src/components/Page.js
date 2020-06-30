@@ -29,12 +29,30 @@ export default class Page extends Component {
     };
 
     handleClick(e) {
-        const { isDisabled, pageNumber } = this.props;
+        const {
+            isDisabled,
+            pageNumber,
+            key,
+            onNextPage,
+            onPrevPage,
+            onFirstPage,
+            onLastPage,
+            onClick
+        } = this.props;
         e.preventDefault();
         if (isDisabled) {
             return;
         }
-        this.props.onClick(pageNumber);
+        onClick(pageNumber);
+        if (key.indexOf('prev') > -1) {
+            onPrevPage && onPrevPage(e, pageNumber)
+        } else if (key.indexOf('next') > -1) {
+            onNextPage && onNextPage(e, pageNumber)
+        } else if (key.indexOf('first') > -1) {
+            onFirstPage && onFirstPage(e, pageNumber)
+        } else if (key.indexOf('last') > -1) {
+            onLastPage && onLastPage(e, pageNumber)
+        }
     }
 
     render() {

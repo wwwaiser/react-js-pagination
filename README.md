@@ -74,6 +74,10 @@ Name | Type | Default | Description
 --- | --- | --- | --- |
 `totalItemsCount` | Number | | **Required.** Total count of items which you are going to display
 `onChange` | Function | | **Required.** Page change handler. Receive pageNumber as arg
+`onPrevPage` | Function | | Will fire in addition to onChange if the previous page button is clicked.
+`onNextPage` | Function | | Will fire in addition to onChange if the next page button is clicked.
+`onFirstPage` | Function | | Will fire in addition to onChange if the first page button is clicked.
+`onLastPage` | Function | | Will fire in addition to onChange if the last page button is clicked.
 `activePage` | Number | `1` | **Required.** Active page
 `itemsCountPerPage` | Number | `10` | Count of items per  page
 `pageRangeDisplayed` | Number | `5` | Range of pages in paginator, exclude navigation blocks (prev, next, first, last pages)
