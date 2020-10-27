@@ -99,3 +99,44 @@ Name | Type | Default | Description
 `linkClassPrev` | String | | Class of the previous `<a>` tag
 `linkClassNext` | String | | Class of the next `<a>` tag
 `linkClassLast` | String | | Class of the last `<a>` tag
+
+## React 17 example
+
+Example as a functional component with hooks and bootstrap 4
+
+```
+npm install bootstrap
+```
+
+```js
+import { useState } from "react";
+import Pagination from "react-js-pagination";
+import 'bootstrap/dist/css/bootstrap.css';
+
+function App() {
+  const [page, setPage] = useState({activePage: 1});
+
+  function handlePageChange(pageNumber) {
+    console.log(page);
+    setPage({activePage: pageNumber});
+  }
+
+  return (
+    <>     
+      <Pagination
+          activePage={page.activePage}
+          itemsCountPerPage={1}
+          totalItemsCount={5}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+          itemClass="page-item"
+          linkClass="page-link"
+          innerClass="pagination justify-content-center"
+        />
+    </>
+  );
+}
+
+export default App;
+
+```

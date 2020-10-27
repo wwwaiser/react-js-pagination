@@ -50,6 +50,9 @@
     "url": "https://github.com/vayser/react-js-pagination/issues"
   },
   "homepage": "https://github.com/vayser/react-js-pagination",
+  "peerDependencies": {
+    "react": ">=15.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
@@ -77,8 +80,9 @@
     "mkdirp": "^0.5.1",
     "npm-run-all": "^4.0.2",
     "prettier": "^1.7.4",
-    "react-addons-test-utils": "15.x.x - 16.x.x",
-    "react-dom": "15.x.x - 16.x.x",
+    "react-addons-test-utils": ">=15.0.0",
+    "react": ">=15.0.0",
+    "react-dom": ">=15.0.0",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-syntax-highlighter": "^5.7.0",
     "react-test-renderer": "^16.0.0",
@@ -96,7 +100,6 @@
     "fstream": "1.0.12",
     "paginator": "^1.0.0",
     "prop-types": "15.x.x - 16.x.x",
-    "react": "15.x.x - 16.x.x",
     "tar": "2.2.2"
   }
 }
