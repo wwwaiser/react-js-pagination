@@ -207,6 +207,10 @@ exports["default"] = Pagination;
 _defineProperty(Pagination, "propTypes", {
   totalItemsCount: _propTypes["default"].number.isRequired,
   onChange: _propTypes["default"].func.isRequired,
+  onNext: _propTypes["default"].func,
+  onPrev: _propTypes["default"].func,
+  onFirst: _propTypes["default"].func,
+  onLast: _propTypes["default"].func,
   activePage: _propTypes["default"].number,
   itemsCountPerPage: _propTypes["default"].number,
   pageRangeDisplayed: _propTypes["default"].number,
