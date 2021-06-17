@@ -99,8 +99,6 @@ Name | Type | Default | Description
 `linkClassPrev` | String | | Class of the previous `<a>` tag
 `linkClassNext` | String | | Class of the next `<a>` tag
 `linkClassLast` | String | | Class of the last `<a>` tag
-
-Additions
 `onNext` | function | | invoked on next arrow click
 `onPrev` | function | | invoked on prev arrow click
 `onLast` | function | | invoked on Last arrow click

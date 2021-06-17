@@ -132,7 +132,7 @@ export default class Pagination extends React.Component {
           linkClass={linkClass}
           activeClass={activeClass}
           activeLinkClass={activeLinkClass}
-          ariaLabel={`Go to page number ${i}`}
+          ariaLabel={`${i}`}
         />
       );
     }
@@ -149,7 +149,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassPrev)}
           linkClass={cx(linkClass, linkClassPrev)}
           disabledClass={disabledClass}
-          ariaLabel="Go to previous page"
+          ariaLabel="Previous Page"
         />
       );
 
@@ -165,7 +165,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassFirst)}
           linkClass={cx(linkClass, linkClassFirst)}
           disabledClass={disabledClass}
-          ariaLabel="Go to first page"
+          ariaLabel="Return to Beginning"
         />
       );
 
@@ -181,7 +181,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassNext)}
           linkClass={cx(linkClass, linkClassNext)}
           disabledClass={disabledClass}
-          ariaLabel="Go to next page"
+          ariaLabel="Next Page"
         />
       );
 
@@ -199,7 +199,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassLast)}
           linkClass={cx(linkClass, linkClassLast)}
           disabledClass={disabledClass}
-          ariaLabel="Go to last page"
+          ariaLabel="Go to End"
         />
       );
 

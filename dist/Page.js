@@ -54,29 +54,15 @@ function (_Component) {
       var _this$props = this.props,
           isDisabled = _this$props.isDisabled,
           pageNumber = _this$props.pageNumber,
-          key = _this$props.key,
-          onNext = _this$props.onNext,
-          onPrev = _this$props.onPrev,
-          onFirst = _this$props.onFirst,
-          onLast = _this$props.onLast,
-          onClick = _this$props.onClick;
+          onClick = _this$props.onClick,
+          ariaLabel = _this$props.ariaLabel;
       e.preventDefault();
 
       if (isDisabled) {
         return;
       }
 
-      onClick(pageNumber);
-
-      if (key.indexOf('prev') > -1) {
-        onPrev && onPrev(e, pageNumber);
-      } else if (key.indexOf('next') > -1) {
-        onNext && onNext(e, pageNumber);
-      } else if (key.indexOf('first') > -1) {
-        onFirst && onFirst(e, pageNumber);
-      } else if (key.indexOf('last') > -1) {
-        onLast && onLast(e, pageNumber);
-      }
+      onClick(pageNumber, ariaLabel);
     }
   }, {
     key: "render",

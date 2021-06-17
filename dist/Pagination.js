@@ -135,7 +135,7 @@ function (_React$Component) {
           linkClass: linkClass,
           activeClass: activeClass,
           activeLinkClass: activeLinkClass,
-          ariaLabel: "Go to page number ".concat(i)
+          ariaLabel: "".concat(i)
         }));
       }
 
@@ -149,7 +149,7 @@ function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassPrev),
         linkClass: (0, _classnames["default"])(linkClass, linkClassPrev),
         disabledClass: disabledClass,
-        ariaLabel: "Go to previous page"
+        ariaLabel: "Previous Page"
       }));
       this.isFirstPageVisible(paginationInfo.has_previous_page) && pages.unshift(_react["default"].createElement(_Page["default"], {
         key: "first",
@@ -161,7 +161,7 @@ function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassFirst),
         linkClass: (0, _classnames["default"])(linkClass, linkClassFirst),
         disabledClass: disabledClass,
-        ariaLabel: "Go to first page"
+        ariaLabel: "Return to Beginning"
       }));
       this.isNextPageVisible(paginationInfo.has_next_page) && pages.push(_react["default"].createElement(_Page["default"], {
         key: "next" + paginationInfo.next_page,
@@ -173,7 +173,7 @@ function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassNext),
         linkClass: (0, _classnames["default"])(linkClass, linkClassNext),
         disabledClass: disabledClass,
-        ariaLabel: "Go to next page"
+        ariaLabel: "Next Page"
       }));
       this.isLastPageVisible(paginationInfo.has_next_page) && pages.push(_react["default"].createElement(_Page["default"], {
         key: "last",
@@ -185,7 +185,7 @@ function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassLast),
         linkClass: (0, _classnames["default"])(linkClass, linkClassLast),
         disabledClass: disabledClass,
-        ariaLabel: "Go to last page"
+        ariaLabel: "Go to End"
       }));
       return pages;
     }
