@@ -1594,12 +1594,6 @@ binary-extensions@^1.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.13.1.tgz#598afe54755b2868a5330d2aff9d4ebb53209b65"
   integrity sha512-Un7MIEDdUC5gNpcGDV97op1Ywk748MpHcFTHoYs6qnj1Z3j7I53VG3nwZhKzoBZmbdRNnb6WRdFlwl7tSDuZGw==
 
-block-stream@*:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/block-stream/-/block-stream-0.0.9.tgz#13ebfe778a03205cfe03751481ebb4b3300c126a"
-  dependencies:
-    inherits "~2.0.0"
-
 bluebird@^3.5.3:
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
@@ -3415,7 +3409,7 @@ fsevents@^1.2.7:
     nan "^2.12.1"
     node-pre-gyp "^0.12.0"
 
-fstream@1.0.12, fstream@^1.0.12:
+fstream@1.0.12:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/fstream/-/fstream-1.0.12.tgz#4e8ba8ee2d48be4f7d0de505455548eae5932045"
   integrity sha512-WvJ193OHa0GHPEL+AycEJgxvBEwyfRkN1vhjca23OaPVMCaLCXTd5qAu82AjTcgP1UJmytkOKb63Ypde7raDIg==
@@ -5235,10 +5229,10 @@ minimist@~0.0.1:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
   integrity sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
 
-minipass@^2.2.1, minipass@^2.3.5:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.3.5.tgz#cacebe492022497f656b0f0f51e2682a9ed2d848"
-  integrity sha512-Gi1W4k059gyRbyVUZQ4mEqLm0YIUiGYfvxhF6SIlk3ui1WVxMTGfGdQ2SInh3PDrRTVvPKgULkpJtT4RH10+VA==
+minipass@^2.2.1, minipass@^2.8.6:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.9.0.tgz#e713762e7d3e32fed803115cf93e04bca9fcc9a6"
+  integrity sha512-wxfUjg9WebH+CUDX/CdbRlh5SmfZiy/hpkxaRI16Y9W56Pa75sWgd/rvFilSgrauD9NyFymP/+JFV3KwzIsJeg==
   dependencies:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
@@ -6879,11 +6873,11 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
-safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
+safe-buffer@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2:
+safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
@@ -7446,23 +7440,14 @@ tapable@^1.0.0, tapable@^1.1.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
   integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
 
-tar@2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-2.2.2.tgz#0ca8848562c7299b8b446ff6a4d60cdbb23edc40"
-  integrity sha512-FCEhQ/4rE1zYv9rYXJw/msRqsnmlje5jHP6huWeBZ704jUTy02c5AZyWujpMR1ax6mVw9NyJMfuK2CMDWVIfgA==
-  dependencies:
-    block-stream "*"
-    fstream "^1.0.12"
-    inherits "2"
-
-tar@^4:
-  version "4.4.9"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.9.tgz#058fbb152f6fc45733e84585a40c39e59302e1b3"
-  integrity sha512-xisFa7Q2i3HOgfn+nmnWLGHD6Tm23hxjkx6wwGmgxkJFr6wxwXnJOdJYcZjL453PSdF0+bemO03+flAzkIdLBQ==
+tar@4.4.15, tar@^4:
+  version "4.4.15"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.15.tgz#3caced4f39ebd46ddda4d6203d48493a919697f8"
+  integrity sha512-ItbufpujXkry7bHH9NpQyTXPbJ72iTlXgkBAYsAjDXk3Ds8t/3NfO5P4xZGy7u+sYuQUbimgzswX4uQIEeNVOA==
   dependencies:
     chownr "^1.1.1"
     fs-minipass "^1.2.5"
-    minipass "^2.3.5"
+    minipass "^2.8.6"
     minizlib "^1.2.1"
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
