@@ -29,12 +29,17 @@ export default class Page extends Component {
     };
 
     handleClick(e) {
-        const { isDisabled, pageNumber } = this.props;
+        const {
+            isDisabled,
+            pageNumber,
+            onClick,
+            ariaLabel
+        } = this.props;
         e.preventDefault();
         if (isDisabled) {
             return;
         }
-        this.props.onClick(pageNumber);
+        onClick(pageNumber, ariaLabel);
     }
 
     render() {

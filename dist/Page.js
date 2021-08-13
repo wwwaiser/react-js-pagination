@@ -53,14 +53,16 @@ function (_Component) {
     value: function handleClick(e) {
       var _this$props = this.props,
           isDisabled = _this$props.isDisabled,
-          pageNumber = _this$props.pageNumber;
+          pageNumber = _this$props.pageNumber,
+          onClick = _this$props.onClick,
+          ariaLabel = _this$props.ariaLabel;
       e.preventDefault();
 
       if (isDisabled) {
         return;
       }
 
-      this.props.onClick(pageNumber);
+      onClick(pageNumber, ariaLabel);
     }
   }, {
     key: "render",
