@@ -37,7 +37,8 @@ export default class Pagination extends React.Component {
     linkClassNext: PropTypes.string,
     linkClassLast: PropTypes.string,
     hideFirstLastPages: PropTypes.bool,
-    getPageUrl: PropTypes.func
+    getPageUrl: PropTypes.func,
+    pageText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   };
 
   static defaultProps = {
@@ -58,7 +59,8 @@ export default class Pagination extends React.Component {
     linkClass: undefined,
     activeLinkClass: undefined,
     hideFirstLastPages: false,
-    getPageUrl: (i) => "#"
+    getPageUrl: (i) => "#",
+    pageText: ':page',
   };
 
   isFirstPageVisible(has_previous_page) {
@@ -118,7 +120,8 @@ export default class Pagination extends React.Component {
       firstPageAriaLabel,
       prevPageAriaLabel,
       nextPageAriaLabel,
-      lastPageAriaLabel
+      lastPageAriaLabel,
+      pageText
     } = this.props;
 
     const paginationInfo = new paginator(
@@ -137,7 +140,7 @@ export default class Pagination extends React.Component {
           key={i}
           href={getPageUrl(i)}
           pageNumber={i}
-          pageText={i + ""}
+          pageText={pageText.replace(':page', i)}
           onClick={onChange}
           itemClass={itemClass}
           linkClass={linkClass}
