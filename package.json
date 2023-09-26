@@ -1,6 +1,6 @@
 {
   "name": "react-js-pagination",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "Simple, easy to use component for pagination. Compatible with bootstrap paginator stylesheets",
   "main": "./dist/Pagination.js",
   "scripts": {
@@ -77,11 +77,10 @@
     "mkdirp": "^0.5.1",
     "npm-run-all": "^4.0.2",
     "prettier": "^1.7.4",
-    "react-addons-test-utils": "15.x.x - 16.x.x",
-    "react-dom": "15.x.x - 16.x.x",
+    "react-dom": "^17",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-syntax-highlighter": "^5.7.0",
-    "react-test-renderer": "^16.0.0",
+    "react-test-renderer": "^17",
     "rimraf": "^2.4.3",
     "style-loader": "^0.23.1",
     "uglify-js": "^3.6.0",
@@ -95,8 +94,8 @@
     "classnames": "^2.2.5",
     "fstream": "1.0.12",
     "paginator": "^1.0.0",
-    "prop-types": "15.x.x - 16.x.x",
-    "react": "15.x.x - 16.x.x",
+    "prop-types": "^15.8.1",
+    "react": "^17",
     "tar": "4.4.18"
   }
 }
