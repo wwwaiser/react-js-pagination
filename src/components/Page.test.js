@@ -76,10 +76,10 @@ describe("<Page />", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
-  it("lets modified clicks on a real URL open normally", () => {
+  it.each(["ctrlKey", "metaKey", "shiftKey", "altKey"])("leaves %s clicks on a real URL to the browser", (key) => {
     const onClick = jest.fn();
     const { a } = renderPage({ onClick, href: "/items?page=2", pageNumber: 2 });
-    const notCancelled = fireEvent.click(a, { ctrlKey: true });
+    const notCancelled = fireEvent.click(a, { [key]: true });
     expect(notCancelled).toBe(true);
     expect(onClick).not.toHaveBeenCalled();
   });

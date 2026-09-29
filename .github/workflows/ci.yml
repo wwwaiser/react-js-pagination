@@ -27,6 +27,12 @@ jobs:
         run: git diff --exit-code -- dist
       - run: node test/compat.cjs
       - run: npm run build-example
+      # GitHub Pages serves the committed demo/, so it must match the source.
+      # git status also catches new hashed asset files, which git diff misses.
+      - name: Committed demo matches a fresh build
+        run: |
+          git status --porcelain -- demo
+          test -z "$(git status --porcelain -- demo)"
       - name: Package contents
         run: npm pack --dry-run
 

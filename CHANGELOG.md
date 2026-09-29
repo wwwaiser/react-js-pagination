@@ -6,11 +6,11 @@ This release needs no code changes. It fixes installs on React 19, removes the d
 
 ### Fixed
 
-- Works with React 18 and 19. `react` is now a peer dependency, so the component uses your app's React instead of installing a second copy of React 16. With React 19 that second copy crashed rendering with "Objects are not valid as a React child" ([#152](https://github.com/wwwaiser/react-js-pagination/issues/152)).
-- Removed `tar` and `fstream` from the dependencies. The component never used them, and they triggered high-severity audit warnings ([#133](https://github.com/wwwaiser/react-js-pagination/issues/133)).
+- Works with React 18 and 19. `react` is now a peer dependency, so the component uses your app's React instead of installing a second copy of React 16. With React 19 that second copy crashed rendering with "Objects are not valid as a React child" ([#101](https://github.com/wwwaiser/react-js-pagination/issues/101)).
+- Removed `tar` and `fstream` from the dependencies. The component never used them, and they triggered high-severity audit warnings ([#133](https://github.com/wwwaiser/react-js-pagination/issues/133), [#152](https://github.com/wwwaiser/react-js-pagination/issues/152)).
 - The published package contains only the build, types and docs: 40 kB unpacked instead of 3.7 MB, which used to include the demo bundle.
 - The active page link no longer gets the class `undefined` when `activeLinkClass` is not set.
-- Ctrl-, Cmd- and Shift-clicks on links with a real `getPageUrl` open the URL instead of being cancelled.
+- Ctrl-, Cmd-, Shift- and Alt-clicks on links with a real `getPageUrl` are left to the browser (new tab, new window or download) instead of being cancelled, as Next.js and React Router links do.
 
 ### Added
 

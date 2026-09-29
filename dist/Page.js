@@ -36,7 +36,8 @@ var Page = exports["default"] = /*#__PURE__*/function (_Component) {
         isDisabled = _this$props.isDisabled,
         pageNumber = _this$props.pageNumber,
         href = _this$props.href;
-      // Let the browser open real page URLs in a new tab or window.
+      // Leave modified clicks on real URLs to the browser (new tab, new window,
+      // download), like Next.js and React Router links.
       var opensElsewhere = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
       if (opensElsewhere && href && href !== "#" && !isDisabled) {
         return;

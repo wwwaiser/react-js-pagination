@@ -40,7 +40,7 @@ const [page, setPage] = useState(1);
 - hideDisabled: boolean, false. Hides first/prev/next/last when they are disabled
 - hideNavigation: boolean, false. Hides prev/next
 - hideFirstLastPages: boolean, false. Hides first/last
-- getPageUrl: (pageNumber: number) => string, returns "#". Sets each link's href; modified clicks on real URLs open normally
+- getPageUrl: (pageNumber: number) => string, returns "#". Sets each link's href; Ctrl/Cmd/Shift/Alt-clicks on real URLs are left to the browser and do not call onChange
 - pageAriaLabel: string, "Go to page number :page". ":page" is replaced with the number
 - firstPageAriaLabel, prevPageAriaLabel, nextPageAriaLabel, lastPageAriaLabel: string
 - innerClass: string, "pagination". Class of the <ul>

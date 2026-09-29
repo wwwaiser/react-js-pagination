@@ -60,7 +60,7 @@ Bootstrap 3 works as is. Bootstrap 4 and 5 need two extra class names:
 
 ### Real page URLs
 
-Pass `getPageUrl` to give every link a real `href`. Clicks still call `onChange`, while Ctrl-, Cmd- and Shift-clicks open the URL in a new tab or window.
+Pass `getPageUrl` to give every link a real `href`. Clicks still call `onChange`. Ctrl-, Cmd-, Shift- and Alt-clicks are left to the browser, so people can open a page in a new tab or window (or download it with Alt), as with any link.
 
 ```jsx
 <Pagination getPageUrl={(page) => `/products?page=${page}`} {...otherProps} />
