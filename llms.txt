@@ -1,0 +1,60 @@
+# react-js-pagination
+
+> React component that renders page links (first, previous, page numbers, next, last) as a `<ul>` with Bootstrap-compatible markup. No styles included. Supports React 15-19. TypeScript types included.
+
+## Install and import
+
+npm install react-js-pagination
+
+import Pagination from "react-js-pagination";   // default export, a class component
+
+## Rules
+
+- It is a controlled component. Keep the current page in state, pass it as `activePage`, and update that state in `onChange`. If you don't, the highlighted page never changes.
+- `onChange(pageNumber: number)` receives the 1-based page number the user picked.
+- `activePage` is 1-based.
+- `totalItemsCount` is the number of items, not pages. The page count is `ceil(totalItemsCount / itemsCountPerPage)`.
+- For Bootstrap 4 or 5, pass `itemClass="page-item"` and `linkClass="page-link"`.
+- Wrap it in `<nav aria-label="...">` for screen readers.
+
+## Minimal example
+
+```jsx
+const [page, setPage] = useState(1);
+<Pagination
+  activePage={page}
+  itemsCountPerPage={10}
+  totalItemsCount={items.length}
+  onChange={setPage}
+/>
+```
+
+## Props (type, default)
+
+- totalItemsCount: number, required
+- onChange: (pageNumber: number) => void, required
+- activePage: number, 1
+- itemsCountPerPage: number, 10
+- pageRangeDisplayed: number, 5. How many page numbers to show, excluding the first/prev/next/last controls
+- firstPageText, prevPageText, nextPageText, lastPageText: string | ReactElement, "«" "⟨" "⟩" "»"
+- hideDisabled: boolean, false. Hides first/prev/next/last when they are disabled
+- hideNavigation: boolean, false. Hides prev/next
+- hideFirstLastPages: boolean, false. Hides first/last
+- getPageUrl: (pageNumber: number) => string, returns "#". Sets each link's href; modified clicks on real URLs open normally
+- pageAriaLabel: string, "Go to page number :page". ":page" is replaced with the number
+- firstPageAriaLabel, prevPageAriaLabel, nextPageAriaLabel, lastPageAriaLabel: string
+- innerClass: string, "pagination". Class of the <ul>
+- itemClass, linkClass: string. Classes of every <li> and <a>
+- itemClassFirst, itemClassPrev, itemClassNext, itemClassLast: string
+- linkClassFirst, linkClassPrev, linkClassNext, linkClassLast: string
+- activeClass: string, "active". Class of the active <li>
+- activeLinkClass: string. Class of the active <a>
+- disabledClass: string, "disabled". Class of disabled <li> controls
+
+## Rendered markup
+
+<ul class="pagination">
+  <li class="disabled"><a href="#" aria-label="Go to first page" aria-disabled="true">«</a></li>
+  <li class="active"><a href="#" aria-label="Go to page number 1" aria-current="page">1</a></li>
+  ...
+</ul>
