@@ -160,26 +160,29 @@ export default class Pagination extends React.Component {
       lastPageAriaLabel
     } = this.props;
 
+    // pageRangeDisplayed={0} shows only the navigation controls. paginator
+    // turns a length of 0 into 10, so ask it for 1 and skip the numbers.
+    const showNumbers = pageRangeDisplayed !== 0;
     const paginationInfo = new paginator(
       itemsCountPerPage,
-      pageRangeDisplayed
+      showNumbers ? pageRangeDisplayed : 1
     ).build(totalItemsCount, activePage);
 
     const { first_page, last_page, total_pages } = paginationInfo;
 
     // With ellipsis, keep the first and last page visible. A gap of a single
     // page shows that page instead of an ellipsis, since both take one slot.
-    if (ellipsis && first_page > 1) {
+    if (showNumbers && ellipsis && first_page > 1) {
       pages.push(this.renderPageNumber(1));
       if (first_page === 3) pages.push(this.renderPageNumber(2));
       else if (first_page > 3) pages.push(this.renderEllipsis("start"));
     }
 
-    for (let i = first_page; i <= last_page; i++) {
+    for (let i = first_page; showNumbers && i <= last_page; i++) {
       pages.push(this.renderPageNumber(i));
     }
 
-    if (ellipsis && last_page < total_pages) {
+    if (showNumbers && ellipsis && last_page < total_pages) {
       if (last_page === total_pages - 2) pages.push(this.renderPageNumber(total_pages - 1));
       else if (last_page < total_pages - 2) pages.push(this.renderEllipsis("end"));
       pages.push(this.renderPageNumber(total_pages));

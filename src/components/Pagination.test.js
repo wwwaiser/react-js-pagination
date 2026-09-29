@@ -98,6 +98,15 @@ describe("<Pagination />", () => {
       expect(texts(items)).toEqual(["⟨", "3", "4", "5", "6", "7", "⟩"]);
     });
 
+    it("pageRangeDisplayed={0} shows only the navigation controls", () => {
+      const onChange = jest.fn();
+      const { items } = renderPagination({ totalItemsCount: 230, activePage: 3, pageRangeDisplayed: 0, ellipsis: true, onChange });
+      expect(texts(items)).toEqual(["«", "⟨", "⟩", "»"]);
+      fireEvent.click(screen.getByLabelText("Go to next page"));
+      fireEvent.click(screen.getByLabelText("Go to last page"));
+      expect(onChange.mock.calls.map((c) => c[0])).toEqual([4, 23]);
+    });
+
     it("pageRangeDisplayed controls how many page numbers show", () => {
       const { items } = renderPagination({ totalItemsCount: 1000, activePage: 20, pageRangeDisplayed: 3, itemsCountPerPage: 25 });
       expect(texts(items)).toEqual(["«", "⟨", "19", "20", "21", "⟩", "»"]);
