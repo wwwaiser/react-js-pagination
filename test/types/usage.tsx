@@ -1,5 +1,5 @@
 import * as React from "react";
-import Pagination, { ReactJsPaginationProps, PaginationProps } from "react-js-pagination";
+import Pagination, { ReactJsPaginationProps, PaginationProps, PaginationControl } from "react-js-pagination";
 
 export function Minimal() {
   return <Pagination totalItemsCount={100} onChange={(page: number) => void page} />;
@@ -22,6 +22,25 @@ export function Full() {
   const alias: PaginationProps = props;
   return <Pagination {...alias} hideDisabled />;
 }
+
+export function NewProps() {
+  const track = (page: number, control: PaginationControl) => void [page, control];
+  return (
+    <Pagination
+      totalItemsCount={450}
+      onChange={track}
+      ellipsis
+      ellipsisText={<span>…</span>}
+      pageRangeDisplayed={0}
+      getPageText={(i) => i.toLocaleString()}
+      inactiveClass="off"
+      inactiveLinkClass="bg-danger"
+    />
+  );
+}
+
+// @ts-expect-error control is one of the five known names
+export const WrongControl: PaginationControl = "middle";
 
 // @ts-expect-error totalItemsCount is required
 export const MissingTotal = <Pagination onChange={() => {}} />;

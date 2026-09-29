@@ -35,7 +35,8 @@ var Page = exports["default"] = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
         isDisabled = _this$props.isDisabled,
         pageNumber = _this$props.pageNumber,
-        href = _this$props.href;
+        href = _this$props.href,
+        control = _this$props.control;
       // Leave modified clicks on real URLs to the browser (new tab, new window,
       // download), like Next.js and React Router links.
       var opensElsewhere = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
@@ -46,7 +47,7 @@ var Page = exports["default"] = /*#__PURE__*/function (_Component) {
       if (isDisabled) {
         return;
       }
-      this.props.onClick(pageNumber);
+      this.props.onClick(pageNumber, control);
     }
   }, {
     key: "render",
@@ -57,13 +58,15 @@ var Page = exports["default"] = /*#__PURE__*/function (_Component) {
         itemClass = _this$props2.itemClass,
         linkClass = _this$props2.linkClass,
         activeLinkClass = _this$props2.activeLinkClass,
+        inactiveClass = _this$props2.inactiveClass,
+        inactiveLinkClass = _this$props2.inactiveLinkClass,
         disabledClass = _this$props2.disabledClass,
         isActive = _this$props2.isActive,
         isDisabled = _this$props2.isDisabled,
         href = _this$props2.href,
         ariaLabel = _this$props2.ariaLabel;
-      var css = (0, _classnames["default"])(itemClass, isActive && activeClass, isDisabled && disabledClass);
-      var linkCss = (0, _classnames["default"])(linkClass, isActive && activeLinkClass);
+      var css = (0, _classnames["default"])(itemClass, isActive ? activeClass : inactiveClass, isDisabled && disabledClass);
+      var linkCss = (0, _classnames["default"])(linkClass, isActive ? activeLinkClass : inactiveLinkClass);
       return /*#__PURE__*/_react["default"].createElement("li", {
         className: css,
         onClick: this.handleClick.bind(this)
@@ -85,11 +88,14 @@ _defineProperty(Page, "propTypes", {
   isDisabled: _propTypes["default"].bool,
   activeClass: _propTypes["default"].string,
   activeLinkClass: _propTypes["default"].string,
+  inactiveClass: _propTypes["default"].string,
+  inactiveLinkClass: _propTypes["default"].string,
   itemClass: _propTypes["default"].string,
   linkClass: _propTypes["default"].string,
   disabledClass: _propTypes["default"].string,
   href: _propTypes["default"].string,
-  ariaLabel: _propTypes["default"].string
+  ariaLabel: _propTypes["default"].string,
+  control: _propTypes["default"].oneOf(["first", "prev", "page", "next", "last"])
 });
 _defineProperty(Page, "defaultProps", {
   activeClass: "active",
@@ -99,5 +105,6 @@ _defineProperty(Page, "defaultProps", {
   activeLinkClass: undefined,
   isActive: false,
   isDisabled: false,
-  href: "#"
+  href: "#",
+  control: "page"
 });

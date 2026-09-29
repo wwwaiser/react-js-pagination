@@ -11,7 +11,7 @@ import Pagination from "react-js-pagination";   // default export, a class compo
 ## Rules
 
 - It is a controlled component. Keep the current page in state, pass it as `activePage`, and update that state in `onChange`. If you don't, the highlighted page never changes.
-- `onChange(pageNumber: number)` receives the 1-based page number the user picked.
+- `onChange(pageNumber: number, control)` receives the 1-based page number and the clicked control: "first", "prev", "page", "next" or "last".
 - `activePage` is 1-based.
 - `totalItemsCount` is the number of items, not pages. The page count is `ceil(totalItemsCount / itemsCountPerPage)`.
 - For Bootstrap 4 or 5, pass `itemClass="page-item"` and `linkClass="page-link"`.
@@ -32,10 +32,13 @@ const [page, setPage] = useState(1);
 ## Props (type, default)
 
 - totalItemsCount: number, required
-- onChange: (pageNumber: number) => void, required
+- onChange: (pageNumber: number, control: "first" | "prev" | "page" | "next" | "last") => void, required
 - activePage: number, 1
 - itemsCountPerPage: number, 10
-- pageRangeDisplayed: number, 5. How many page numbers to show, excluding the first/prev/next/last controls
+- pageRangeDisplayed: number, 5. How many page numbers to show, excluding the first/prev/next/last controls. 0 shows only the controls
+- ellipsis: boolean, false. Keeps the first and last page visible with "…" gaps: 1 … 18 19 20 21 22 … 45
+- ellipsisText: string | ReactElement, "…"
+- getPageText: (pageNumber: number) => string | ReactElement. Label of each page link; aria-label keeps the number
 - firstPageText, prevPageText, nextPageText, lastPageText: string | ReactElement, "«" "⟨" "⟩" "»"
 - hideDisabled: boolean, false. Hides first/prev/next/last when they are disabled
 - hideNavigation: boolean, false. Hides prev/next
@@ -49,6 +52,7 @@ const [page, setPage] = useState(1);
 - linkClassFirst, linkClassPrev, linkClassNext, linkClassLast: string
 - activeClass: string, "active". Class of the active <li>
 - activeLinkClass: string. Class of the active <a>
+- inactiveClass, inactiveLinkClass: string. Classes of every <li> / <a> except the active page. Use these instead of itemClass/linkClass for state colours (Tailwind)
 - disabledClass: string, "disabled". Class of disabled <li> controls
 
 ## Rendered markup

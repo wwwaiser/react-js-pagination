@@ -67,56 +67,110 @@ var Pagination = exports["default"] = /*#__PURE__*/function (_React$Component) {
       return true;
     }
   }, {
+    key: "renderPageNumber",
+    value: function renderPageNumber(i) {
+      var _this$props5 = this.props,
+        activePage = _this$props5.activePage,
+        getPageUrl = _this$props5.getPageUrl,
+        getPageText = _this$props5.getPageText,
+        onChange = _this$props5.onChange,
+        itemClass = _this$props5.itemClass,
+        linkClass = _this$props5.linkClass,
+        activeClass = _this$props5.activeClass,
+        activeLinkClass = _this$props5.activeLinkClass,
+        inactiveClass = _this$props5.inactiveClass,
+        inactiveLinkClass = _this$props5.inactiveLinkClass,
+        pageAriaLabel = _this$props5.pageAriaLabel;
+      return /*#__PURE__*/_react["default"].createElement(_Page["default"], {
+        isActive: i === activePage,
+        key: i,
+        href: getPageUrl(i),
+        pageNumber: i,
+        pageText: getPageText(i),
+        onClick: onChange,
+        itemClass: itemClass,
+        linkClass: linkClass,
+        activeClass: activeClass,
+        activeLinkClass: activeLinkClass,
+        inactiveClass: inactiveClass,
+        inactiveLinkClass: inactiveLinkClass,
+        ariaLabel: pageAriaLabel.replace(":page", i)
+      });
+    }
+  }, {
+    key: "renderEllipsis",
+    value: function renderEllipsis(position) {
+      var _this$props6 = this.props,
+        itemClass = _this$props6.itemClass,
+        linkClass = _this$props6.linkClass,
+        disabledClass = _this$props6.disabledClass,
+        ellipsisText = _this$props6.ellipsisText;
+      return /*#__PURE__*/_react["default"].createElement("li", {
+        key: "ellipsis-" + position,
+        className: (0, _classnames["default"])(itemClass, disabledClass)
+      }, /*#__PURE__*/_react["default"].createElement("span", {
+        className: (0, _classnames["default"])(linkClass) || undefined,
+        "aria-hidden": "true"
+      }, ellipsisText));
+    }
+  }, {
     key: "buildPages",
     value: function buildPages() {
       var pages = [];
-      var _this$props5 = this.props,
-        itemsCountPerPage = _this$props5.itemsCountPerPage,
-        pageRangeDisplayed = _this$props5.pageRangeDisplayed,
-        activePage = _this$props5.activePage,
-        prevPageText = _this$props5.prevPageText,
-        nextPageText = _this$props5.nextPageText,
-        firstPageText = _this$props5.firstPageText,
-        lastPageText = _this$props5.lastPageText,
-        totalItemsCount = _this$props5.totalItemsCount,
-        onChange = _this$props5.onChange,
-        activeClass = _this$props5.activeClass,
-        itemClass = _this$props5.itemClass,
-        itemClassFirst = _this$props5.itemClassFirst,
-        itemClassPrev = _this$props5.itemClassPrev,
-        itemClassNext = _this$props5.itemClassNext,
-        itemClassLast = _this$props5.itemClassLast,
-        activeLinkClass = _this$props5.activeLinkClass,
-        disabledClass = _this$props5.disabledClass,
-        linkClass = _this$props5.linkClass,
-        linkClassFirst = _this$props5.linkClassFirst,
-        linkClassPrev = _this$props5.linkClassPrev,
-        linkClassNext = _this$props5.linkClassNext,
-        linkClassLast = _this$props5.linkClassLast,
-        getPageUrl = _this$props5.getPageUrl,
-        pageAriaLabel = _this$props5.pageAriaLabel,
-        firstPageAriaLabel = _this$props5.firstPageAriaLabel,
-        prevPageAriaLabel = _this$props5.prevPageAriaLabel,
-        nextPageAriaLabel = _this$props5.nextPageAriaLabel,
-        lastPageAriaLabel = _this$props5.lastPageAriaLabel;
-      var paginationInfo = new _paginator["default"](itemsCountPerPage, pageRangeDisplayed).build(totalItemsCount, activePage);
-      for (var i = paginationInfo.first_page; i <= paginationInfo.last_page; i++) {
-        pages.push(/*#__PURE__*/_react["default"].createElement(_Page["default"], {
-          isActive: i === activePage,
-          key: i,
-          href: getPageUrl(i),
-          pageNumber: i,
-          pageText: i + "",
-          onClick: onChange,
-          itemClass: itemClass,
-          linkClass: linkClass,
-          activeClass: activeClass,
-          activeLinkClass: activeLinkClass,
-          ariaLabel: pageAriaLabel.replace(":page", i)
-        }));
+      var _this$props7 = this.props,
+        itemsCountPerPage = _this$props7.itemsCountPerPage,
+        pageRangeDisplayed = _this$props7.pageRangeDisplayed,
+        activePage = _this$props7.activePage,
+        prevPageText = _this$props7.prevPageText,
+        nextPageText = _this$props7.nextPageText,
+        firstPageText = _this$props7.firstPageText,
+        lastPageText = _this$props7.lastPageText,
+        totalItemsCount = _this$props7.totalItemsCount,
+        onChange = _this$props7.onChange,
+        itemClass = _this$props7.itemClass,
+        itemClassFirst = _this$props7.itemClassFirst,
+        itemClassPrev = _this$props7.itemClassPrev,
+        itemClassNext = _this$props7.itemClassNext,
+        itemClassLast = _this$props7.itemClassLast,
+        disabledClass = _this$props7.disabledClass,
+        inactiveClass = _this$props7.inactiveClass,
+        inactiveLinkClass = _this$props7.inactiveLinkClass,
+        linkClass = _this$props7.linkClass,
+        linkClassFirst = _this$props7.linkClassFirst,
+        linkClassPrev = _this$props7.linkClassPrev,
+        linkClassNext = _this$props7.linkClassNext,
+        linkClassLast = _this$props7.linkClassLast,
+        getPageUrl = _this$props7.getPageUrl,
+        ellipsis = _this$props7.ellipsis,
+        firstPageAriaLabel = _this$props7.firstPageAriaLabel,
+        prevPageAriaLabel = _this$props7.prevPageAriaLabel,
+        nextPageAriaLabel = _this$props7.nextPageAriaLabel,
+        lastPageAriaLabel = _this$props7.lastPageAriaLabel;
+
+      // pageRangeDisplayed={0} shows only the navigation controls. paginator
+      // turns a length of 0 into 10, so ask it for 1 and skip the numbers.
+      var showNumbers = pageRangeDisplayed !== 0;
+      var paginationInfo = new _paginator["default"](itemsCountPerPage, showNumbers ? pageRangeDisplayed : 1).build(totalItemsCount, activePage);
+      var first_page = paginationInfo.first_page,
+        last_page = paginationInfo.last_page,
+        total_pages = paginationInfo.total_pages;
+
+      // With ellipsis, keep the first and last page visible. A gap of a single
+      // page shows that page instead of an ellipsis, since both take one slot.
+      if (showNumbers && ellipsis && first_page > 1) {
+        pages.push(this.renderPageNumber(1));
+        if (first_page === 3) pages.push(this.renderPageNumber(2));else if (first_page > 3) pages.push(this.renderEllipsis("start"));
+      }
+      for (var i = first_page; showNumbers && i <= last_page; i++) {
+        pages.push(this.renderPageNumber(i));
+      }
+      if (showNumbers && ellipsis && last_page < total_pages) {
+        if (last_page === total_pages - 2) pages.push(this.renderPageNumber(total_pages - 1));else if (last_page < total_pages - 2) pages.push(this.renderEllipsis("end"));
+        pages.push(this.renderPageNumber(total_pages));
       }
       this.isPrevPageVisible(paginationInfo.has_previous_page) && pages.unshift(/*#__PURE__*/_react["default"].createElement(_Page["default"], {
-        key: "prev" + paginationInfo.previous_page,
+        key: "prev",
+        control: "prev",
         href: getPageUrl(paginationInfo.previous_page),
         pageNumber: paginationInfo.previous_page,
         onClick: onChange,
@@ -125,10 +179,13 @@ var Pagination = exports["default"] = /*#__PURE__*/function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassPrev),
         linkClass: (0, _classnames["default"])(linkClass, linkClassPrev),
         disabledClass: disabledClass,
+        inactiveClass: inactiveClass,
+        inactiveLinkClass: inactiveLinkClass,
         ariaLabel: prevPageAriaLabel
       }));
       this.isFirstPageVisible(paginationInfo.has_previous_page) && pages.unshift(/*#__PURE__*/_react["default"].createElement(_Page["default"], {
         key: "first",
+        control: "first",
         href: getPageUrl(1),
         pageNumber: 1,
         onClick: onChange,
@@ -137,10 +194,13 @@ var Pagination = exports["default"] = /*#__PURE__*/function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassFirst),
         linkClass: (0, _classnames["default"])(linkClass, linkClassFirst),
         disabledClass: disabledClass,
+        inactiveClass: inactiveClass,
+        inactiveLinkClass: inactiveLinkClass,
         ariaLabel: firstPageAriaLabel
       }));
       this.isNextPageVisible(paginationInfo.has_next_page) && pages.push(/*#__PURE__*/_react["default"].createElement(_Page["default"], {
-        key: "next" + paginationInfo.next_page,
+        key: "next",
+        control: "next",
         href: getPageUrl(paginationInfo.next_page),
         pageNumber: paginationInfo.next_page,
         onClick: onChange,
@@ -149,10 +209,13 @@ var Pagination = exports["default"] = /*#__PURE__*/function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassNext),
         linkClass: (0, _classnames["default"])(linkClass, linkClassNext),
         disabledClass: disabledClass,
+        inactiveClass: inactiveClass,
+        inactiveLinkClass: inactiveLinkClass,
         ariaLabel: nextPageAriaLabel
       }));
       this.isLastPageVisible(paginationInfo.has_next_page) && pages.push(/*#__PURE__*/_react["default"].createElement(_Page["default"], {
         key: "last",
+        control: "last",
         href: getPageUrl(paginationInfo.total_pages),
         pageNumber: paginationInfo.total_pages,
         onClick: onChange,
@@ -161,6 +224,8 @@ var Pagination = exports["default"] = /*#__PURE__*/function (_React$Component) {
         itemClass: (0, _classnames["default"])(itemClass, itemClassLast),
         linkClass: (0, _classnames["default"])(linkClass, linkClassLast),
         disabledClass: disabledClass,
+        inactiveClass: inactiveClass,
+        inactiveLinkClass: inactiveLinkClass,
         ariaLabel: lastPageAriaLabel
       }));
       return pages;
@@ -202,12 +267,17 @@ _defineProperty(Pagination, "propTypes", {
   linkClass: _propTypes["default"].string,
   activeClass: _propTypes["default"].string,
   activeLinkClass: _propTypes["default"].string,
+  inactiveClass: _propTypes["default"].string,
+  inactiveLinkClass: _propTypes["default"].string,
   linkClassFirst: _propTypes["default"].string,
   linkClassPrev: _propTypes["default"].string,
   linkClassNext: _propTypes["default"].string,
   linkClassLast: _propTypes["default"].string,
   hideFirstLastPages: _propTypes["default"].bool,
-  getPageUrl: _propTypes["default"].func
+  getPageUrl: _propTypes["default"].func,
+  getPageText: _propTypes["default"].func,
+  ellipsis: _propTypes["default"].bool,
+  ellipsisText: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element])
 });
 _defineProperty(Pagination, "defaultProps", {
   itemsCountPerPage: 10,
@@ -229,5 +299,11 @@ _defineProperty(Pagination, "defaultProps", {
   hideFirstLastPages: false,
   getPageUrl: function getPageUrl() {
     return "#";
-  }
+  },
+  getPageText: function getPageText(i) {
+    return i + "";
+  },
+  disabledClass: "disabled",
+  ellipsis: false,
+  ellipsisText: "…"
 });

@@ -13,6 +13,14 @@ const DEMOS = [
   { id: "default", title: "Default", props: {}, code: "" },
   { id: "hide-disabled", title: "Hide disabled", props: { hideDisabled: true }, code: "hideDisabled" },
   { id: "custom-range", title: "Custom pages range", props: { pageRangeDisplayed: 10 }, code: "pageRangeDisplayed={10}" },
+  { id: "ellipsis", title: "First and last page with ellipsis", props: { ellipsis: true }, code: "ellipsis" },
+  { id: "arrows-only", title: "Arrows only", props: { pageRangeDisplayed: 0 }, code: "pageRangeDisplayed={0}" },
+  {
+    id: "page-text",
+    title: "Custom page labels",
+    props: { getPageText: (page) => `p.${page}` },
+    code: "getPageText={(page) => `p.${page}`}"
+  },
   {
     id: "custom-navigation-text",
     title: "Custom navigation texts",
@@ -53,11 +61,19 @@ function snippet(code) {
 
 export default function App() {
   const [activePage, setActivePage] = useState(1);
+  const [control, setControl] = useState(null);
+  const handleChange = (page, clicked) => {
+    setActivePage(page);
+    setControl(clicked);
+  };
 
   return (
     <main className="app">
       <h1 className="h3 my-4">react-js-pagination</h1>
-      <p className="text-body-secondary">Active page: {activePage}</p>
+      <p className="text-body-secondary">
+        Active page: {activePage}
+        {control && ` (clicked: ${control})`}
+      </p>
       {DEMOS.map((demo) => (
         <section key={demo.id} id={demo.id} className="card mb-4">
           <div className="card-header">
@@ -72,7 +88,7 @@ export default function App() {
               activePage={activePage}
               itemsCountPerPage={PER_PAGE}
               totalItemsCount={TOTAL_COUNT}
-              onChange={setActivePage}
+              onChange={handleChange}
             />
           </div>
         </section>

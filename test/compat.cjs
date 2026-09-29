@@ -30,7 +30,12 @@ const CASES = [
   ["element-text", { totalItemsCount: 100, activePage: 3, prevPageText: React.createElement("span", { className: "icon" }, "‹") }],
   ["custom-aria", { totalItemsCount: 100, activePage: 3, pageAriaLabel: "Page :page", firstPageAriaLabel: "First", prevPageAriaLabel: "Previous", nextPageAriaLabel: "Next", lastPageAriaLabel: "Last" }],
   ["range-3-per-25", { totalItemsCount: 1000, activePage: 20, pageRangeDisplayed: 3, itemsCountPerPage: 25 }],
-  ["active-beyond-total", { totalItemsCount: 50, activePage: 100 }]
+  ["active-beyond-total", { totalItemsCount: 50, activePage: 100 }],
+  ["ellipsis", { totalItemsCount: 450, activePage: 20, ellipsis: true, itemClass: "page-item", linkClass: "page-link" }],
+  ["ellipsis-near-start", { totalItemsCount: 450, activePage: 5, ellipsis: true }],
+  ["arrows-only", { totalItemsCount: 230, activePage: 3, pageRangeDisplayed: 0 }],
+  ["page-text", { totalItemsCount: 20000, activePage: 1002, getPageText: (i) => i.toLocaleString("en-US") }],
+  ["inactive-classes", { totalItemsCount: 100, activePage: 3, linkClass: "page-link", activeLinkClass: "bg-success", inactiveLinkClass: "bg-danger", inactiveClass: "off" }]
 ];
 
 const warnings = [];

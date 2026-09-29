@@ -66,6 +66,43 @@ Pass `getPageUrl` to give every link a real `href`. Clicks still call `onChange`
 <Pagination getPageUrl={(page) => `/products?page=${page}`} {...otherProps} />
 ```
 
+### First and last page with an ellipsis
+
+With `ellipsis`, the first and last page stay visible and the gaps show an ellipsis: `1 … 18 19 20 21 22 … 45`. A gap of one page shows that page instead. Change the ellipsis with `ellipsisText`.
+
+```jsx
+<Pagination ellipsis {...otherProps} />
+```
+
+### Which control was clicked
+
+`onChange` receives the control as its second argument: `"first"`, `"prev"`, `"page"`, `"next"` or `"last"`. Handlers that take only the page number keep working.
+
+```jsx
+<Pagination
+  onChange={(page, control) => {
+    setActivePage(page);
+    analytics.track("pagination", { page, control });
+  }}
+  {...otherProps}
+/>
+```
+
+### Tailwind and other utility classes
+
+`itemClass` and `linkClass` apply to every item, including the active page. Put state-specific classes in `activeClass` / `inactiveClass` (on `<li>`) and `activeLinkClass` / `inactiveLinkClass` (on `<a>`), so two colour classes never land on the same element.
+
+```jsx
+<Pagination
+  innerClass="inline-flex -space-x-px"
+  linkClass="block border px-3 py-1"
+  activeLinkClass="bg-indigo-600 text-white"
+  inactiveLinkClass="bg-white text-gray-700 hover:bg-gray-50"
+  disabledClass="opacity-50 pointer-events-none"
+  {...otherProps}
+/>
+```
+
 ### Accessibility
 
 - The active page link has `aria-current="page"`.
@@ -73,15 +110,30 @@ Pass `getPageUrl` to give every link a real `href`. Clicks still call `onChange`
 - Every link has an `aria-label`. Set the `*AriaLabel` props to translate them. In `pageAriaLabel`, `:page` is replaced with the page number.
 - Wrap the component in `<nav aria-label="…">` so screen readers announce it as navigation.
 
+## Common questions
+
+**The highlighted page never changes.** The component is controlled: store the page from `onChange` in state and pass it back as `activePage` (see [Usage](#usage)). With hooks, use the argument: `onChange={setActivePage}` or `onChange={(page) => setActivePage(page)}`, not `onChange={() => load(this)}`.
+
+**Arrows only, or "page 3 of 23".** `pageRangeDisplayed={0}` shows only the first, previous, next and last controls. Render your own `{activePage} / {totalPages}` label next to it.
+
+**Show the last page number.** Use `ellipsis`.
+
+**Different page labels,** like `1,002` or icons: `getPageText={(page) => page.toLocaleString()}`. The `aria-label` keeps the plain number.
+
+**The component jumps sideways on the first or last page.** `hideDisabled` removes the disabled controls, so the component gets narrower. Leave it off, or give the container a fixed width.
+
 ## Props
 
 Name | Type | Default | Description
 --- | --- | --- | ---
 `totalItemsCount` | Number | | **Required.** Total count of items which you are going to display
-`onChange` | Function | | **Required.** Page change handler. Receives `pageNumber` as its argument
+`onChange` | Function | | **Required.** Page change handler. Receives `pageNumber` and the clicked control (`"first"`, `"prev"`, `"page"`, `"next"` or `"last"`)
 `activePage` | Number | `1` | Active page, starting at 1
 `itemsCountPerPage` | Number | `10` | Count of items per page
-`pageRangeDisplayed` | Number | `5` | Range of pages in paginator, excluding navigation blocks (prev, next, first, last pages)
+`pageRangeDisplayed` | Number | `5` | Range of pages in paginator, excluding navigation blocks (prev, next, first, last pages). `0` shows only the navigation controls
+`ellipsis` | Boolean | `false` | Keep the first and last page visible, with an ellipsis for the pages in between
+`ellipsisText` | String / ReactElement | `…` | Content of the ellipsis item
+`getPageText` | Function | | Content of each page link. Receives the page number; defaults to the number itself
 `prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button
 `firstPageText` | String / ReactElement | `«` | Text of first page navigation button
 `lastPageText` | String / ReactElement | `»` | Text of last page navigation button
@@ -95,6 +147,8 @@ Name | Type | Default | Description
 `innerClass` | String | `pagination` | Class name of `<ul>` tag
 `activeClass` | String | `active` | Class name of active `<li>` tag
 `activeLinkClass` | String | | Class name of active `<a>` tag
+`inactiveClass` | String | | Class name of every `<li>` except the active page
+`inactiveLinkClass` | String | | Class name of every `<a>` except the active page link
 `itemClass` | String | | Default class of the `<li>` tag
 `itemClassFirst` | String | | Class of the first `<li>` tag
 `itemClassPrev` | String | | Class of the previous `<li>` tag
