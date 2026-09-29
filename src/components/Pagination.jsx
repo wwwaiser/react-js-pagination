@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import paginator from "paginator";
 import Page from "./Page";
@@ -58,11 +58,11 @@ export default class Pagination extends React.Component {
     linkClass: undefined,
     activeLinkClass: undefined,
     hideFirstLastPages: false,
-    getPageUrl: (i) => "#"
+    getPageUrl: () => "#"
   };
 
   isFirstPageVisible(has_previous_page) {
-    const { hideDisabled, hideNavigation, hideFirstLastPages } = this.props;
+    const { hideDisabled, hideFirstLastPages } = this.props;
     if (hideFirstLastPages || (hideDisabled && !has_previous_page)) return false;
     return true;
   }
@@ -75,12 +75,12 @@ export default class Pagination extends React.Component {
 
   isNextPageVisible(has_next_page) {
     const { hideDisabled, hideNavigation } = this.props;
-    if(hideNavigation || (hideDisabled && !has_next_page)) return false;
+    if (hideNavigation || (hideDisabled && !has_next_page)) return false;
     return true;
   }
 
   isLastPageVisible(has_next_page) {
-    const { hideDisabled, hideNavigation, hideFirstLastPages } = this.props;
+    const { hideDisabled, hideFirstLastPages } = this.props;
     if (hideFirstLastPages || (hideDisabled && !has_next_page)) return false;
     return true;
   }
@@ -105,14 +105,11 @@ export default class Pagination extends React.Component {
       itemClassLast,
       activeLinkClass,
       disabledClass,
-      hideDisabled,
-      hideNavigation,
       linkClass,
       linkClassFirst,
       linkClassPrev,
       linkClassNext,
       linkClassLast,
-      hideFirstLastPages,
       getPageUrl,
       pageAriaLabel,
       firstPageAriaLabel,
@@ -143,7 +140,7 @@ export default class Pagination extends React.Component {
           linkClass={linkClass}
           activeClass={activeClass}
           activeLinkClass={activeLinkClass}
-          ariaLabel={pageAriaLabel.replace(':page', i)}
+          ariaLabel={pageAriaLabel.replace(":page", i)}
         />
       );
     }
