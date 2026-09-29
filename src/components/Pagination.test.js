@@ -169,16 +169,29 @@ describe("<Pagination />", () => {
     });
 
     it.each([
-      ["Go to first page", 1],
-      ["Go to previous page", 4],
-      ["Go to page number 6", 6],
-      ["Go to next page", 6],
-      ["Go to last page", 10]
-    ])("clicking \"%s\" calls onChange(%i)", (label, expected) => {
+      ["Go to first page", 1, "first"],
+      ["Go to previous page", 4, "prev"],
+      ["Go to page number 6", 6, "page"],
+      ["Go to next page", 6, "next"],
+      ["Go to last page", 10, "last"]
+    ])("clicking \"%s\" calls onChange(%i, \"%s\")", (label, expected, control) => {
       const onChange = jest.fn();
       renderPagination({ totalItemsCount: 100, activePage: 5, onChange });
       fireEvent.click(screen.getByLabelText(label));
-      expect(onChange).toHaveBeenCalledWith(expected);
+      expect(onChange).toHaveBeenCalledWith(expected, control);
+    });
+
+    it("passes the control to state setters without warnings", () => {
+      const errors = jest.spyOn(console, "error").mockImplementation(() => {});
+      function Controlled() {
+        const [page, setPage] = useState(1);
+        return <Pagination totalItemsCount={100} activePage={page} onChange={setPage} />;
+      }
+      render(<Controlled />);
+      fireEvent.click(screen.getByLabelText("Go to last page"));
+      expect(document.querySelector("[aria-current]").textContent).toBe("10");
+      expect(errors).not.toHaveBeenCalled();
+      errors.mockRestore();
     });
 
     it("does not call onChange for disabled controls", () => {

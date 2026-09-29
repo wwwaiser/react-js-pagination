@@ -195,6 +195,7 @@ export default class Pagination extends React.Component {
       pages.unshift(
         <Page
           key="prev"
+          control="prev"
           href={getPageUrl(paginationInfo.previous_page)}
           pageNumber={paginationInfo.previous_page}
           onClick={onChange}
@@ -211,6 +212,7 @@ export default class Pagination extends React.Component {
       pages.unshift(
         <Page
           key="first"
+          control="first"
           href={getPageUrl(1)}
           pageNumber={1}
           onClick={onChange}
@@ -227,6 +229,7 @@ export default class Pagination extends React.Component {
       pages.push(
         <Page
           key="next"
+          control="next"
           href={getPageUrl(paginationInfo.next_page)}
           pageNumber={paginationInfo.next_page}
           onClick={onChange}
@@ -243,6 +246,7 @@ export default class Pagination extends React.Component {
       pages.push(
         <Page
           key="last"
+          control="last"
           href={getPageUrl(paginationInfo.total_pages)}
           pageNumber={paginationInfo.total_pages}
           onClick={onChange}
