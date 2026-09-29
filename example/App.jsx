@@ -68,7 +68,7 @@ export default function App() {
             <Pagination
               {...BOOTSTRAP}
               {...demo.props}
-              innerClass="pagination justify-content-center mb-0"
+              innerClass="pagination flex-wrap justify-content-center mb-0"
               activePage={activePage}
               itemsCountPerPage={PER_PAGE}
               totalItemsCount={TOTAL_COUNT}
