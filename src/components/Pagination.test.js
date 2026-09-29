@@ -192,6 +192,18 @@ describe("<Pagination />", () => {
     });
   });
 
+  describe("rerendering", () => {
+    it("keeps the navigation controls mounted when the page changes", () => {
+      const icon = (name) => <i className={name}>{name}</i>;
+      const props = { totalItemsCount: 100, onChange: () => {}, firstPageText: icon("first"), prevPageText: icon("prev"), nextPageText: icon("next"), lastPageText: icon("last") };
+      const { container, rerender } = render(<Pagination {...props} activePage={3} />);
+      const before = ["first", "prev", "next", "last"].map((c) => container.querySelector(`.${c}`));
+      rerender(<Pagination {...props} activePage={4} />);
+      const after = ["first", "prev", "next", "last"].map((c) => container.querySelector(`.${c}`));
+      after.forEach((node, i) => expect(node).toBe(before[i]));
+    });
+  });
+
   describe("edge cases", () => {
     it("renders only disabled controls when there are no items", () => {
       const { items } = renderPagination({ totalItemsCount: 0 });
