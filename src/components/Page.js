@@ -63,7 +63,7 @@ export default class Page extends Component {
 
         return (
             <li className={css} onClick={this.handleClick.bind(this)}>
-                <a className={linkCss} href={href} aria-label={ariaLabel}>
+                <a className={linkCss} href={href} aria-label={ariaLabel} aria-current={isActive ? 'page' : undefined}>
                     {pageText}
                 </a>
             </li>
