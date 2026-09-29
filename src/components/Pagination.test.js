@@ -77,6 +77,47 @@ describe("<Pagination />", () => {
     });
   });
 
+  describe("inactive classes", () => {
+    it("styles every item except the active page", () => {
+      const { items, links } = renderPagination({
+        totalItemsCount: 100,
+        activePage: 3,
+        itemClass: "page-item",
+        linkClass: "page-link",
+        activeClass: "item-on",
+        inactiveClass: "item-off",
+        activeLinkClass: "bg-success",
+        inactiveLinkClass: "bg-danger"
+      });
+      const active = links.findIndex((a) => a.hasAttribute("aria-current"));
+      expect(links[active].className).toBe("page-link bg-success");
+      expect(items[active].className).toBe("page-item item-on");
+      links.forEach((a, i) => i !== active && expect(a.className).toBe("page-link bg-danger"));
+      items.forEach((li, i) => i !== active && expect(li.classList.contains("item-off")).toBe(true));
+      expect(items.some((li) => li.classList.contains("item-on") && li !== items[active])).toBe(false);
+    });
+
+    it("applies the inactive classes to the ellipsis too", () => {
+      const { items } = renderPagination({
+        totalItemsCount: 450,
+        activePage: 20,
+        ellipsis: true,
+        itemClass: "page-item",
+        linkClass: "page-link",
+        inactiveClass: "item-off",
+        inactiveLinkClass: "bg-danger"
+      });
+      const gap = items[3];
+      expect(gap.className).toBe("page-item item-off disabled");
+      expect(gap.querySelector("span").className).toBe("page-link bg-danger");
+    });
+
+    it("keeps the disabled class next to the inactive class", () => {
+      const { items } = renderPagination({ totalItemsCount: 100, activePage: 1, inactiveClass: "item-off" });
+      expect(items[0].className).toBe("item-off disabled");
+    });
+  });
+
   describe("visibility options", () => {
     it("hideDisabled hides first and prev on the first page", () => {
       const { items } = renderPagination({ totalItemsCount: 100, activePage: 1, hideDisabled: true });
@@ -96,6 +137,15 @@ describe("<Pagination />", () => {
     it("hideFirstLastPages hides first and last", () => {
       const { items } = renderPagination({ totalItemsCount: 100, activePage: 5, hideFirstLastPages: true });
       expect(texts(items)).toEqual(["⟨", "3", "4", "5", "6", "7", "⟩"]);
+    });
+
+    it("pageRangeDisplayed={0} shows only the navigation controls", () => {
+      const onChange = jest.fn();
+      const { items } = renderPagination({ totalItemsCount: 230, activePage: 3, pageRangeDisplayed: 0, ellipsis: true, onChange });
+      expect(texts(items)).toEqual(["«", "⟨", "⟩", "»"]);
+      fireEvent.click(screen.getByLabelText("Go to next page"));
+      fireEvent.click(screen.getByLabelText("Go to last page"));
+      expect(onChange.mock.calls.map((c) => c[0])).toEqual([4, 23]);
     });
 
     it("pageRangeDisplayed controls how many page numbers show", () => {
@@ -160,16 +210,29 @@ describe("<Pagination />", () => {
     });
 
     it.each([
-      ["Go to first page", 1],
-      ["Go to previous page", 4],
-      ["Go to page number 6", 6],
-      ["Go to next page", 6],
-      ["Go to last page", 10]
-    ])("clicking \"%s\" calls onChange(%i)", (label, expected) => {
+      ["Go to first page", 1, "first"],
+      ["Go to previous page", 4, "prev"],
+      ["Go to page number 6", 6, "page"],
+      ["Go to next page", 6, "next"],
+      ["Go to last page", 10, "last"]
+    ])("clicking \"%s\" calls onChange(%i, \"%s\")", (label, expected, control) => {
       const onChange = jest.fn();
       renderPagination({ totalItemsCount: 100, activePage: 5, onChange });
       fireEvent.click(screen.getByLabelText(label));
-      expect(onChange).toHaveBeenCalledWith(expected);
+      expect(onChange).toHaveBeenCalledWith(expected, control);
+    });
+
+    it("passes the control to state setters without warnings", () => {
+      const errors = jest.spyOn(console, "error").mockImplementation(() => {});
+      function Controlled() {
+        const [page, setPage] = useState(1);
+        return <Pagination totalItemsCount={100} activePage={page} onChange={setPage} />;
+      }
+      render(<Controlled />);
+      fireEvent.click(screen.getByLabelText("Go to last page"));
+      expect(document.querySelector("[aria-current]").textContent).toBe("10");
+      expect(errors).not.toHaveBeenCalled();
+      errors.mockRestore();
     });
 
     it("does not call onChange for disabled controls", () => {
@@ -189,6 +252,83 @@ describe("<Pagination />", () => {
       fireEvent.click(screen.getByLabelText("Go to next page"));
       fireEvent.click(screen.getByLabelText("Go to next page"));
       expect(document.querySelector("[aria-current]").textContent).toBe("3");
+    });
+  });
+
+  describe("ellipsis", () => {
+    const base = { totalItemsCount: 450, ellipsis: true };
+
+    it("is off by default", () => {
+      const { items } = renderPagination({ totalItemsCount: 450, activePage: 20 });
+      expect(texts(items)).toEqual(["«", "⟨", "18", "19", "20", "21", "22", "⟩", "»"]);
+    });
+
+    it("shows the first and last page around the range", () => {
+      const { items } = renderPagination({ ...base, activePage: 20 });
+      expect(texts(items)).toEqual(["«", "⟨", "1", "…", "18", "19", "20", "21", "22", "…", "45", "⟩", "»"]);
+    });
+
+    it("shows a single hidden page instead of an ellipsis", () => {
+      const { items } = renderPagination({ ...base, activePage: 5 });
+      expect(texts(items)).toEqual(["«", "⟨", "1", "2", "3", "4", "5", "6", "7", "…", "45", "⟩", "»"]);
+      const end = renderPagination({ ...base, totalItemsCount: 100, activePage: 6 });
+      expect(texts(end.items)).toEqual(["«", "⟨", "1", "…", "4", "5", "6", "7", "8", "9", "10", "⟩", "»"]);
+    });
+
+    it("adds nothing when the range already reaches both ends", () => {
+      const { items } = renderPagination({ ...base, totalItemsCount: 50, activePage: 3 });
+      expect(texts(items)).toEqual(["«", "⟨", "1", "2", "3", "4", "5", "⟩", "»"]);
+    });
+
+    it("renders the ellipsis as a disabled item that is not a link", () => {
+      const { items } = renderPagination({ ...base, activePage: 20, itemClass: "page-item", linkClass: "page-link" });
+      const gap = items[3];
+      expect(gap.className).toBe("page-item disabled");
+      expect(gap.querySelector("a")).toBeNull();
+      const span = gap.querySelector("span");
+      expect(span.className).toBe("page-link");
+      expect(span.getAttribute("aria-hidden")).toBe("true");
+    });
+
+    it("accepts custom ellipsisText", () => {
+      const { items } = renderPagination({ ...base, activePage: 20, ellipsisText: <b>...</b> });
+      expect(items[3].innerHTML).toContain("<b>...</b>");
+    });
+
+    it("links the first and last page numbers", () => {
+      const onChange = jest.fn();
+      renderPagination({ ...base, activePage: 20, onChange, getPageUrl: (i) => `?page=${i}` });
+      const last = screen.getByLabelText("Go to page number 45");
+      expect(last.getAttribute("href")).toBe("?page=45");
+      fireEvent.click(last);
+      fireEvent.click(screen.getByLabelText("Go to page number 1"));
+      expect(onChange.mock.calls.map((c) => c[0])).toEqual([45, 1]);
+    });
+  });
+
+  describe("getPageText", () => {
+    it("formats page numbers but keeps numeric aria labels", () => {
+      const { items } = renderPagination({ totalItemsCount: 20000, activePage: 1002, getPageText: (i) => i.toLocaleString("en-US") });
+      expect(texts(items).slice(2, 7)).toEqual(["1,000", "1,001", "1,002", "1,003", "1,004"]);
+      expect(screen.getByLabelText("Go to page number 1002").textContent).toBe("1,002");
+    });
+
+    it("can return an element and applies to ellipsis end pages", () => {
+      const { items } = renderPagination({ totalItemsCount: 450, activePage: 20, ellipsis: true, getPageText: (i) => <em>{i}</em> });
+      expect(items[2].innerHTML).toContain("<em>1</em>");
+      expect(items[10].innerHTML).toContain("<em>45</em>");
+    });
+  });
+
+  describe("rerendering", () => {
+    it("keeps the navigation controls mounted when the page changes", () => {
+      const icon = (name) => <i className={name}>{name}</i>;
+      const props = { totalItemsCount: 100, onChange: () => {}, firstPageText: icon("first"), prevPageText: icon("prev"), nextPageText: icon("next"), lastPageText: icon("last") };
+      const { container, rerender } = render(<Pagination {...props} activePage={3} />);
+      const before = ["first", "prev", "next", "last"].map((c) => container.querySelector(`.${c}`));
+      rerender(<Pagination {...props} activePage={4} />);
+      const after = ["first", "prev", "next", "last"].map((c) => container.querySelector(`.${c}`));
+      after.forEach((node, i) => expect(node).toBe(before[i]));
     });
   });
 

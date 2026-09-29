@@ -66,7 +66,7 @@ describe("<Page />", () => {
     const onClick = jest.fn();
     const { a } = renderPage({ onClick, pageNumber: 7 });
     fireEvent.click(a);
-    expect(onClick).toHaveBeenCalledWith(7);
+    expect(onClick).toHaveBeenCalledWith(7, "page");
   });
 
   it("does not call onClick when disabled", () => {
@@ -89,6 +89,6 @@ describe("<Page />", () => {
     const { a } = renderPage({ onClick, pageNumber: 2 });
     const notCancelled = fireEvent.click(a, { metaKey: true });
     expect(notCancelled).toBe(false);
-    expect(onClick).toHaveBeenCalledWith(2);
+    expect(onClick).toHaveBeenCalledWith(2, "page");
   });
 });

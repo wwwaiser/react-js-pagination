@@ -11,11 +11,14 @@ export default class Page extends Component {
         isDisabled: PropTypes.bool,
         activeClass: PropTypes.string,
         activeLinkClass: PropTypes.string,
+        inactiveClass: PropTypes.string,
+        inactiveLinkClass: PropTypes.string,
         itemClass: PropTypes.string,
         linkClass: PropTypes.string,
         disabledClass: PropTypes.string,
         href: PropTypes.string,
-        ariaLabel: PropTypes.string
+        ariaLabel: PropTypes.string,
+        control: PropTypes.oneOf(["first", "prev", "page", "next", "last"])
     };
 
     static defaultProps = {
@@ -26,11 +29,12 @@ export default class Page extends Component {
         activeLinkClass: undefined,
         isActive: false,
         isDisabled: false,
-        href: "#"
+        href: "#",
+        control: "page"
     };
 
     handleClick(e) {
-        const { isDisabled, pageNumber, href } = this.props;
+        const { isDisabled, pageNumber, href, control } = this.props;
         // Leave modified clicks on real URLs to the browser (new tab, new window,
         // download), like Next.js and React Router links.
         const opensElsewhere = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
@@ -41,7 +45,7 @@ export default class Page extends Component {
         if (isDisabled) {
             return;
         }
-        this.props.onClick(pageNumber);
+        this.props.onClick(pageNumber, control);
     }
 
     render() {
@@ -51,6 +55,8 @@ export default class Page extends Component {
             itemClass,
             linkClass,
             activeLinkClass,
+            inactiveClass,
+            inactiveLinkClass,
             disabledClass,
             isActive,
             isDisabled,
@@ -58,8 +64,8 @@ export default class Page extends Component {
             ariaLabel
         } = this.props;
 
-        const css = cx(itemClass, isActive && activeClass, isDisabled && disabledClass);
-        const linkCss = cx(linkClass, isActive && activeLinkClass);
+        const css = cx(itemClass, isActive ? activeClass : inactiveClass, isDisabled && disabledClass);
+        const linkCss = cx(linkClass, isActive ? activeLinkClass : inactiveLinkClass);
 
         return (
             <li className={css} onClick={this.handleClick.bind(this)}>
