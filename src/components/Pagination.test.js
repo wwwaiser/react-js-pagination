@@ -192,6 +192,57 @@ describe("<Pagination />", () => {
     });
   });
 
+  describe("ellipsis", () => {
+    const base = { totalItemsCount: 450, ellipsis: true };
+
+    it("is off by default", () => {
+      const { items } = renderPagination({ totalItemsCount: 450, activePage: 20 });
+      expect(texts(items)).toEqual(["«", "⟨", "18", "19", "20", "21", "22", "⟩", "»"]);
+    });
+
+    it("shows the first and last page around the range", () => {
+      const { items } = renderPagination({ ...base, activePage: 20 });
+      expect(texts(items)).toEqual(["«", "⟨", "1", "…", "18", "19", "20", "21", "22", "…", "45", "⟩", "»"]);
+    });
+
+    it("shows a single hidden page instead of an ellipsis", () => {
+      const { items } = renderPagination({ ...base, activePage: 5 });
+      expect(texts(items)).toEqual(["«", "⟨", "1", "2", "3", "4", "5", "6", "7", "…", "45", "⟩", "»"]);
+      const end = renderPagination({ ...base, totalItemsCount: 100, activePage: 6 });
+      expect(texts(end.items)).toEqual(["«", "⟨", "1", "…", "4", "5", "6", "7", "8", "9", "10", "⟩", "»"]);
+    });
+
+    it("adds nothing when the range already reaches both ends", () => {
+      const { items } = renderPagination({ ...base, totalItemsCount: 50, activePage: 3 });
+      expect(texts(items)).toEqual(["«", "⟨", "1", "2", "3", "4", "5", "⟩", "»"]);
+    });
+
+    it("renders the ellipsis as a disabled item that is not a link", () => {
+      const { items } = renderPagination({ ...base, activePage: 20, itemClass: "page-item", linkClass: "page-link" });
+      const gap = items[3];
+      expect(gap.className).toBe("page-item disabled");
+      expect(gap.querySelector("a")).toBeNull();
+      const span = gap.querySelector("span");
+      expect(span.className).toBe("page-link");
+      expect(span.getAttribute("aria-hidden")).toBe("true");
+    });
+
+    it("accepts custom ellipsisText", () => {
+      const { items } = renderPagination({ ...base, activePage: 20, ellipsisText: <b>...</b> });
+      expect(items[3].innerHTML).toContain("<b>...</b>");
+    });
+
+    it("links the first and last page numbers", () => {
+      const onChange = jest.fn();
+      renderPagination({ ...base, activePage: 20, onChange, getPageUrl: (i) => `?page=${i}` });
+      const last = screen.getByLabelText("Go to page number 45");
+      expect(last.getAttribute("href")).toBe("?page=45");
+      fireEvent.click(last);
+      fireEvent.click(screen.getByLabelText("Go to page number 1"));
+      expect(onChange.mock.calls.map((c) => c[0])).toEqual([45, 1]);
+    });
+  });
+
   describe("rerendering", () => {
     it("keeps the navigation controls mounted when the page changes", () => {
       const icon = (name) => <i className={name}>{name}</i>;

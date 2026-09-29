@@ -37,7 +37,9 @@ export default class Pagination extends React.Component {
     linkClassNext: PropTypes.string,
     linkClassLast: PropTypes.string,
     hideFirstLastPages: PropTypes.bool,
-    getPageUrl: PropTypes.func
+    getPageUrl: PropTypes.func,
+    ellipsis: PropTypes.bool,
+    ellipsisText: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
   };
 
   static defaultProps = {
@@ -58,7 +60,10 @@ export default class Pagination extends React.Component {
     linkClass: undefined,
     activeLinkClass: undefined,
     hideFirstLastPages: false,
-    getPageUrl: () => "#"
+    getPageUrl: () => "#",
+    disabledClass: "disabled",
+    ellipsis: false,
+    ellipsisText: "…"
   };
 
   isFirstPageVisible(has_previous_page) {
@@ -85,6 +90,45 @@ export default class Pagination extends React.Component {
     return true;
   }
 
+  renderPageNumber(i) {
+    const {
+      activePage,
+      getPageUrl,
+      onChange,
+      itemClass,
+      linkClass,
+      activeClass,
+      activeLinkClass,
+      pageAriaLabel
+    } = this.props;
+    return (
+      <Page
+        isActive={i === activePage}
+        key={i}
+        href={getPageUrl(i)}
+        pageNumber={i}
+        pageText={i + ""}
+        onClick={onChange}
+        itemClass={itemClass}
+        linkClass={linkClass}
+        activeClass={activeClass}
+        activeLinkClass={activeLinkClass}
+        ariaLabel={pageAriaLabel.replace(":page", i)}
+      />
+    );
+  }
+
+  renderEllipsis(position) {
+    const { itemClass, linkClass, disabledClass, ellipsisText } = this.props;
+    return (
+      <li key={"ellipsis-" + position} className={cx(itemClass, disabledClass)}>
+        <span className={cx(linkClass) || undefined} aria-hidden="true">
+          {ellipsisText}
+        </span>
+      </li>
+    );
+  }
+
   buildPages() {
     const pages = [];
     const {
@@ -97,13 +141,11 @@ export default class Pagination extends React.Component {
       lastPageText,
       totalItemsCount,
       onChange,
-      activeClass,
       itemClass,
       itemClassFirst,
       itemClassPrev,
       itemClassNext,
       itemClassLast,
-      activeLinkClass,
       disabledClass,
       linkClass,
       linkClassFirst,
@@ -111,7 +153,7 @@ export default class Pagination extends React.Component {
       linkClassNext,
       linkClassLast,
       getPageUrl,
-      pageAriaLabel,
+      ellipsis,
       firstPageAriaLabel,
       prevPageAriaLabel,
       nextPageAriaLabel,
@@ -123,26 +165,24 @@ export default class Pagination extends React.Component {
       pageRangeDisplayed
     ).build(totalItemsCount, activePage);
 
-    for (
-      let i = paginationInfo.first_page;
-      i <= paginationInfo.last_page;
-      i++
-    ) {
-      pages.push(
-        <Page
-          isActive={i === activePage}
-          key={i}
-          href={getPageUrl(i)}
-          pageNumber={i}
-          pageText={i + ""}
-          onClick={onChange}
-          itemClass={itemClass}
-          linkClass={linkClass}
-          activeClass={activeClass}
-          activeLinkClass={activeLinkClass}
-          ariaLabel={pageAriaLabel.replace(":page", i)}
-        />
-      );
+    const { first_page, last_page, total_pages } = paginationInfo;
+
+    // With ellipsis, keep the first and last page visible. A gap of a single
+    // page shows that page instead of an ellipsis, since both take one slot.
+    if (ellipsis && first_page > 1) {
+      pages.push(this.renderPageNumber(1));
+      if (first_page === 3) pages.push(this.renderPageNumber(2));
+      else if (first_page > 3) pages.push(this.renderEllipsis("start"));
+    }
+
+    for (let i = first_page; i <= last_page; i++) {
+      pages.push(this.renderPageNumber(i));
+    }
+
+    if (ellipsis && last_page < total_pages) {
+      if (last_page === total_pages - 2) pages.push(this.renderPageNumber(total_pages - 1));
+      else if (last_page < total_pages - 2) pages.push(this.renderEllipsis("end"));
+      pages.push(this.renderPageNumber(total_pages));
     }
 
     this.isPrevPageVisible(paginationInfo.has_previous_page) &&
