@@ -1,97 +1,107 @@
-[![Build Status](https://travis-ci.org/vayser/react-js-pagination.svg?branch=master)](https://travis-ci.org/vayser/react-js-pagination)
-
-[![NPM](https://nodei.co/npm/react-js-pagination.png?downloads=true)](https://nodei.co/npm/react-js-pagination/)
+[![CI](https://github.com/wwwaiser/react-js-pagination/actions/workflows/ci.yml/badge.svg)](https://github.com/wwwaiser/react-js-pagination/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/react-js-pagination.svg)](https://www.npmjs.com/package/react-js-pagination)
+[![npm downloads](https://img.shields.io/npm/dw/react-js-pagination.svg)](https://www.npmjs.com/package/react-js-pagination)
 
 # react-js-pagination
 
-**A ReactJS [dumb](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) component to render a pagination.**
+**A small React component that renders pagination.**
 
-The component comes with no built-in styles. HTML layout compatible with [Bootstrap 3](https://getbootstrap.com/docs/3.4/components/#pagination) pagination stylesheets.
+The component comes with no built-in styles. Its HTML matches [Bootstrap](https://getbootstrap.com/docs/5.3/components/pagination/) pagination stylesheets.
 
-If you would like it to work for Bootstrap 4, you will need to add 2 additional props when using this component:
-```
-itemClass="page-item"
-linkClass="page-link"
-```
+- Works with React 15, 16, 17, 18 and 19, and uses your app's React (no second copy).
+- Ships TypeScript types.
+- Accessible by default: `aria-current` on the active page, `aria-disabled` on disabled controls, and labels you can translate.
+- Three small dependencies: `classnames`, `paginator` and `prop-types`.
 
 ## Installation
 
-Install `react-js-pagination` with [npm](https://www.npmjs.com/):
+```
+npm install react-js-pagination
+```
 
-```
-$ npm install react-js-pagination
-```
+If you use TypeScript, you can remove `@types/react-js-pagination`: types are included from 3.1.0.
 
 ## Usage
 
-Very easy to use. Just provide props with total amount of things that you want to display on the page.
+`Pagination` is a controlled component. It shows the page you pass in `activePage`, and `onChange` tells you which page the user picked. Store that page in state and pass it back, or the highlighted page never changes.
 
-```js
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+```jsx
+import React, { useState } from "react";
 import Pagination from "react-js-pagination";
-require("bootstrap/less/bootstrap.less");
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activePage: 15
-    };
-  }
+export default function Results() {
+  const [activePage, setActivePage] = useState(1);
 
-  handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({activePage: pageNumber});
-  }
-
-  render() {
-    return (
-      <div>
-        <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={10}
-          totalItemsCount={450}
-          pageRangeDisplayed={5}
-          onChange={this.handlePageChange.bind(this)}
-        />
-      </div>
-    );
-  }
+  return (
+    <nav aria-label="Results pages">
+      <Pagination
+        activePage={activePage}
+        itemsCountPerPage={10}
+        totalItemsCount={450}
+        pageRangeDisplayed={5}
+        onChange={setActivePage}
+      />
+    </nav>
+  );
 }
-
-ReactDOM.render(<App />, document.getElementById("root"));
-
 ```
 
-Check [Live example](http://vayser.github.io/react-js-pagination)
+See the [live example](https://wwwaiser.github.io/react-js-pagination/).
 
 ![Example](https://i.gyazo.com/9af4c2b9e20aa95a67597d3ca64efde3.png)
 
-## Params
+### Bootstrap 4 and 5
+
+Bootstrap 3 works as is. Bootstrap 4 and 5 need two extra class names:
+
+```jsx
+<Pagination itemClass="page-item" linkClass="page-link" {...otherProps} />
+```
+
+### Real page URLs
+
+Pass `getPageUrl` to give every link a real `href`. Clicks still call `onChange`. Ctrl-, Cmd-, Shift- and Alt-clicks are left to the browser, so people can open a page in a new tab or window (or download it with Alt), as with any link.
+
+```jsx
+<Pagination getPageUrl={(page) => `/products?page=${page}`} {...otherProps} />
+```
+
+### Accessibility
+
+- The active page link has `aria-current="page"`.
+- Disabled first, previous, next and last controls have `aria-disabled="true"`.
+- Every link has an `aria-label`. Set the `*AriaLabel` props to translate them. In `pageAriaLabel`, `:page` is replaced with the page number.
+- Wrap the component in `<nav aria-label="…">` so screen readers announce it as navigation.
+
+## Props
 
 Name | Type | Default | Description
---- | --- | --- | --- |
+--- | --- | --- | ---
 `totalItemsCount` | Number | | **Required.** Total count of items which you are going to display
-`onChange` | Function | | **Required.** Page change handler. Receive pageNumber as arg
-`activePage` | Number | `1` | **Required.** Active page
-`itemsCountPerPage` | Number | `10` | Count of items per  page
-`pageRangeDisplayed` | Number | `5` | Range of pages in paginator, exclude navigation blocks (prev, next, first, last pages)
+`onChange` | Function | | **Required.** Page change handler. Receives `pageNumber` as its argument
+`activePage` | Number | `1` | Active page, starting at 1
+`itemsCountPerPage` | Number | `10` | Count of items per page
+`pageRangeDisplayed` | Number | `5` | Range of pages in paginator, excluding navigation blocks (prev, next, first, last pages)
 `prevPageText` | String / ReactElement | `⟨` | Text of prev page navigation button
 `firstPageText` | String / ReactElement | `«` | Text of first page navigation button
 `lastPageText` | String / ReactElement | `»` | Text of last page navigation button
 `nextPageText` | String / ReactElement | `⟩` | Text of next page navigation button
-`getPageUrl` | Function | | Generate href attribute for page
+`pageAriaLabel` | String | `Go to page number :page` | `aria-label` of page links; `:page` is replaced with the page number
+`firstPageAriaLabel` | String | `Go to first page` | `aria-label` of the first page button
+`prevPageAriaLabel` | String | `Go to previous page` | `aria-label` of the previous page button
+`nextPageAriaLabel` | String | `Go to next page` | `aria-label` of the next page button
+`lastPageAriaLabel` | String | `Go to last page` | `aria-label` of the last page button
+`getPageUrl` | Function | | Generate the `href` attribute for a page
 `innerClass` | String | `pagination` | Class name of `<ul>` tag
 `activeClass` | String | `active` | Class name of active `<li>` tag
-`activeLinkClass` | String |  | Class name of active `<a>` tag
+`activeLinkClass` | String | | Class name of active `<a>` tag
 `itemClass` | String | | Default class of the `<li>` tag
 `itemClassFirst` | String | | Class of the first `<li>` tag
 `itemClassPrev` | String | | Class of the previous `<li>` tag
 `itemClassNext` | String | | Class of the next `<li>` tag
 `itemClassLast` | String | | Class of the last `<li>` tag
 `disabledClass` | String | `disabled` | Class name of the first, previous, next and last `<li>` tags when disabled
-`hideDisabled` | Boolean | `false` | Hide navigation buttons (prev, next, first, last) if they are disabled.
+`hideDisabled` | Boolean | `false` | Hide navigation buttons (prev, next, first, last) if they are disabled
 `hideNavigation` | Boolean | `false` | Hide navigation buttons (prev page, next page)
 `hideFirstLastPages` | Boolean | `false` | Hide first/last navigation buttons
 `linkClass` | String | | Default class of the `<a>` tag
@@ -99,3 +109,15 @@ Name | Type | Default | Description
 `linkClassPrev` | String | | Class of the previous `<a>` tag
 `linkClassNext` | String | | Class of the next `<a>` tag
 `linkClassLast` | String | | Class of the last `<a>` tag
+
+## Development
+
+```
+npm install
+npm start              # demo with live reload
+npm run validate       # lint, type check and tests
+npm run test:compat    # build, then compare the rendered markup with the fixture
+npm run build-example  # rebuild the demo in demo/ (served by GitHub Pages)
+```
+
+CI also checks the markup on React 15, 16, 17 and 18. See [CHANGELOG.md](CHANGELOG.md) for release notes.

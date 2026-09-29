@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "skipLibCheck": false,
+    "types": [],
+    "paths": { "react-js-pagination": ["../../index.d.ts"] }
+  },
+  "files": ["usage.tsx"]
+}

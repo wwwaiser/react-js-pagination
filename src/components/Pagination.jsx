@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import paginator from "paginator";
 import Page from "./Page";
@@ -11,9 +11,14 @@ export default class Pagination extends React.Component {
     activePage: PropTypes.number,
     itemsCountPerPage: PropTypes.number,
     pageRangeDisplayed: PropTypes.number,
+    pageAriaLabel: PropTypes.string,
+    prevPageAriaLabel: PropTypes.string,
     prevPageText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    nextPageAriaLabel: PropTypes.string,
     nextPageText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    lastPageAriaLabel: PropTypes.string,
     lastPageText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    firstPageAriaLabel: PropTypes.string,
     firstPageText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     disabledClass: PropTypes.string,
     hideDisabled: PropTypes.bool,
@@ -39,20 +44,25 @@ export default class Pagination extends React.Component {
     itemsCountPerPage: 10,
     pageRangeDisplayed: 5,
     activePage: 1,
+    pageAriaLabel: "Go to page number :page",
+    prevPageAriaLabel: "Go to previous page",
     prevPageText: "⟨",
+    firstPageAriaLabel: "Go to first page",
     firstPageText: "«",
+    nextPageAriaLabel: "Go to next page",
     nextPageText: "⟩",
+    lastPageAriaLabel: "Go to last page",
     lastPageText: "»",
     innerClass: "pagination",
     itemClass: undefined,
     linkClass: undefined,
     activeLinkClass: undefined,
     hideFirstLastPages: false,
-    getPageUrl: (i) => "#"
+    getPageUrl: () => "#"
   };
 
   isFirstPageVisible(has_previous_page) {
-    const { hideDisabled, hideNavigation, hideFirstLastPages } = this.props;
+    const { hideDisabled, hideFirstLastPages } = this.props;
     if (hideFirstLastPages || (hideDisabled && !has_previous_page)) return false;
     return true;
   }
@@ -65,12 +75,12 @@ export default class Pagination extends React.Component {
 
   isNextPageVisible(has_next_page) {
     const { hideDisabled, hideNavigation } = this.props;
-    if(hideNavigation || (hideDisabled && !has_next_page)) return false;
+    if (hideNavigation || (hideDisabled && !has_next_page)) return false;
     return true;
   }
 
   isLastPageVisible(has_next_page) {
-    const { hideDisabled, hideNavigation, hideFirstLastPages } = this.props;
+    const { hideDisabled, hideFirstLastPages } = this.props;
     if (hideFirstLastPages || (hideDisabled && !has_next_page)) return false;
     return true;
   }
@@ -95,15 +105,17 @@ export default class Pagination extends React.Component {
       itemClassLast,
       activeLinkClass,
       disabledClass,
-      hideDisabled,
-      hideNavigation,
       linkClass,
       linkClassFirst,
       linkClassPrev,
       linkClassNext,
       linkClassLast,
-      hideFirstLastPages,
-      getPageUrl
+      getPageUrl,
+      pageAriaLabel,
+      firstPageAriaLabel,
+      prevPageAriaLabel,
+      nextPageAriaLabel,
+      lastPageAriaLabel
     } = this.props;
 
     const paginationInfo = new paginator(
@@ -128,7 +140,7 @@ export default class Pagination extends React.Component {
           linkClass={linkClass}
           activeClass={activeClass}
           activeLinkClass={activeLinkClass}
-          ariaLabel={`Go to page number ${i}`}
+          ariaLabel={pageAriaLabel.replace(":page", i)}
         />
       );
     }
@@ -145,7 +157,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassPrev)}
           linkClass={cx(linkClass, linkClassPrev)}
           disabledClass={disabledClass}
-          ariaLabel="Go to previous page"
+          ariaLabel={prevPageAriaLabel}
         />
       );
 
@@ -161,7 +173,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassFirst)}
           linkClass={cx(linkClass, linkClassFirst)}
           disabledClass={disabledClass}
-          ariaLabel="Go to first page"
+          ariaLabel={firstPageAriaLabel}
         />
       );
 
@@ -177,7 +189,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassNext)}
           linkClass={cx(linkClass, linkClassNext)}
           disabledClass={disabledClass}
-          ariaLabel="Go to next page"
+          ariaLabel={nextPageAriaLabel}
         />
       );
 
@@ -195,7 +207,7 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassLast)}
           linkClass={cx(linkClass, linkClassLast)}
           disabledClass={disabledClass}
-          ariaLabel="Go to last page"
+          ariaLabel={lastPageAriaLabel}
         />
       );
 

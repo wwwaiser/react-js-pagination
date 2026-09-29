@@ -14,7 +14,8 @@ export default class Page extends Component {
         itemClass: PropTypes.string,
         linkClass: PropTypes.string,
         disabledClass: PropTypes.string,
-        href: PropTypes.string
+        href: PropTypes.string,
+        ariaLabel: PropTypes.string
     };
 
     static defaultProps = {
@@ -22,14 +23,20 @@ export default class Page extends Component {
         disabledClass: "disabled",
         itemClass: undefined,
         linkClass: undefined,
-        activeLinkCLass: undefined,
+        activeLinkClass: undefined,
         isActive: false,
         isDisabled: false,
         href: "#"
     };
 
     handleClick(e) {
-        const { isDisabled, pageNumber } = this.props;
+        const { isDisabled, pageNumber, href } = this.props;
+        // Leave modified clicks on real URLs to the browser (new tab, new window,
+        // download), like Next.js and React Router links.
+        const opensElsewhere = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+        if (opensElsewhere && href && href !== "#" && !isDisabled) {
+            return;
+        }
         e.preventDefault();
         if (isDisabled) {
             return;
@@ -38,9 +45,8 @@ export default class Page extends Component {
     }
 
     render() {
-        let {
+        const {
             pageText,
-            pageNumber,
             activeClass,
             itemClass,
             linkClass,
@@ -52,18 +58,18 @@ export default class Page extends Component {
             ariaLabel
         } = this.props;
 
-        const css = cx(itemClass, {
-            [activeClass]: isActive,
-            [disabledClass]: isDisabled
-        });
-
-        const linkCss = cx(linkClass, {
-            [activeLinkClass]: isActive
-        });
+        const css = cx(itemClass, isActive && activeClass, isDisabled && disabledClass);
+        const linkCss = cx(linkClass, isActive && activeLinkClass);
 
         return (
             <li className={css} onClick={this.handleClick.bind(this)}>
-                <a className={linkCss} href={href} aria-label={ariaLabel}>
+                <a
+                    className={linkCss}
+                    href={href}
+                    aria-label={ariaLabel}
+                    aria-current={isActive ? "page" : undefined}
+                    aria-disabled={isDisabled ? "true" : undefined}
+                >
                     {pageText}
                 </a>
             </li>

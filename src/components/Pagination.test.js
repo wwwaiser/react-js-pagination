@@ -1,224 +1,207 @@
-import React from "react";
-import {mount, shallow} from "enzyme";
+import React, { useState } from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Pagination from "./Pagination";
-
 
 describe("<Pagination />", () => {
   const props = {
     totalItemsCount: 20,
-    onClick: () => {},
     onChange: () => {}
   };
 
+  const renderPagination = (extra = {}) => {
+    const { container } = render(<Pagination {...props} {...extra} />);
+    const ul = container.querySelector("ul");
+    return { ul, items: Array.from(ul.children), links: Array.from(ul.querySelectorAll("a")) };
+  };
+
+  const texts = (items) => items.map((li) => li.textContent);
+
   describe("render()", () => {
     it("renders a UL tag", () => {
-      const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.find("ul").length).toBe(1);
+      const { ul } = renderPagination();
+      expect(ul).not.toBeNull();
     });
 
     it("renders the appropriate amount of children", () => {
-      const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.children().children().length).toBe(6);
+      const { items } = renderPagination();
+      expect(items).toHaveLength(6);
     });
 
-    it("renders the next page link", () => {
-      const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.children().childAt(4).text()).toBe(wrapper.prop("nextPageText"));
-    });
-
-    it("renders the prev page link if there is one", () => {
-      const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.children().childAt(1).text()).toBe(wrapper.prop("prevPageText"));
-    });
-
-    it("renders the first page link if there is one", () => {
-      const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.children().childAt(0).text()).toBe(wrapper.prop("firstPageText"));
-    });
-
-    it("renders the last page link if there is one", () => {
-      const wrapper = mount(<Pagination {...props} />);
-      expect(wrapper.children().childAt(5).text()).toBe(wrapper.prop("lastPageText"));
+    it("renders first, prev, pages, next and last in order", () => {
+      const { items } = renderPagination();
+      expect(texts(items)).toEqual(["«", "⟨", "1", "2", "⟩", "»"]);
     });
 
     it("renders class in UL tag", () => {
-      const wrapper = mount(<Pagination {...props} innerClass="pagination list-inline center-block text-center" />);
-      expect(wrapper.find("ul").hasClass("pagination")).toBe(true);
-      expect(wrapper.find("ul").hasClass("list-inline")).toBe(true);
-      expect(wrapper.find("ul").hasClass("center-block")).toBe(true);
-      expect(wrapper.find("ul").hasClass("text-center")).toBe(true);
+      const { ul } = renderPagination({ innerClass: "pagination list-inline center-block text-center" });
+      ["pagination", "list-inline", "center-block", "text-center"].forEach((c) =>
+        expect(ul.classList.contains(c)).toBe(true)
+      );
     });
 
     it("passes down disabledClass to the prev, first, next and last pages", () => {
-      const disabledClass="somethingElse";
-      const wrapper = mount(
-        <Pagination {...props} hideDisabled={false} totalItemsCount={1} disabledClass={disabledClass} />
-      );
-
-      const innerUl = wrapper.find("ul");
-      const firstPage = innerUl.childAt(0);
-      const prevPage = innerUl.childAt(1);
-      const nextPage = innerUl.childAt(3);
-      const lastPage = innerUl.childAt(4);
-
-      expect(firstPage.find("li").hasClass(disabledClass)).toBe(true);
-      expect(prevPage.find("li").hasClass(disabledClass)).toBe(true);
-      expect(nextPage.find("li").hasClass(disabledClass)).toBe(true);
-      expect(lastPage.find("li").hasClass(disabledClass)).toBe(true);
+      const { items } = renderPagination({ hideDisabled: false, totalItemsCount: 1, disabledClass: "somethingElse" });
+      [0, 1, 3, 4].forEach((i) => expect(items[i].classList.contains("somethingElse")).toBe(true));
     });
-		
+
     it("passes down itemClass to the prev, first, next and last pages", () => {
-      const itemClass="somethingElse";
-      const wrapper = mount(
-        <Pagination {...props} hideDisabled={false} totalItemsCount={1} itemClass={itemClass} />
-      );
-      const innerUl = wrapper.find("ul");
-      const firstPage = innerUl.childAt(0);
-      const prevPage = innerUl.childAt(1);
-      const nextPage = innerUl.childAt(2);
-      const lastPage = innerUl.childAt(3);
-
-      expect(firstPage.find("li").hasClass(itemClass)).toBe(true);
-      expect(prevPage.find("li").hasClass(itemClass)).toBe(true);
-      expect(nextPage.find("li").hasClass(itemClass)).toBe(true);
-      expect(lastPage.find("li").hasClass(itemClass)).toBe(true);
+      const { items } = renderPagination({ hideDisabled: false, totalItemsCount: 1, itemClass: "somethingElse" });
+      [0, 1, 3, 4].forEach((i) => expect(items[i].classList.contains("somethingElse")).toBe(true));
     });
-		
+
     it("passes down linkClass to the prev, first, next and last pages links", () => {
-      const linkClass="somethingElse";
-      const wrapper = mount(
-        <Pagination {...props} hideDisabled={false} totalItemsCount={1} linkClass={linkClass} />
-      );
-      const innerUl = wrapper.find("ul");
-      const firstPage = innerUl.childAt(0).find("a");
-      const prevPage = innerUl.childAt(1).find("a");
-      const nextPage = innerUl.childAt(2).find("a");
-      const lastPage = innerUl.childAt(3).find("a");
-
-      expect(firstPage.hasClass(linkClass)).toBe(true);
-      expect(prevPage.hasClass(linkClass)).toBe(true);
-      expect(nextPage.hasClass(linkClass)).toBe(true);
-      expect(lastPage.hasClass(linkClass)).toBe(true);
+      const { links } = renderPagination({ hideDisabled: false, totalItemsCount: 1, linkClass: "somethingElse" });
+      [0, 1, 3, 4].forEach((i) => expect(links[i].classList.contains("somethingElse")).toBe(true));
     });
 
-    it("assigns linkClassFirst to first link", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={1}
-          linkClass="link"
-          linkClassFirst="first"
-        />
-      );
+    it.each([
+      ["linkClassFirst", "first", 0, 1, "a"],
+      ["itemClassFirst", "first", 0, 1, "li"],
+      ["linkClassPrev", "prev", 1, 2, "a"],
+      ["itemClassPrev", "prev", 1, 2, "li"],
+      ["linkClassNext", "next", 7, 8, "a"],
+      ["itemClassNext", "next", 7, 8, "li"],
+      ["linkClassLast", "last", 8, 7, "a"],
+      ["itemClassLast", "last", 8, 7, "li"]
+    ])("assigns %s only to its own control", (prop, value, own, other, tag) => {
+      const { items, links } = renderPagination({
+        hideDisabled: false,
+        totalItemsCount: 80,
+        itemClass: "item",
+        linkClass: "link",
+        [prop]: value
+      });
+      const nodes = tag === "a" ? links : items;
+      expect(nodes[own].classList.contains(value)).toBe(true);
+      expect(nodes[other].classList.contains(value)).toBe(false);
+    });
+  });
 
-      expect(wrapper.find("ul").childAt(0).find("a").hasClass("first")).toBe(true);
-      expect(wrapper.find("ul").childAt(1).find("a").hasClass("first")).toBe(false);
+  describe("visibility options", () => {
+    it("hideDisabled hides first and prev on the first page", () => {
+      const { items } = renderPagination({ totalItemsCount: 100, activePage: 1, hideDisabled: true });
+      expect(texts(items)).toEqual(["1", "2", "3", "4", "5", "⟩", "»"]);
     });
 
-    it("assigns itemClassFirst to first list item", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={1}
-          itemClass="item"
-          itemClassFirst="first"
-        />
-      );
-
-      expect(wrapper.find("ul").childAt(0).find("li").hasClass("first")).toBe(true);
-      expect(wrapper.find("ul").childAt(1).find("li").hasClass("first")).toBe(false);
+    it("hideDisabled hides next and last on the last page", () => {
+      const { items } = renderPagination({ totalItemsCount: 100, activePage: 10, hideDisabled: true });
+      expect(texts(items)).toEqual(["«", "⟨", "6", "7", "8", "9", "10"]);
     });
 
-    it("assigns linkClassPrev to prev link", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={80}
-          linkClass="link"
-          linkClassPrev="prev"
-        />
-      );
-
-      expect(wrapper.find("ul").childAt(1).find("a").hasClass("prev")).toBe(true);
-      expect(wrapper.find("ul").childAt(2).find("a").hasClass("prev")).toBe(false);
+    it("hideNavigation hides prev and next", () => {
+      const { items } = renderPagination({ totalItemsCount: 100, activePage: 5, hideNavigation: true });
+      expect(texts(items)).toEqual(["«", "3", "4", "5", "6", "7", "»"]);
     });
 
-    it("assigns itemClassPrev to prev list item", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={80}
-          itemClass="item"
-          itemClassPrev="prev"
-        />
-      );
-
-      expect(wrapper.find("ul").childAt(1).find("li").hasClass("prev")).toBe(true);
-      expect(wrapper.find("ul").childAt(2).find("li").hasClass("prev")).toBe(false);
+    it("hideFirstLastPages hides first and last", () => {
+      const { items } = renderPagination({ totalItemsCount: 100, activePage: 5, hideFirstLastPages: true });
+      expect(texts(items)).toEqual(["⟨", "3", "4", "5", "6", "7", "⟩"]);
     });
 
-    it("assigns linkClassNext to next link", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={80}
-          linkClass="link"
-          linkClassNext="next"
-        />
-      );
+    it("pageRangeDisplayed controls how many page numbers show", () => {
+      const { items } = renderPagination({ totalItemsCount: 1000, activePage: 20, pageRangeDisplayed: 3, itemsCountPerPage: 25 });
+      expect(texts(items)).toEqual(["«", "⟨", "19", "20", "21", "⟩", "»"]);
+    });
+  });
 
-      expect(wrapper.find("ul").childAt(7).find("a").hasClass("next")).toBe(true);
-      expect(wrapper.find("ul").childAt(8).find("a").hasClass("next")).toBe(false);
+  describe("accessibility", () => {
+    it("marks only the active page with aria-current", () => {
+      renderPagination({ totalItemsCount: 100, activePage: 3 });
+      const current = document.querySelectorAll("[aria-current]");
+      expect(current).toHaveLength(1);
+      expect(current[0].textContent).toBe("3");
+      expect(current[0].getAttribute("aria-current")).toBe("page");
     });
 
-    it("assigns itemClassNext to next list item", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={80}
-          itemClass="item"
-          itemClassNext="next"
-        />
-      );
-
-      expect(wrapper.find("ul").childAt(7).find("li").hasClass("next")).toBe(true);
-      expect(wrapper.find("ul").childAt(8).find("li").hasClass("next")).toBe(false);
+    it("marks disabled controls with aria-disabled", () => {
+      const { links } = renderPagination({ totalItemsCount: 100, activePage: 1 });
+      expect(links[0].getAttribute("aria-disabled")).toBe("true");
+      expect(links[1].getAttribute("aria-disabled")).toBe("true");
+      expect(links[links.length - 1].hasAttribute("aria-disabled")).toBe(false);
     });
 
-    it("assigns linkClassLast to last link", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={80}
-          linkClass="link"
-          linkClassLast="last"
-        />
+    it("uses the default aria labels", () => {
+      renderPagination({ totalItemsCount: 100, activePage: 3 });
+      ["Go to first page", "Go to previous page", "Go to page number 4", "Go to next page", "Go to last page"].forEach((l) =>
+        expect(screen.getByLabelText(l)).toBeTruthy()
       );
-
-      expect(wrapper.find("ul").childAt(8).find("a").hasClass("last")).toBe(true);
-      expect(wrapper.find("ul").childAt(7).find("a").hasClass("last")).toBe(false);
     });
 
-    it("assigns itemClassLast to last list item", () => {
-      const wrapper = mount(
-        <Pagination
-          {...props}
-          hideDisabled={false}
-          totalItemsCount={80}
-          itemClass="item"
-          itemClassLast="last"
-        />
+    it("accepts custom aria labels", () => {
+      renderPagination({
+        totalItemsCount: 100,
+        activePage: 3,
+        pageAriaLabel: "Seite :page",
+        firstPageAriaLabel: "Erste Seite",
+        prevPageAriaLabel: "Vorherige Seite",
+        nextPageAriaLabel: "Nächste Seite",
+        lastPageAriaLabel: "Letzte Seite"
+      });
+      ["Erste Seite", "Vorherige Seite", "Seite 4", "Nächste Seite", "Letzte Seite"].forEach((l) =>
+        expect(screen.getByLabelText(l)).toBeTruthy()
       );
+    });
+  });
 
-      expect(wrapper.find("ul").childAt(8).find("li").hasClass("last")).toBe(true);
-      expect(wrapper.find("ul").childAt(7).find("li").hasClass("last")).toBe(false);
+  describe("links and clicks", () => {
+    it("uses getPageUrl for every href", () => {
+      const { links } = renderPagination({ totalItemsCount: 100, activePage: 3, getPageUrl: (i) => `/list?page=${i}` });
+      expect(links.map((a) => a.getAttribute("href"))).toEqual([
+        "/list?page=1",
+        "/list?page=2",
+        "/list?page=1",
+        "/list?page=2",
+        "/list?page=3",
+        "/list?page=4",
+        "/list?page=5",
+        "/list?page=4",
+        "/list?page=10"
+      ]);
+    });
+
+    it.each([
+      ["Go to first page", 1],
+      ["Go to previous page", 4],
+      ["Go to page number 6", 6],
+      ["Go to next page", 6],
+      ["Go to last page", 10]
+    ])("clicking \"%s\" calls onChange(%i)", (label, expected) => {
+      const onChange = jest.fn();
+      renderPagination({ totalItemsCount: 100, activePage: 5, onChange });
+      fireEvent.click(screen.getByLabelText(label));
+      expect(onChange).toHaveBeenCalledWith(expected);
+    });
+
+    it("does not call onChange for disabled controls", () => {
+      const onChange = jest.fn();
+      renderPagination({ totalItemsCount: 100, activePage: 1, onChange });
+      fireEvent.click(screen.getByLabelText("Go to previous page"));
+      fireEvent.click(screen.getByLabelText("Go to first page"));
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("works as a controlled component", () => {
+      function Controlled() {
+        const [page, setPage] = useState(1);
+        return <Pagination totalItemsCount={100} activePage={page} onChange={setPage} />;
+      }
+      render(<Controlled />);
+      fireEvent.click(screen.getByLabelText("Go to next page"));
+      fireEvent.click(screen.getByLabelText("Go to next page"));
+      expect(document.querySelector("[aria-current]").textContent).toBe("3");
+    });
+  });
+
+  describe("edge cases", () => {
+    it("renders only disabled controls when there are no items", () => {
+      const { items } = renderPagination({ totalItemsCount: 0 });
+      expect(texts(items)).toEqual(["«", "⟨", "⟩", "»"]);
+      items.forEach((li) => expect(li.classList.contains("disabled")).toBe(true));
+    });
+
+    it("never renders the class \"undefined\"", () => {
+      const { ul } = renderPagination({ totalItemsCount: 450, activePage: 15 });
+      expect(ul.outerHTML).not.toContain("undefined");
     });
   });
 });
