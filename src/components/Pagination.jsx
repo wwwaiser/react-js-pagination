@@ -128,10 +128,10 @@ export default class Pagination extends React.Component {
   }
 
   renderEllipsis(position) {
-    const { itemClass, linkClass, disabledClass, ellipsisText } = this.props;
+    const { itemClass, linkClass, inactiveClass, inactiveLinkClass, disabledClass, ellipsisText } = this.props;
     return (
-      <li key={"ellipsis-" + position} className={cx(itemClass, disabledClass)}>
-        <span className={cx(linkClass) || undefined} aria-hidden="true">
+      <li key={"ellipsis-" + position} className={cx(itemClass, inactiveClass, disabledClass)}>
+        <span className={cx(linkClass, inactiveLinkClass) || undefined} aria-hidden="true">
           {ellipsisText}
         </span>
       </li>

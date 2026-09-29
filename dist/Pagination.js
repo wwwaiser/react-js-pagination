@@ -103,13 +103,15 @@ var Pagination = exports["default"] = /*#__PURE__*/function (_React$Component) {
       var _this$props6 = this.props,
         itemClass = _this$props6.itemClass,
         linkClass = _this$props6.linkClass,
+        inactiveClass = _this$props6.inactiveClass,
+        inactiveLinkClass = _this$props6.inactiveLinkClass,
         disabledClass = _this$props6.disabledClass,
         ellipsisText = _this$props6.ellipsisText;
       return /*#__PURE__*/_react["default"].createElement("li", {
         key: "ellipsis-" + position,
-        className: (0, _classnames["default"])(itemClass, disabledClass)
+        className: (0, _classnames["default"])(itemClass, inactiveClass, disabledClass)
       }, /*#__PURE__*/_react["default"].createElement("span", {
-        className: (0, _classnames["default"])(linkClass) || undefined,
+        className: (0, _classnames["default"])(linkClass, inactiveLinkClass) || undefined,
         "aria-hidden": "true"
       }, ellipsisText));
     }

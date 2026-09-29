@@ -97,6 +97,21 @@ describe("<Pagination />", () => {
       expect(items.some((li) => li.classList.contains("item-on") && li !== items[active])).toBe(false);
     });
 
+    it("applies the inactive classes to the ellipsis too", () => {
+      const { items } = renderPagination({
+        totalItemsCount: 450,
+        activePage: 20,
+        ellipsis: true,
+        itemClass: "page-item",
+        linkClass: "page-link",
+        inactiveClass: "item-off",
+        inactiveLinkClass: "bg-danger"
+      });
+      const gap = items[3];
+      expect(gap.className).toBe("page-item item-off disabled");
+      expect(gap.querySelector("span").className).toBe("page-link bg-danger");
+    });
+
     it("keeps the disabled class next to the inactive class", () => {
       const { items } = renderPagination({ totalItemsCount: 100, activePage: 1, inactiveClass: "item-off" });
       expect(items[0].className).toBe("item-off disabled");
