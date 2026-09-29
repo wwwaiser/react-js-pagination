@@ -77,6 +77,32 @@ describe("<Pagination />", () => {
     });
   });
 
+  describe("inactive classes", () => {
+    it("styles every item except the active page", () => {
+      const { items, links } = renderPagination({
+        totalItemsCount: 100,
+        activePage: 3,
+        itemClass: "page-item",
+        linkClass: "page-link",
+        activeClass: "item-on",
+        inactiveClass: "item-off",
+        activeLinkClass: "bg-success",
+        inactiveLinkClass: "bg-danger"
+      });
+      const active = links.findIndex((a) => a.hasAttribute("aria-current"));
+      expect(links[active].className).toBe("page-link bg-success");
+      expect(items[active].className).toBe("page-item item-on");
+      links.forEach((a, i) => i !== active && expect(a.className).toBe("page-link bg-danger"));
+      items.forEach((li, i) => i !== active && expect(li.classList.contains("item-off")).toBe(true));
+      expect(items.some((li) => li.classList.contains("item-on") && li !== items[active])).toBe(false);
+    });
+
+    it("keeps the disabled class next to the inactive class", () => {
+      const { items } = renderPagination({ totalItemsCount: 100, activePage: 1, inactiveClass: "item-off" });
+      expect(items[0].className).toBe("item-off disabled");
+    });
+  });
+
   describe("visibility options", () => {
     it("hideDisabled hides first and prev on the first page", () => {
       const { items } = renderPagination({ totalItemsCount: 100, activePage: 1, hideDisabled: true });

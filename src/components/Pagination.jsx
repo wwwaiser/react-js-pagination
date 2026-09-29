@@ -32,6 +32,8 @@ export default class Pagination extends React.Component {
     linkClass: PropTypes.string,
     activeClass: PropTypes.string,
     activeLinkClass: PropTypes.string,
+    inactiveClass: PropTypes.string,
+    inactiveLinkClass: PropTypes.string,
     linkClassFirst: PropTypes.string,
     linkClassPrev: PropTypes.string,
     linkClassNext: PropTypes.string,
@@ -102,6 +104,8 @@ export default class Pagination extends React.Component {
       linkClass,
       activeClass,
       activeLinkClass,
+      inactiveClass,
+      inactiveLinkClass,
       pageAriaLabel
     } = this.props;
     return (
@@ -116,6 +120,8 @@ export default class Pagination extends React.Component {
         linkClass={linkClass}
         activeClass={activeClass}
         activeLinkClass={activeLinkClass}
+        inactiveClass={inactiveClass}
+        inactiveLinkClass={inactiveLinkClass}
         ariaLabel={pageAriaLabel.replace(":page", i)}
       />
     );
@@ -150,6 +156,8 @@ export default class Pagination extends React.Component {
       itemClassNext,
       itemClassLast,
       disabledClass,
+      inactiveClass,
+      inactiveLinkClass,
       linkClass,
       linkClassFirst,
       linkClassPrev,
@@ -204,6 +212,8 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassPrev)}
           linkClass={cx(linkClass, linkClassPrev)}
           disabledClass={disabledClass}
+          inactiveClass={inactiveClass}
+          inactiveLinkClass={inactiveLinkClass}
           ariaLabel={prevPageAriaLabel}
         />
       );
@@ -221,6 +231,8 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassFirst)}
           linkClass={cx(linkClass, linkClassFirst)}
           disabledClass={disabledClass}
+          inactiveClass={inactiveClass}
+          inactiveLinkClass={inactiveLinkClass}
           ariaLabel={firstPageAriaLabel}
         />
       );
@@ -238,6 +250,8 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassNext)}
           linkClass={cx(linkClass, linkClassNext)}
           disabledClass={disabledClass}
+          inactiveClass={inactiveClass}
+          inactiveLinkClass={inactiveLinkClass}
           ariaLabel={nextPageAriaLabel}
         />
       );
@@ -257,6 +271,8 @@ export default class Pagination extends React.Component {
           itemClass={cx(itemClass, itemClassLast)}
           linkClass={cx(linkClass, linkClassLast)}
           disabledClass={disabledClass}
+          inactiveClass={inactiveClass}
+          inactiveLinkClass={inactiveLinkClass}
           ariaLabel={lastPageAriaLabel}
         />
       );

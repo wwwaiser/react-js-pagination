@@ -11,6 +11,8 @@ export default class Page extends Component {
         isDisabled: PropTypes.bool,
         activeClass: PropTypes.string,
         activeLinkClass: PropTypes.string,
+        inactiveClass: PropTypes.string,
+        inactiveLinkClass: PropTypes.string,
         itemClass: PropTypes.string,
         linkClass: PropTypes.string,
         disabledClass: PropTypes.string,
@@ -53,6 +55,8 @@ export default class Page extends Component {
             itemClass,
             linkClass,
             activeLinkClass,
+            inactiveClass,
+            inactiveLinkClass,
             disabledClass,
             isActive,
             isDisabled,
@@ -60,8 +64,8 @@ export default class Page extends Component {
             ariaLabel
         } = this.props;
 
-        const css = cx(itemClass, isActive && activeClass, isDisabled && disabledClass);
-        const linkCss = cx(linkClass, isActive && activeLinkClass);
+        const css = cx(itemClass, isActive ? activeClass : inactiveClass, isDisabled && disabledClass);
+        const linkCss = cx(linkClass, isActive ? activeLinkClass : inactiveLinkClass);
 
         return (
             <li className={css} onClick={this.handleClick.bind(this)}>
