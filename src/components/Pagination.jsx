@@ -38,6 +38,7 @@ export default class Pagination extends React.Component {
     linkClassLast: PropTypes.string,
     hideFirstLastPages: PropTypes.bool,
     getPageUrl: PropTypes.func,
+    getPageText: PropTypes.func,
     ellipsis: PropTypes.bool,
     ellipsisText: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
   };
@@ -61,6 +62,7 @@ export default class Pagination extends React.Component {
     activeLinkClass: undefined,
     hideFirstLastPages: false,
     getPageUrl: () => "#",
+    getPageText: (i) => i + "",
     disabledClass: "disabled",
     ellipsis: false,
     ellipsisText: "…"
@@ -94,6 +96,7 @@ export default class Pagination extends React.Component {
     const {
       activePage,
       getPageUrl,
+      getPageText,
       onChange,
       itemClass,
       linkClass,
@@ -107,7 +110,7 @@ export default class Pagination extends React.Component {
         key={i}
         href={getPageUrl(i)}
         pageNumber={i}
-        pageText={i + ""}
+        pageText={getPageText(i)}
         onClick={onChange}
         itemClass={itemClass}
         linkClass={linkClass}

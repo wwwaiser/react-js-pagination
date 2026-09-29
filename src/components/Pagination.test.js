@@ -252,6 +252,20 @@ describe("<Pagination />", () => {
     });
   });
 
+  describe("getPageText", () => {
+    it("formats page numbers but keeps numeric aria labels", () => {
+      const { items } = renderPagination({ totalItemsCount: 20000, activePage: 1002, getPageText: (i) => i.toLocaleString("en-US") });
+      expect(texts(items).slice(2, 7)).toEqual(["1,000", "1,001", "1,002", "1,003", "1,004"]);
+      expect(screen.getByLabelText("Go to page number 1002").textContent).toBe("1,002");
+    });
+
+    it("can return an element and applies to ellipsis end pages", () => {
+      const { items } = renderPagination({ totalItemsCount: 450, activePage: 20, ellipsis: true, getPageText: (i) => <em>{i}</em> });
+      expect(items[2].innerHTML).toContain("<em>1</em>");
+      expect(items[10].innerHTML).toContain("<em>45</em>");
+    });
+  });
+
   describe("rerendering", () => {
     it("keeps the navigation controls mounted when the page changes", () => {
       const icon = (name) => <i className={name}>{name}</i>;
